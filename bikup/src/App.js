@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import BikeDetail from './components/BikeDetailComponent/BikeDetail';
 import { Route, Switch } from 'react-router-dom';
 

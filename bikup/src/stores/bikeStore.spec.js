@@ -1,14 +1,14 @@
-import bikeStore from '../../stores/bikeStore';
+import bikeStore from '../stores/bikeStore';
 
 describe('Bike Store', () => {
-	it('Should get a bike when calling getBikeDetail ', () => {
+	it('Should set a bike and get it', () => {
 		const bike = {
 			bikeId: '6d4fsd34f5s',
 			bikeName: 'myBikeName',
 		};
-		bikeStore.setbikeDetail(bike);
+		bikeStore.setBikeDetail(bike);
 
-		const bikeDetail = bikestore.getBikeDetail();
+		const bikeDetail = bikeStore.getBikeDetail();
 
 		expect(bikeDetail).toEqual(bike);
 	});
