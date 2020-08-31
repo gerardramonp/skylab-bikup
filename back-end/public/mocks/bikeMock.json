@@ -1,0 +1,40 @@
+{
+	"bikeId": "5asdas564d6a5s4af",
+	"bikeName": "MyFirstBike",
+	"bikeType": "Mountain Bike",
+	"driveStyle": "Aggressive",
+	"bikeBrand": "Orbea",
+	"bikeModel": "Oiz",
+	"totalKM": 1345,
+	"totalMinutes": 1950,
+	"components": [
+		{
+			"chain": {
+				"life": 2000,
+				"accumulatedKM": 1345,
+				"accumulatedMinutes": 1950
+			}
+		},
+		{
+			"frontTyre": {
+				"life": 6000,
+				"accumulatedKM": 1345,
+				"accumulatedMinutes": 1950
+			}
+		},
+		{
+			"rearTyre": {
+				"life": 4000,
+				"accumulatedKM": 1345,
+				"accumulatedMinutes": 1950
+			}
+		},
+		{
+			"fontBrakePads": {
+				"life": 500,
+				"accumulatedKM": 290,
+				"accumulatedMinutes": 849
+			}
+		}
+	]
+}
