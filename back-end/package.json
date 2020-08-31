@@ -1,7 +1,7 @@
 {
 	"name": "bikup-backend",
 	"version": "1.0.0",
-	"description": "bickup-backend",
+	"description": "bikup-backend",
 	"main": "index.js",
 	"scripts": {
 		"start": "set DEBUG=app,app:* & nodemon app.js",
@@ -32,5 +32,14 @@
 		"morgan": "^1.10.0"
 	},
 	"author": "gerardramonp",
-	"license": "ISC"
+	"license": "ISC",
+	"nodemonConfig": {
+		"restartable": "rs",
+		"ignore": [
+			"node_modules/**/node_modules"
+		],
+		"env": {
+			"PORT": "4200"
+		}
+	}
 }
