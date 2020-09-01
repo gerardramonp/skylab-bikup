@@ -32,7 +32,7 @@ function BikeDetail(props) {
         bikeDetail && (
             <div className="general-container">
                 <div>
-                    <StandardAside className="desktop" />
+                    <StandardAside />
                 </div>
 
                 <div className="bike-detail">
@@ -40,20 +40,21 @@ function BikeDetail(props) {
                         <NavLink to="/bikes">Back</NavLink>
                         <p className="upper__edit">Edit</p>
                     </div>
-
-                    <h2>{bikeDetail.bikeName}</h2>
-                    <div className="bike-detail__km-hours">
-                        <div className="km-hours km-hours__km">
-                            <p className="km-hours__title">Total KM</p>
-                            <p className="km__value">
-                                {bikeDetail.totalMeters / 1000}
-                            </p>
-                        </div>
-                        <div className="km-hours__hours km-hours">
-                            <p className="km-hours__title">Total Hours</p>
-                            <p className="km-hours__value">
-                                {Math.floor(bikeDetail.totalMinutes / 60)}
-                            </p>
+                    <div className="bike-detail__head">
+                        <h2>{bikeDetail.bikeName}</h2>
+                        <div className="bike-detail__km-hours">
+                            <div className="km-hours km-hours__km">
+                                <p className="km-hours__title">Total KM</p>
+                                <p className="km__value">
+                                    {bikeDetail.totalMeters / 1000}
+                                </p>
+                            </div>
+                            <div className="km-hours__hours km-hours">
+                                <p className="km-hours__title">Total Hours</p>
+                                <p className="km-hours__value">
+                                    {Math.floor(bikeDetail.totalMinutes / 60)}
+                                </p>
+                            </div>
                         </div>
                     </div>
 

@@ -2,15 +2,35 @@ $light-bg-color: #eeeeee;
 $light-highlight-color: #d7d7d7;
 $main-color: #32e0c4;
 
-.standardaside__challenges {
+.standardaside {
+    display: none;
+    padding: 12px;
+}
+
+.standardaside__card {
     padding: 12px;
     background-color: $light-highlight-color;
     border-radius: 5px;
+    margin-top: 10px;
     margin-bottom: 64px;
+
+    box-shadow: 5px 5px 5px 0px rgba(209, 205, 209, 1);
 }
 
 .challenges__item {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.item__title {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.title__img {
+    height: 18px;
+    margin-right: 10px;
 }
 
 .separator {
@@ -18,4 +38,11 @@ $main-color: #32e0c4;
     margin: auto;
     border-bottom: 0.5px solid grey;
     margin-bottom: 12px;
+}
+
+@media only screen and (min-width: 600px) {
+    .standardaside {
+        display: flex;
+        flex-direction: column;
+    }
 }

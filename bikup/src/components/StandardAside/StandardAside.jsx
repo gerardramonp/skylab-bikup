@@ -15,13 +15,20 @@ function StandardAside() {
 
     return (
         <div className="standardaside">
-            <p>Challenges</p>
-            <div className="standardaside__challenges">
+            <h3>Challenges</h3>
+            <div className="standardaside__card">
                 {challenges.map((challenge) => {
                     return (
                         <div>
                             <div className="challenges__item">
-                                <p>{challenge.name}</p>
+                                <div className="item__title">
+                                    <img
+                                        className="title__img"
+                                        src="https://image.flaticon.com/icons/svg/3112/3112946.svg"
+                                        alt="trophy"
+                                    />
+                                    - {challenge.name} -
+                                </div>
                                 <p>{challenge.description}</p>
                             </div>
                             <div className="separator"></div>
@@ -30,8 +37,8 @@ function StandardAside() {
                 })}
             </div>
 
-            <p>Give Away</p>
-            <div className="standardaside__giveaway">
+            <h3>Give Away</h3>
+            <div className="standardaside__card">
                 <p>something free</p>
             </div>
         </div>
