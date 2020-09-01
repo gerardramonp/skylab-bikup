@@ -2,6 +2,10 @@ $light-bg-color: #eeeeee;
 $light-highlight-color: #d7d7d7;
 $main-color: #32e0c4;
 
+.destkop {
+    display: none;
+}
+
 .bike-detail {
     display: flex;
     flex-direction: column;
@@ -98,4 +102,30 @@ h2 {
 
 .info__type {
     font-weight: bold;
+}
+
+@media only screen and (min-width: 500px) {
+    .bike-detail {
+        padding: 48px;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .destkop {
+        display: flex;
+    }
+
+    .mobile {
+        display: none;
+    }
+
+    .general-container {
+        display: flex;
+        flex-direction: row;
+        padding: 64px;
+    }
+
+    .bike-detail {
+        padding: 64px;
+    }
 }

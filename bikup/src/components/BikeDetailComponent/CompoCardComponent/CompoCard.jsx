@@ -13,7 +13,14 @@ function CompoCard({ compoInfo }) {
                     className="compocard__img"
                 />
                 <div className="compocard__info">
-                    <p>{compoInfo.name}</p>
+                    <div className="compocard__labels">
+                        <p>{compoInfo.name}</p>
+
+                        <p className="labels__status">
+                            ({compoInfo.accumulatedMeters / 1000} /
+                            {compoInfo.life / 1000} Km)
+                        </p>
+                    </div>
                     <div>
                         <progress
                             id="progress"
@@ -22,7 +29,13 @@ function CompoCard({ compoInfo }) {
                         ></progress>
                     </div>
                 </div>
-                <button className="compocard__button">-></button>
+                <button className="compocard__button">
+                    <img
+                        className="button__img"
+                        src="https://image.flaticon.com/icons/svg/271/271228.svg"
+                        alt=">"
+                    />
+                </button>
             </div>
         </div>
     );

@@ -1,40 +1,36 @@
 {
-	"bikeId": "5asdas564d6a5s4af",
-	"bikeName": "MyFirstBike",
-	"bikeType": "Mountain Bike",
-	"driveStyle": "Aggressive",
-	"bikeBrand": "Orbea",
-	"bikeModel": "Oiz",
-	"totalKM": 1345,
-	"totalMinutes": 1950,
-	"components": [
-		{
-			"chain": {
-				"life": 2000,
-				"accumulatedKM": 1345,
-				"accumulatedMinutes": 1950
-			}
-		},
-		{
-			"frontTyre": {
-				"life": 6000,
-				"accumulatedKM": 1345,
-				"accumulatedMinutes": 1950
-			}
-		},
-		{
-			"rearTyre": {
-				"life": 4000,
-				"accumulatedKM": 1345,
-				"accumulatedMinutes": 1950
-			}
-		},
-		{
-			"fontBrakePads": {
-				"life": 500,
-				"accumulatedKM": 290,
-				"accumulatedMinutes": 849
-			}
-		}
-	]
+    "bikeId": "5asdas564d6a5s4af",
+    "bikeName": "MyFirstBike",
+    "bikeType": "Mountain Bike",
+    "driveStyle": "Aggressive",
+    "bikeBrand": "Orbea",
+    "bikeModel": "Oiz",
+    "totalMeters": 1345000,
+    "totalMinutes": 1950,
+    "components": [
+        {
+            "name": "chain",
+            "life": 2000000,
+            "accumulatedMeters": 1345000,
+            "accumulatedMinutes": 1950
+        },
+        {
+            "name": "frontTyre",
+            "life": 6000000,
+            "accumulatedMeters": 1345000,
+            "accumulatedMinutes": 1950
+        },
+        {
+            "name": "rearTyre",
+            "life": 4000000,
+            "accumulatedMeters": 1345000,
+            "accumulatedMinutes": 1950
+        },
+        {
+            "name": "fontBrakePads",
+            "life": 500000,
+            "accumulatedMeters": 290000,
+            "accumulatedMinutes": 849
+        }
+    ]
 }

@@ -39,9 +39,26 @@ $main-color: #32e0c4;
     flex-direction: column;
 }
 
+.compocard__labels {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.labels__status {
+    font-size: 10px;
+}
+
 .compocard__button {
+    display: flex;
+    align-items: center;
     background-color: $main-color;
     border: none;
     padding: 12px;
     border-radius: 5px;
+}
+
+.button__img {
+    height: 16px;
 }
