@@ -40,21 +40,27 @@ function BikeDetail(props) {
                         <NavLink to="/bikes">Back</NavLink>
                         <p className="upper__edit">Edit</p>
                     </div>
+
                     <div className="bike-detail__head">
                         <h2>{bikeDetail.bikeName}</h2>
+                        <div className="separator"></div>
+
                         <div className="bike-detail__km-hours">
                             <div className="km-hours km-hours__km">
                                 <p className="km-hours__title">Total KM</p>
+                                <div className="separator-small"></div>
                                 <p className="km__value">
                                     {bikeDetail.totalMeters / 1000}
                                 </p>
                             </div>
                             <div className="km-hours__hours km-hours">
                                 <p className="km-hours__title">Total Hours</p>
+                                <div className="separator-small"></div>
                                 <p className="km-hours__value">
                                     {Math.floor(bikeDetail.totalMinutes / 60)}
                                 </p>
                             </div>
+                            <button className="float__button">+ Workout</button>
                         </div>
                     </div>
 

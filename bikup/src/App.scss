@@ -1,13 +1,17 @@
-$light-bg-color: #eeeeee;
+$light-bg-color: white;
 $light-highlight-color: #4d5157;
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: 'Roboto';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto';
+}
+
+:root {
+    --main-color-vane: pink;
 }
 
 body {
-	background-color: $light-bg-color;
+    background-color: $light-bg-color;
 }

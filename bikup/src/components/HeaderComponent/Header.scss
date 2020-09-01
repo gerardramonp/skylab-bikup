@@ -1,0 +1,45 @@
+$header-bg-color: #222831;
+$main-color: #0c9;
+$header-separator-color: #393e46;
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 70px;
+    background-color: $header-bg-color;
+    color: whitesmoke;
+}
+
+.logo {
+    height: 45px;
+    margin: 12px;
+}
+
+.appName {
+    font-size: 32px;
+    font-weight: bold;
+    margin-right: 32px;
+}
+
+.header__navigation {
+    display: flex;
+    flex-direction: row;
+}
+
+.navigation__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    text-align: center;
+    height: 70px;
+    width: 100px;
+    font-weight: 500;
+    padding: 12px;
+    border-left: 1px solid $header-separator-color;
+}
+
+li:nth-child(2) {
+    background-color: $main-color;
+}

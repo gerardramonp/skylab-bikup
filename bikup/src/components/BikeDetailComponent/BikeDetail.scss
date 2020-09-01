@@ -1,6 +1,7 @@
-$light-bg-color: #eeeeee;
-$light-highlight-color: #d7d7d7;
-$main-color: #32e0c4;
+$light-bg-color: white;
+$light-highlight-color: #eeeeee;
+$main-color: #0c9;
+$dark-highlight-color: #393e46;
 
 .bike-detail {
     display: flex;
@@ -11,7 +12,7 @@ $main-color: #32e0c4;
 }
 
 h2 {
-    margin-bottom: 24px;
+    margin-bottom: 12px;
 }
 
 .bike-detail__upper {
@@ -49,6 +50,13 @@ h2 {
     background-color: $light-highlight-color;
     border-radius: 5px;
     box-shadow: 5px 5px 5px 0px rgba(209, 205, 209, 1);
+}
+
+.separator-small {
+    width: 95%;
+    margin: auto;
+    border-bottom: 0.8px solid $main-color;
+    margin-bottom: 10px;
 }
 
 .km-hours__title {
@@ -109,6 +117,21 @@ h2 {
     font-weight: bold;
 }
 
+.float__button {
+    position: fixed;
+    width: 100px;
+    height: 40px;
+    bottom: 40px;
+    right: 40px;
+    border: none;
+    background-color: #0c9;
+    color: whitesmoke;
+    font-size: 16px;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 2px 2px 3px #999;
+}
+
 @media only screen and (min-width: 500px) {
     .bike-detail {
         padding: 48px;
@@ -127,7 +150,7 @@ h2 {
     .general-container {
         display: flex;
         flex-direction: row;
-        padding: 64px;
+        padding: 32px 64px;
     }
 
     .bike-detail {
@@ -136,10 +159,18 @@ h2 {
     }
 
     .bike-detail__head {
-        display: flex;
-        flex-direction: row;
         align-items: center;
         width: 100%;
         padding: 12px 24px;
+    }
+
+    .float__button {
+        position: unset;
+        border-radius: 5px;
+        margin: 5px;
+    }
+
+    .km-hours {
+        margin: unset;
     }
 }

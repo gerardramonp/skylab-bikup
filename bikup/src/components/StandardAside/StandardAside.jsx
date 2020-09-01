@@ -15,7 +15,7 @@ function StandardAside() {
 
     return (
         <div className="standardaside">
-            <h3>Challenges</h3>
+            <h3 className="title">Challenges</h3>
             <div className="standardaside__card">
                 {challenges.map((challenge) => {
                     return (
