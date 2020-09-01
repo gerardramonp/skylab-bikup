@@ -12,12 +12,10 @@ import './BikeDetail.scss';
 function BikeDetail(props) {
     const [bikeDetail, setBikeDetail] = useState({});
 
-    const paramsBikeId = props.match.params.bikeId;
-
     useEffect(() => {
         bikeStore.addChangeListener(onChange);
         if (!bikeDetail.bikeId) {
-            loadBikeById(paramsBikeId);
+            setBikeDetail(bikeStore.getBikeDetail());
         }
         return () => bikeStore.removeChangeListener(onChange);
     });

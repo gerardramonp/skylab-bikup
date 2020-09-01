@@ -1,8 +1,30 @@
 const debug = require('debug')('app:bikesRouterController');
 const bike = require('../../public/mocks/bikeMock.json');
+const { ObjectID } = require('mongodb');
 
-const get = (req, res) => {
-	res.json(bike);
-};
+function bikeRouterController(Model) {
+    function get(req, res) {
+        if (req.params.bikeId) {
+            const query = {
+                _id: new ObjectID(req.params.bikeId)
+            };
 
-module.exports = { get };
+            Model.find(query, (error, bike) => {
+                if (error) {
+                    res.status(400);
+                    return res.send('BikeId is required');
+                } else {
+                    res.status(200);
+                    return res.json(bike);
+                }
+            });
+        } else {
+            res.status(400);
+            return res.send('BikeId is required');
+        }
+    }
+
+    return { get };
+}
+
+module.exports = bikeRouterController;
