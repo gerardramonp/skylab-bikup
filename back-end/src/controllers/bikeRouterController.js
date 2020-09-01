@@ -1,5 +1,4 @@
 const debug = require('debug')('app:bikesRouterController');
-const bike = require('../../public/mocks/bikeMock.json');
 const { ObjectID } = require('mongodb');
 
 function bikeRouterController(Model) {

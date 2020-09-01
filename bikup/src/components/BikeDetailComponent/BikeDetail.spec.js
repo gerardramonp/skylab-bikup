@@ -6,24 +6,13 @@ import dispatcher from '../../dispatcher';
 import bikeStore from '../../stores/bikeStore';
 import actionTypes from '../../actions/actionTypes';
 
-describe('RepoCard snapshot', () => {
-    let match = {};
-    let tree = null;
-    beforeEach(() => {
-        match = {
-            params: {
-                bikeId: 'someBikeId'
-            }
-        };
-
-        tree = renderer.create(
+describe('Bike Detail', () => {
+    it('should match', () => {
+        let tree = renderer.create(
             <Router>
-                <BikeDetail match={match} />
+                <BikeDetail />
             </Router>
         );
-    });
-
-    it('should match', () => {
         expect(tree.toJSON()).toMatchSnapshot();
     });
 

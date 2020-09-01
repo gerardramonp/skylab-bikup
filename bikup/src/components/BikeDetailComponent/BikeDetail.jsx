@@ -24,8 +24,6 @@ function BikeDetail(props) {
         setBikeDetail(bikeStore.getBikeDetail());
     }
 
-    let compoCount = 0;
-
     return (
         bikeDetail && (
             <div className="general-container">
@@ -65,10 +63,7 @@ function BikeDetail(props) {
                     <div className="bike-detail__components">
                         {bikeDetail.components &&
                             bikeDetail.components.map((compo) => (
-                                <CompoCard
-                                    key={++compoCount}
-                                    compoInfo={compo}
-                                />
+                                <CompoCard key={compo.name} compoInfo={compo} />
                             ))}
                     </div>
 

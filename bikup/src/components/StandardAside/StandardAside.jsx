@@ -19,7 +19,7 @@ function StandardAside() {
             <div className="standardaside__card">
                 {challenges.map((challenge) => {
                     return (
-                        <div>
+                        <div key={challenge.name}>
                             <div className="challenges__item">
                                 <div className="item__title">
                                     <img

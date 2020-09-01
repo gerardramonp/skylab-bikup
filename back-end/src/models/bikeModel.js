@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const bikeModel = new Schema({
+    userId: { type: String },
     bikeName: { type: String },
     bikeType: { type: String },
     driveStyle: { type: String },

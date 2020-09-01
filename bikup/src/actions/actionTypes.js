@@ -1,4 +1,4 @@
 export default {
-    LOAD_BIKES: 'LOAD_BIKES',
+    LOAD_USER_BIKE_LIST: 'LOAD_USER_BIKE_LIST',
     LOAD_BIKE_BY_ID: 'LOAD_BIKE_BY_ID'
 };

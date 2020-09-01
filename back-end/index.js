@@ -3,12 +3,11 @@ const debug = require('debug')('app');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+const UserModel = require('./src/models/userModel');
 const BikeModel = require('./src/models/bikeModel');
 
 const app = express();
 const { PORT } = process.env;
-
-//const User = require('./src/models/userModel');
 
 const db = mongoose.connect('mongodb://localhost/bikup');
 
@@ -22,6 +21,6 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => debug(`Server running on port ${PORT}`));
 
 // Routes
-const bikeRoutes = require('./src/routes/bikesRoutes')(BikeModel);
+const bikeRoutes = require('./src/routes/bikesRoutes')(UserModel, BikeModel);
 
 app.use('/api/bikes', bikeRoutes);

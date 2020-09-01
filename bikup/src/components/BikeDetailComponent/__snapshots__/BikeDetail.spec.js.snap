@@ -1,90 +1,185 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RepoCard snapshot should match 1`] = `
+exports[`Bike Detail should match 1`] = `
 <div
-  className="bike-detail"
+  className="general-container"
 >
-  <div
-    className="bike-detail__upper mobile"
-  >
-    <a
-      aria-current={null}
-      href="/bikes"
-      onClick={[Function]}
+  <div>
+    <div
+      className="standardaside"
     >
-      Back
-    </a>
-    <p
-      className="upper__edit"
-    >
-      Edit
-    </p>
+      <h3
+        className="title"
+      >
+        Challenges
+      </h3>
+      <div
+        className="standardaside__card"
+      >
+        <div>
+          <div
+            className="challenges__item"
+          >
+            <div
+              className="item__title"
+            >
+              <img
+                alt="trophy"
+                className="title__img"
+                src="https://image.flaticon.com/icons/svg/3112/3112946.svg"
+              />
+              - 
+              BIrlfriend
+               -
+            </div>
+            <p>
+              Travel 5000km with a bike
+            </p>
+          </div>
+          <div
+            className="separator"
+          />
+        </div>
+        <div>
+          <div
+            className="challenges__item"
+          >
+            <div
+              className="item__title"
+            >
+              <img
+                alt="trophy"
+                className="title__img"
+                src="https://image.flaticon.com/icons/svg/3112/3112946.svg"
+              />
+              - 
+              CompoManiac
+               -
+            </div>
+            <p>
+              Change the same component 3 times
+            </p>
+          </div>
+          <div
+            className="separator"
+          />
+        </div>
+      </div>
+      <h3>
+        Give Away
+      </h3>
+      <div
+        className="standardaside__card"
+      >
+        <p>
+          something free
+        </p>
+      </div>
+    </div>
   </div>
-  <h2 />
   <div
-    className="bike-detail__km-hours"
+    className="bike-detail"
   >
     <div
-      className="km-hours km-hours__km"
+      className="bike-detail__upper mobile"
     >
-      <p
-        className="km-hours__title"
+      <a
+        aria-current={null}
+        href="/bikes"
+        onClick={[Function]}
       >
-        Total KM
-      </p>
+        Back
+      </a>
       <p
-        className="km__value"
+        className="upper__edit"
       >
-        NaN
+        Edit
       </p>
     </div>
     <div
-      className="km-hours__hours km-hours"
+      className="bike-detail__head"
     >
-      <p
-        className="km-hours__title"
-      >
-        Total Hours
-      </p>
-      <p
-        className="km-hours__value"
-      >
-        NaN
-      </p>
-    </div>
-  </div>
-  <div
-    className="bike-detail__components"
-  />
-  <div
-    className="bike-detail__details"
-  >
-    <div
-      className="card-decoration"
-    />
-    <div
-      className="details__content"
-    >
-      <img
-        alt="bike type"
-        className="details__type-img"
-        src="https://image.flaticon.com/icons/svg/829/829906.svg"
+      <h2 />
+      <div
+        className="separator"
       />
       <div
-        className="details__info"
+        className="bike-detail__km-hours"
       >
-        <p
-          className="info__type"
+        <div
+          className="km-hours km-hours__km"
+        >
+          <p
+            className="km-hours__title"
+          >
+            Total KM
+          </p>
+          <div
+            className="separator-small"
+          />
+          <p
+            className="km__value"
+          >
+            NaN
+          </p>
+        </div>
+        <div
+          className="km-hours__hours km-hours"
+        >
+          <p
+            className="km-hours__title"
+          >
+            Total Hours
+          </p>
+          <div
+            className="separator-small"
+          />
+          <p
+            className="km-hours__value"
+          >
+            NaN
+          </p>
+        </div>
+        <button
+          className="float__button"
+        >
+          + Workout
+        </button>
+      </div>
+    </div>
+    <div
+      className="bike-detail__components"
+    />
+    <div
+      className="bike-detail__details"
+    >
+      <div
+        className="card-decoration"
+      />
+      <div
+        className="details__content"
+      >
+        <img
+          alt="bike type"
+          className="details__type-img"
+          src="https://image.flaticon.com/icons/svg/829/829906.svg"
         />
-        <p>
-          Unknown Brand
-           -
-           
-          Unknown Model
-        </p>
-        <p>
-          Driving Style: 
-        </p>
+        <div
+          className="details__info"
+        >
+          <p
+            className="info__type"
+          />
+          <p>
+            Unknown Brand
+             -
+             
+            Unknown Model
+          </p>
+          <p>
+            Driving Style: 
+          </p>
+        </div>
       </div>
     </div>
   </div>

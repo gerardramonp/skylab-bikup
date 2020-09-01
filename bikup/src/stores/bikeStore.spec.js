@@ -41,4 +41,23 @@ describe('Bike Store', () => {
 
         expect(bike.bikeName).toEqual(bikeTestName);
     });
+
+    it('Should register LOAD_USER_BIKE_LIST', () => {
+        const bikeListTest = [{ bikeName: 'first' }, { bikeName: 'second' }];
+        dispatcher.dispatch({
+            type: actionTypes.LOAD_USER_BIKE_LIST,
+            data: bikeListTest
+        });
+
+        const bikeList = bikeStore.getBikeList();
+
+        expect(bikeList).toEqual(bikeListTest);
+    });
+
+    it('should call removeListener and live', () => {
+        bikeStore.addChangeListener(() => {});
+        bikeStore.removeChangeListener(() => {});
+
+        expect(bikeStore).toBeTruthy();
+    });
 });

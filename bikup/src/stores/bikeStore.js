@@ -5,6 +5,7 @@ import { EventEmitter } from 'events';
 const CHANGE_EVENT = 'change';
 
 let _bike = {};
+let _bikeList = [];
 
 class BikeStore extends EventEmitter {
     addChangeListener(callback) {
@@ -17,6 +18,14 @@ class BikeStore extends EventEmitter {
 
     emitChange() {
         this.emit(CHANGE_EVENT);
+    }
+
+    setBikeList(bikeList) {
+        _bikeList = bikeList;
+    }
+
+    getBikeList() {
+        return _bikeList;
     }
 
     setBikeDetail(bikeDetail) {
@@ -36,6 +45,9 @@ dispatcher.register((action) => {
             bikeStore.setBikeDetail(action.data);
             bikeStore.emitChange();
             break;
+        case actionTypes.LOAD_USER_BIKE_LIST:
+            bikeStore.setBikeList(action.data);
+            bikeStore.emitChange();
         default:
             console.log(`There is no action with type: ${action.type}`);
             break;
