@@ -31,13 +31,15 @@ function BikeList(props) {
     return (
         bikeList && (
             <div className="bikelist">
-                <h2>Your Bikes</h2>
                 <div className="bikelist__content">
-                    <img
-                        className="strava__connect-btn"
-                        src="https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f4f63b8021a9d482184baf2/3cca3ad9320164155dfbb9d09ff7982f/btn_strava_connectwith_orange%402x.png"
-                        alt="connect with strava"
-                    />
+                    <div className="bikelist__top">
+                        <h2>Your Bikes</h2>
+                        <img
+                            className="strava__connect-btn"
+                            src="https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f4f63b8021a9d482184baf2/3cca3ad9320164155dfbb9d09ff7982f/btn_strava_connectwith_orange%402x.png"
+                            alt="connect with strava"
+                        />
+                    </div>
                     <div className="bikelist__cards">
                         {bikeList.map((bike) => {
                             return (

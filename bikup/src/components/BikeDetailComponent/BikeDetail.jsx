@@ -38,7 +38,9 @@ function BikeDetail(props) {
                     </div>
 
                     <div className="bike-detail__head">
-                        <h2>{bikeDetail.bikeName}</h2>
+                        <h2 className="head__bikename">
+                            {bikeDetail.bikeName}
+                        </h2>
                         <div className="separator"></div>
 
                         <div className="bike-detail__km-hours">

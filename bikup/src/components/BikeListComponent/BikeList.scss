@@ -11,6 +11,16 @@ $dark-highlight-color: #393e46;
     padding: 32px;
 }
 
+.bikelist__top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 24px;
+    padding: 0 12px;
+}
+
 .bikelist__content {
     display: flex;
     flex-direction: column;
@@ -20,6 +30,7 @@ $dark-highlight-color: #393e46;
 
 .strava__connect-btn {
     height: 40px;
+    cursor: pointer;
 }
 
 .bikelist__cards {
