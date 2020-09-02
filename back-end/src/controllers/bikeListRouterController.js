@@ -2,7 +2,7 @@ const debug = require('debug')('app:bikeListRouterController');
 
 function bikeListRouterController(UserModel, BikeModel) {
     function get(req, res) {
-        if (req.query.userId) {
+        if (req.query && req.query.userId) {
             const query = {
                 userId: req.query.userId
             };

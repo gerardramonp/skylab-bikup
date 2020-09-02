@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import bikeStore from '../../stores/bikeStore';
-import { loadUserBikeList, loadBikeById } from '../../actions/bikeActions';
+import { loadUserBikeList } from '../../actions/bikeActions';
 
 import StandardAside from '../StandardAside/StandardAside';
+import BikeCard from './BikeCardComponent/BikeCard';
 
 import '../../App.scss';
 import './BikeList.scss';
@@ -27,25 +28,28 @@ function BikeList(props) {
         setBikeList(bikeStore.getBikeList());
     }
 
-    function handleClick(bikeId) {
-        loadBikeById(bikeId);
-    }
-
     return (
         bikeList && (
-            <div>
-                {bikeList.map((bike) => {
-                    return (
-                        <div key={bike._id}>
-                            <NavLink
-                                to={`/bikes/${bikeName.replace(/ /g, '')}`}
-                                onClick={() => handleClick(bike._id)}
-                            >
-                                load {bike._id}
-                            </NavLink>
-                        </div>
-                    );
-                })}
+            <div className="bikelist">
+                <h2>Your Bikes</h2>
+                <div className="bikelist__content">
+                    <img
+                        className="strava__connect-btn"
+                        src="https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f4f63b8021a9d482184baf2/3cca3ad9320164155dfbb9d09ff7982f/btn_strava_connectwith_orange%402x.png"
+                        alt="connect with strava"
+                    />
+                    <div className="bikelist__cards">
+                        {bikeList.map((bike) => {
+                            return (
+                                <BikeCard key={bike.bikeName} bikeInfo={bike} />
+                            );
+                        })}
+                    </div>
+                    <button className="bikelist__add">+ Add new bike</button>
+                    <div className="bikelist__challenges-giveaways">
+                        <StandardAside />
+                    </div>
+                </div>
             </div>
         )
     );

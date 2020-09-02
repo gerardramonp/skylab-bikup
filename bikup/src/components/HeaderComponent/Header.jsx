@@ -14,7 +14,11 @@ function Header() {
             <p className="appName">bikUP</p>
             <ul className="header__navigation">
                 {nav.map((link) => {
-                    return <li className="navigation__item">{link}</li>;
+                    return (
+                        <li key={link} className="navigation__item">
+                            {link}
+                        </li>
+                    );
                 })}
             </ul>
         </header>

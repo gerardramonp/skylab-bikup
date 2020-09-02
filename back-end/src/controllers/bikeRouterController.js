@@ -3,7 +3,7 @@ const { ObjectID } = require('mongodb');
 
 function bikeRouterController(Model) {
     function get(req, res) {
-        if (req.params.bikeId) {
+        if (req.params && req.params.bikeId) {
             const query = {
                 _id: new ObjectID(req.params.bikeId)
             };

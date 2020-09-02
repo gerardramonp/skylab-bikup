@@ -27,7 +27,7 @@ function BikeDetail(props) {
     return (
         bikeDetail && (
             <div className="general-container">
-                <div>
+                <div className="hideThisShit">
                     <StandardAside />
                 </div>
 

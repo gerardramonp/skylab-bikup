@@ -1,0 +1,46 @@
+$light-bg-color: white;
+$light-highlight-color: #eeeeee;
+$main-color: #0c9;
+$dark-highlight-color: #393e46;
+
+.bikelist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 32px;
+}
+
+.bikelist__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.strava__connect-btn {
+    height: 40px;
+}
+
+.bikelist__cards {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bikelist__add {
+    width: 95%;
+    height: 40px;
+    background: none;
+    border: 1px solid $main-color;
+    border-radius: 5px;
+    color: $main-color;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.bikelist__add:hover {
+    color: black;
+    background-color: $main-color;
+}

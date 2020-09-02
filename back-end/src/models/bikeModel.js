@@ -12,6 +12,7 @@ const bikeModel = new Schema({
     bikeName: { type: String },
     totalMeters: { type: Number },
     totalMinutes: { type: Number },
+    likes: { type: Number },
     components: [
         {
             name: { type: String },
