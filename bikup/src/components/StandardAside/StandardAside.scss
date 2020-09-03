@@ -4,19 +4,30 @@ $light-line-color: rgb(200, 200, 200);
 $main-color: #0c9;
 
 .standardaside {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     padding: 12px;
+    width: 100%;
 }
 
 .title {
-    margin-bottom: 24px;
+    margin-bottom: 12px;
+}
+
+.standardaside__card-container {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
 }
 
 .standardaside__card {
     padding: 12px;
+    margin-right: 12px;
     background-color: $light-highlight-color;
+    width: 100%;
     border-radius: 5px;
     margin-bottom: 64px;
-
     box-shadow: 5px 5px 5px 0px rgba(209, 205, 209, 1);
 }
 
@@ -45,7 +56,11 @@ $main-color: #0c9;
 
 @media only screen and (min-width: 600px) {
     .standardaside {
-        display: flex;
         flex-direction: column;
+        width: 100%;
+    }
+
+    .standardaside__card-container {
+        width: 100%;
     }
 }

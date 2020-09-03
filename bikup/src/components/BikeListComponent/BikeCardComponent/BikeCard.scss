@@ -10,6 +10,20 @@ $dark-highlight-color: #393e46;
     margin-bottom: 20px;
 }
 
+.bikecard__container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.bikecard__decorator {
+    width: 1%;
+    position: relative;
+    height: inherit;
+    background-color: $main-color;
+}
+
 .bikecard {
     display: flex;
     flex-direction: column;
@@ -19,6 +33,7 @@ $dark-highlight-color: #393e46;
     border-radius: 5px;
     padding: 24px 32px;
     margin-bottom: 16px;
+    border-left: 4px solid $main-color;
 }
 
 .bikecard__top {

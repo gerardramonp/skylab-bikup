@@ -27,7 +27,7 @@ function BikeDetail(props) {
     return (
         bikeDetail && (
             <div className="general-container">
-                <div className="hideThisShit">
+                <div className="desktop">
                     <StandardAside />
                 </div>
 
@@ -39,7 +39,7 @@ function BikeDetail(props) {
 
                     <div className="bike-detail__head">
                         <h2 className="head__bikename">
-                            {bikeDetail.bikeName}
+                            {bikeDetail.bikeName || 'Your Bike'}
                         </h2>
                         <div className="separator"></div>
 
