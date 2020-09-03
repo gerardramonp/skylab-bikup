@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 
 const UserModel = require('./src/models/userModel');
 const BikeModel = require('./src/models/bikeModel');
+const CompoModel = require('./src/models/compoModel');
 
 const app = express();
 const { PORT } = process.env;
@@ -21,6 +22,10 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => debug(`Server running on port ${PORT}`));
 
 // Routes
-const bikeRoutes = require('./src/routes/bikesRoutes')(UserModel, BikeModel);
+const bikeRoutes = require('./src/routes/bikesRoutes')(
+    UserModel,
+    BikeModel,
+    CompoModel
+);
 
 app.use('/api/bikes', bikeRoutes);

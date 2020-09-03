@@ -8,15 +8,15 @@ import {
 import './BikeCard.scss';
 
 function calculateLifePercent(component) {
-    const { life, accumulatedMeters } = component;
+    const { compoLife, compoAccumulatedMeters } = component;
 
-    return accumulatedMeters / life;
+    return compoAccumulatedMeters / compoLife;
 }
 
 function checkSoonRepair(componentList) {
     const compoPercents = componentList.map((compo) => {
         const percent = calculateLifePercent(compo);
-        return { [compo.name]: percent };
+        return { [compo.compoType]: percent };
     });
 
     compoPercents.sort(function (a, b) {
@@ -24,19 +24,11 @@ function checkSoonRepair(componentList) {
     });
 
     return componentList.find((compo) => {
-        return compo.name === Object.keys(compoPercents[0])[0];
+        return compo.compoType === Object.keys(compoPercents[0])[0];
     });
 }
 
 function BikeCard({ bikeInfo }) {
-    const [bikeCompoList, setBikeCompoList] = useState([]);
-
-    useEffect(() => {
-        if (bikeCompoList.length === 0) {
-            debugger;
-        }
-    });
-
     let soonCompo = null;
 
     function handleClick(bikeId) {
@@ -44,12 +36,7 @@ function BikeCard({ bikeInfo }) {
     }
 
     if (bikeInfo) {
-        debugger;
-        (async function loadCompos() {
-            await loadBikeComponentList(bikeInfo._id);
-            setBikeCompoList(bikeStore.getCompoList());
-            soonCompo = checkSoonRepair(bikeCompoList);
-        })();
+        //soonCompo = checkSoonRepair(bikeInfo.components) || 'hello';
     }
     return (
         soonCompo && (
@@ -66,16 +53,16 @@ function BikeCard({ bikeInfo }) {
                         <div className="repair__labbels">
                             <p>Check Soon</p>
                             <p className="labbels__value">
-                                ({soonCompo.accumulatedMeters / 1000} /
-                                {soonCompo.life / 1000} Km)
+                                ({soonCompo.compoAccumulatedMeters / 1000} /
+                                {soonCompo.compoLife / 1000} Km)
                             </p>
                         </div>
                         <div className="repair__progress">
-                            <p>{soonCompo.name}</p>
+                            <p>{soonCompo.compoDisplayName}</p>
                             <progress
                                 id="progress"
-                                value={soonCompo.accumulatedMeters / 1000}
-                                max={soonCompo.life / 1000}
+                                value={soonCompo.compoAccumulatedMeters / 1000}
+                                max={soonCompo.compoLife / 1000}
                             ></progress>
                         </div>
                     </div>

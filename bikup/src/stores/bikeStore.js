@@ -1,5 +1,5 @@
-import dispatcher from '../dispatcher';
 import actionTypes from '../actions/actionTypes';
+import dispatcher from '../dispatcher';
 import { EventEmitter } from 'events';
 
 const CHANGE_EVENT = 'change';
@@ -57,10 +57,11 @@ dispatcher.register((action) => {
         case actionTypes.LOAD_USER_BIKE_LIST:
             bikeStore.setBikeList(action.data);
             bikeStore.emitChange();
-
+            break;
         case actionTypes.LOAD_BIKE_COMPO_LIST:
             bikeStore.setCompoList(action.data);
             bikeStore.emitChange();
+            break;
         default:
             console.log(`There is no action with type: ${action.type}`);
             break;

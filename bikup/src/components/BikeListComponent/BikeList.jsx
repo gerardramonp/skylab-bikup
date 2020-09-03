@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
 import bikeStore from '../../stores/bikeStore';
-import { loadUserBikeList } from '../../actions/bikeActions';
+import {
+    loadUserBikeList,
+    loadBikeComponentList
+} from '../../actions/bikeActions';
 
 import StandardAside from '../StandardAside/StandardAside';
 import BikeCard from './BikeCardComponent/BikeCard';
@@ -10,17 +12,19 @@ import '../../App.scss';
 import './BikeList.scss';
 
 function BikeList(props) {
-    const [bikeList, setBikeList] = useState([]);
+    const [bikeList, setBikeList] = useState(bikeStore.getBikeList());
+
+    let bikeComponentList = null;
+    let localBikeList = null;
 
     const userId = '5f4e6c437edd9832f01d6cc5';
-    const bikeId = '5f4e48d27edd9832f01d6cc4';
-    const bikeName = 'my Bike Name';
 
     useEffect(() => {
         bikeStore.addChangeListener(onChange);
         if (bikeList.length === 0) {
             loadUserBikeList(userId);
         }
+
         return () => bikeStore.removeChangeListener(onChange);
     }, [bikeList.length]);
 

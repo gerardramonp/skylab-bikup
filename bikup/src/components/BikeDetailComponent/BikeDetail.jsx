@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import bikeStore from '../../stores/bikeStore';
-import { loadBikeById } from '../../actions/bikeActions';
 
 import CompoCard from './CompoCardComponent/CompoCard';
 import StandardAside from '../StandardAside/StandardAside';

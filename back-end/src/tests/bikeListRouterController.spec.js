@@ -17,9 +17,9 @@ describe('Bike List Router Controller', () => {
         sinon.restore();
     });
 
-    it('Should response with status 400 if no userId', () => {
+    it('Should response with status 400 if no bikeUserId', () => {
         req.query = {
-            userId: null
+            bikeUserId: null
         };
 
         res.status = () => {};
@@ -32,9 +32,9 @@ describe('Bike List Router Controller', () => {
         expect(statusSpy.calledWith(400)).to.be.true;
     });
 
-    it('Should response with status 400 if no userId', () => {
+    it('Should response with status 400 if no bikeUserId', () => {
         req.query = {
-            userId: null
+            bikeUserId: null
         };
 
         res.status = () => {};

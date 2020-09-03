@@ -13,9 +13,11 @@ export function loadUserBikeList(bikeUserId) {
             }
         };
         return axios.get(`/api/bikes`, props).then((payload) => {
+            const fuckThis = payload.data.bikeComponentList;
+            debugger;
             dispatcher.dispatch({
                 type: actionTypes.LOAD_USER_BIKE_LIST,
-                data: payload.data
+                data: payload.data.bikeComponentList
             });
         });
     }
@@ -31,11 +33,20 @@ export function loadBikeById(bikeId) {
 }
 
 export function loadBikeComponentList(compoBikeId) {
-    debugger;
-    return axios.get(`/api/${compoBikeId}/components`).then((payload) => {
-        dispatcher.dispatch({
-            type: actionTypes.LOAD_BIKE_COMPO_LIST,
-            data: payload.data[0]
+    const props = {
+        params: {
+            compoBikeId
+        }
+    };
+    return axios
+        .get(`/api/bikes/${compoBikeId}/components`, props)
+        .then((payload) => {
+            dispatcher.dispatch({
+                type: actionTypes.LOAD_BIKE_COMPO_LIST,
+                data: payload.data
+            });
+        })
+        .catch((error) => {
+            console.log(error);
         });
-    });
 }
