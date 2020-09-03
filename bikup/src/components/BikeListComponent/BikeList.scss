@@ -11,6 +11,10 @@ $dark-highlight-color: #393e46;
     padding: 32px;
 }
 
+.desktop {
+    display: none;
+}
+
 .bikelist__top {
     display: flex;
     flex-direction: row;
@@ -59,6 +63,14 @@ $dark-highlight-color: #393e46;
 }
 
 @media only screen and (min-width: 900px) {
+    .mobile {
+        display: none;
+    }
+
+    .desktop {
+        display: block;
+    }
+
     .bikelist {
         flex-direction: row-reverse;
         align-items: flex-start;
@@ -85,7 +97,7 @@ $dark-highlight-color: #393e46;
         cursor: pointer;
     }
 
-    .bikelist__add:hover {
+    .bikelist__add--desktop:hover {
         color: black;
         background-color: $main-color;
     }
