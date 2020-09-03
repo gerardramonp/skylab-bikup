@@ -48,14 +48,16 @@ function BikeDetail(props) {
                                 <p className="km-hours__title">Total KM</p>
                                 <div className="separator-small"></div>
                                 <p className="km__value">
-                                    {bikeDetail.totalMeters / 1000}
+                                    {bikeDetail.bikeTotalMeters / 1000}
                                 </p>
                             </div>
                             <div className="km-hours__hours km-hours">
                                 <p className="km-hours__title">Total Hours</p>
                                 <div className="separator-small"></div>
                                 <p className="km-hours__value">
-                                    {Math.floor(bikeDetail.totalMinutes / 60)}
+                                    {Math.floor(
+                                        bikeDetail.bikeTotalMinutes / 60
+                                    )}
                                 </p>
                             </div>
                             <button className="float__button">+ Workout</button>
@@ -85,7 +87,9 @@ function BikeDetail(props) {
                                     {bikeDetail.bikeBrand || 'Unknown Brand'} -{' '}
                                     {bikeDetail.bikeModel || 'Unknown Model'}
                                 </p>
-                                <p>Driving Style: {bikeDetail.driveStyle}</p>
+                                <p>
+                                    Driving Style: {bikeDetail.bikeDriveStyle}
+                                </p>
                             </div>
                         </div>
                     </div>

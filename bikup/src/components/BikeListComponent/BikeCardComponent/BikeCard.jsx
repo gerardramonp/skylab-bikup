@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import bikeStore from '../../../stores/bikeStore';
+import {
+    loadBikeById,
+    loadBikeComponentList
+} from '../../../actions/bikeActions';
 import './BikeCard.scss';
-import { loadBikeById } from '../../../actions/bikeActions';
 
 function calculateLifePercent(component) {
     const { life, accumulatedMeters } = component;
@@ -25,6 +29,14 @@ function checkSoonRepair(componentList) {
 }
 
 function BikeCard({ bikeInfo }) {
+    const [bikeCompoList, setBikeCompoList] = useState([]);
+
+    useEffect(() => {
+        if (bikeCompoList.length === 0) {
+            debugger;
+        }
+    });
+
     let soonCompo = null;
 
     function handleClick(bikeId) {
@@ -32,7 +44,12 @@ function BikeCard({ bikeInfo }) {
     }
 
     if (bikeInfo) {
-        soonCompo = checkSoonRepair(bikeInfo.components);
+        debugger;
+        (async function loadCompos() {
+            await loadBikeComponentList(bikeInfo._id);
+            setBikeCompoList(bikeStore.getCompoList());
+            soonCompo = checkSoonRepair(bikeCompoList);
+        })();
     }
     return (
         soonCompo && (
@@ -41,7 +58,7 @@ function BikeCard({ bikeInfo }) {
                     <div className="bikecard__top">
                         <p className="top__name">{bikeInfo.bikeName}</p>
                         <p className="top__km">
-                            {bikeInfo.totalMeters / 1000} Km
+                            {bikeInfo.bikeTotalMeters / 1000} Km
                         </p>
                     </div>
                     <div className="bikecard__separator"></div>
@@ -70,7 +87,7 @@ function BikeCard({ bikeInfo }) {
                                 alt="likes"
                             />
                             <span className="likes__count">
-                                {bikeInfo.likes}
+                                {bikeInfo.bikeLikes}
                             </span>
                         </div>
                         <div className="bottom__details">
