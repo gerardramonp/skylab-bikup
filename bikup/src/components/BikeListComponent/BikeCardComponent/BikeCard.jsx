@@ -37,8 +37,6 @@ function BikeCard({ bikeInfo }) {
     return (
         soonCompo && (
             <div className="bikecard__container">
-                <div className="bikecard__decorator"></div>
-
                 <div className="bikecard">
                     <div className="bikecard__top">
                         <p className="top__name">{bikeInfo.bikeName}</p>

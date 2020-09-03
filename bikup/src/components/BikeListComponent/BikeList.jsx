@@ -39,6 +39,9 @@ function BikeList(props) {
                             src="https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f4f63b8021a9d482184baf2/3cca3ad9320164155dfbb9d09ff7982f/btn_strava_connectwith_orange%402x.png"
                             alt="connect with strava"
                         />
+                        <button className="bikelist__add--desktop desktop">
+                            + Add new bike
+                        </button>
                     </div>
                     <div className="bikelist__cards">
                         {bikeList.map((bike) => {
@@ -47,10 +50,12 @@ function BikeList(props) {
                             );
                         })}
                     </div>
-                    <button className="bikelist__add">+ Add new bike</button>
-                    <div className="bikelist__challenges-giveaways">
-                        <StandardAside />
-                    </div>
+                    <button className="bikelist__add mobile">
+                        + Add new bike
+                    </button>
+                </div>
+                <div className="bikelist__challenges-giveaways">
+                    <StandardAside />
                 </div>
             </div>
         )
