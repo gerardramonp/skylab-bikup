@@ -2,6 +2,7 @@ const debug = require('debug')('app:bikeListRouterController');
 
 function bikeListRouterController(UserModel, BikeModel, CompoModel) {
     let localBikeList = [];
+    let finalBikeList = [];
     let tempBike = null;
     let localCompoList = [];
 
@@ -32,21 +33,29 @@ function bikeListRouterController(UserModel, BikeModel, CompoModel) {
                         `Could not get bike list from DB: ${error}`
                     );
                 } else {
-                    localBikeList = bikeList;
+                    bikeList.forEach((bike) => {
+                        tempBike = { ...bike._doc };
+                        localBikeList = [...localBikeList, tempBike];
+                        debug(`localbikelist length: ${localBikeList.length}`);
+                    });
                 }
             });
 
             localBikeList.forEach((bike, index) => {
                 (async function loadUniqueBike() {
                     await loadBikeCompoList(bike._id);
-                    localBikeList.forEach((bike, index) => {
-                        bike.bikeComponentList = localCompoList[index];
-                    });
+
+                    // Les bicis arriben pero els compos estan invertits, s'ha de mirar que posi els compos de la bici que tingui el mateix id
+                    bike.bikeComponentList = localCompoList[index];
+                    finalBikeList = [...finalBikeList, bike];
+                    debug(
+                        `amb bici ${bike.bikeName}: lenght ${finalBikeList.length}`
+                    );
 
                     if (index === localBikeList.length - 1) {
                         debug('sending');
                         res.status(200);
-                        return res.json(localBikeList[0]);
+                        return res.json(finalBikeList);
                     }
                 })();
             });
