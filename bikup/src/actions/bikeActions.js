@@ -13,7 +13,6 @@ export function loadUserBikeList(bikeUserId) {
             }
         };
         return axios.get(`/api/bikes`, props).then((payload) => {
-            const fuckThis = payload.data.bikeComponentList;
             debugger;
             dispatcher.dispatch({
                 type: actionTypes.LOAD_USER_BIKE_LIST,

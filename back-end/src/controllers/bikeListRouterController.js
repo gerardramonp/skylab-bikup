@@ -5,6 +5,16 @@ function bikeListRouterController(UserModel, BikeModel, CompoModel) {
     let finalBikeList = [];
     let tempBike = null;
     let localCompoList = [];
+    let correspondingCompo = null;
+
+    function resetState() {
+        localBikeList = [];
+        localBikeList = [];
+        finalBikeList = [];
+        tempBike = null;
+        localCompoList = [];
+        correspondingCompo = null;
+    }
 
     async function loadBikeCompoList(bikeId) {
         const compoQuery = {
@@ -13,14 +23,17 @@ function bikeListRouterController(UserModel, BikeModel, CompoModel) {
 
         await CompoModel.find(compoQuery, (error, compoList) => {
             if (error) {
+                debug(error);
                 return null;
             } else {
                 localCompoList = [...localCompoList, compoList];
             }
         });
+        debug(`Found ${localCompoList.length} components`);
     }
 
     async function get(req, res) {
+        resetState();
         const bikeQuery = {
             bikeUserId: req.query.bikeUserId
         };
@@ -28,32 +41,51 @@ function bikeListRouterController(UserModel, BikeModel, CompoModel) {
         if (req.query && req.query.bikeUserId) {
             await BikeModel.find(bikeQuery, (error, bikeList) => {
                 if (error) {
+                    debug(error);
                     res.status(400);
                     return res.send(
                         `Could not get bike list from DB: ${error}`
                     );
                 } else {
-                    bikeList.forEach((bike) => {
+                    bikeList.forEach((bike, index) => {
+                        //debug(`foreach vuelta ${index + 1}`);
                         tempBike = { ...bike._doc };
                         localBikeList = [...localBikeList, tempBike];
-                        debug(`localbikelist length: ${localBikeList.length}`);
                     });
                 }
             });
+
+            debug(`Found ${localBikeList.length} bikes`);
 
             localBikeList.forEach((bike, index) => {
                 (async function loadUniqueBike() {
                     await loadBikeCompoList(bike._id);
 
-                    // Les bicis arriben pero els compos estan invertits, s'ha de mirar que posi els compos de la bici que tingui el mateix id
-                    bike.bikeComponentList = localCompoList[index];
+                    // debug(
+                    //     `checking bike ${bike._id} iterating ${localCompoList.length} compos`
+                    // );
+
+                    let correspondingIndex = 0;
+                    localCompoList.forEach((bikeCompos, index) => {
+                        correspondingCompo = bikeCompos.find(
+                            (compo) => compo.compoBikeId == bike._id
+                        );
+                        if (correspondingCompo) {
+                            correspondingIndex = index;
+                        }
+
+                        // debug(
+                        //     `found this compo: ${correspondingCompo} at index ${index}`
+                        // );
+                    });
+
+                    bike.bikeComponentList = localCompoList[correspondingIndex];
                     finalBikeList = [...finalBikeList, bike];
-                    debug(
-                        `amb bici ${bike.bikeName}: lenght ${finalBikeList.length}`
-                    );
 
                     if (index === localBikeList.length - 1) {
-                        debug('sending');
+                        // debug(
+                        //     `sending bike list with compos (${finalBikeList.length})...`
+                        // );
                         res.status(200);
                         return res.json(finalBikeList);
                     }
