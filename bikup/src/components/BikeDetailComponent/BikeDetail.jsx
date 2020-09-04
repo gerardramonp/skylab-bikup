@@ -66,14 +66,17 @@ function BikeDetail(props) {
                     </div>
 
                     <div className="bike-detail__components">
-                        {bikeDetails.components &&
-                            bikeDetails.components.map((compo) => (
-                                <CompoCard key={compo.name} compoInfo={compo} />
+                        {bikeDetails.bikeComponents &&
+                            bikeDetails.bikeComponents.map((compo) => (
+                                <CompoCard
+                                    key={compo.compoDisplayName}
+                                    compoInfo={compo}
+                                    bikeName={bikeDetails.bikeName}
+                                />
                             ))}
                     </div>
 
                     <div className="bike-detail__details">
-                        <div className="card-decoration"></div>
                         <div className="details__content">
                             <img
                                 src="https://image.flaticon.com/icons/svg/829/829906.svg"

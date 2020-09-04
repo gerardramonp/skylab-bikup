@@ -3,24 +3,26 @@ const { ObjectID } = require('mongodb');
 
 function compoListRouterController(CompoModel) {
     function get(req, res) {
-        debug('ES FA UNA REQUEST <<<<<<<<<<');
-        if (req.query && req.query.compoBikeId) {
-            const query = {
-                compoBikeId: req.query.compoBikeId
+        if (req.params && req.params.compoId) {
+            const compoQuery = {
+                _id: new ObjectID(req.params.compoId)
             };
 
-            CompoModel.find(query, (error, compoList) => {
+            CompoModel.find(compoQuery, (error, compo) => {
                 if (error) {
                     res.status(400);
-                    return res.send('compoBikeId is required');
+                    return res.send(
+                        'Oops! We could not load this component. Try again'
+                    );
                 } else {
                     res.status(200);
-                    return res.json(compoList);
+                    debug(compo);
+                    return res.json(compo);
                 }
             });
         } else {
             res.status(400);
-            return res.send('compoBikeId is required');
+            return res.send('A bike query with compoId is required');
         }
     }
 

@@ -4,24 +4,24 @@ const debug = require('debug')('app:heroRoutes');
 
 const bikeRouterController = require('../controllers/bikeRouterController');
 const bikeListRouterController = require('../controllers/bikeListRouterController');
-const compoListRouterController = require('../controllers/compoListRouterController');
+const compoListRouterController = require('../controllers/compoRouterController');
 
 const bikesRouter = express.Router();
 
 function routes(UserModel, BikeModel, CompoModel) {
-    const bikeController = bikeRouterController(BikeModel);
+    const bikeController = bikeRouterController(BikeModel, CompoModel);
     const bikeListController = bikeListRouterController(
         UserModel,
         BikeModel,
         CompoModel
     );
-    // const compoListController = compoListRouterController(CompoModel);
+    const compoController = compoListRouterController(CompoModel);
 
     bikesRouter.route('/').get(bikeListController.get);
 
     bikesRouter.route('/:bikeId').get(bikeController.get);
 
-    // bikesRouter.route('/:bikeId/components').get(compoListController.get);
+    bikesRouter.route('/:bikeId/:compoId').get(compoController.get);
 
     return bikesRouter;
 }

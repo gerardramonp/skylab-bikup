@@ -6,7 +6,7 @@ const CHANGE_EVENT = 'change';
 
 let _bike = {};
 let _bikeList = [];
-let _bikeCompolist = [];
+let _compoDetail = {};
 
 class BikeStore extends EventEmitter {
     addChangeListener(callback) {
@@ -34,16 +34,15 @@ class BikeStore extends EventEmitter {
     }
 
     getBikeDetail() {
-        debugger;
         return _bike;
     }
 
-    setCompoList(compoList) {
-        _bikeCompolist = compoList;
+    setCompoDetail(compoDetail) {
+        _compoDetail = compoDetail;
     }
 
-    getCompoList() {
-        return _bikeCompolist;
+    getCompoDetail() {
+        return _compoDetail;
     }
 }
 
@@ -59,8 +58,9 @@ dispatcher.register((action) => {
             bikeStore.setBikeList(action.data);
             bikeStore.emitChange();
             break;
-        case actionTypes.LOAD_BIKE_COMPO_LIST:
-            bikeStore.setCompoList(action.data);
+        case actionTypes.LOAD_COMPO_BY_ID:
+            debugger;
+            bikeStore.setCompoDetail(action.data);
             bikeStore.emitChange();
             break;
         default:

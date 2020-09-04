@@ -1,22 +1,61 @@
 const debug = require('debug')('app:bikesRouterController');
 const { ObjectID } = require('mongodb');
 
-function bikeRouterController(Model) {
-    function get(req, res) {
-        if (req.params && req.params.bikeId) {
-            const query = {
-                _id: new ObjectID(req.params.bikeId)
-            };
+function bikeRouterController(BikeModel, CompoModel) {
+    let tempBike = null;
+    async function loadBikeById(bikeId) {
+        const bikeQuery = {
+            _id: new ObjectID(bikeId)
+        };
 
-            Model.find(query, (error, bike) => {
-                if (error) {
-                    res.status(400);
-                    return res.send('BikeId is required');
-                } else {
-                    res.status(200);
-                    return res.json(bike);
-                }
-            });
+        await BikeModel.find(bikeQuery, (error, bike) => {
+            if (error) {
+                debug(error);
+                return error;
+            } else {
+                [tempBike] = bike;
+                tempBike = { ...tempBike._doc };
+            }
+        });
+
+        return tempBike;
+    }
+
+    async function loadBikeComponents(bikeId) {
+        let tempCompoList = null;
+        const compoQuery = {
+            compoBikeId: bikeId
+        };
+
+        await CompoModel.find(compoQuery, (error, compoList) => {
+            if (error) {
+                debug(error);
+                return error;
+            } else {
+                tempCompoList = [...compoList];
+            }
+        });
+
+        return tempCompoList;
+    }
+
+    async function get(req, res) {
+        let count = 0;
+        let bike = null;
+        let bikeComponents = null;
+        if (req.params && req.params.bikeId) {
+            const bike = await loadBikeById(req.params.bikeId);
+
+            do {
+                bikeComponents = await loadBikeComponents(req.params.bikeId);
+            } while (!bikeComponents && count++ < 3);
+
+            //debug(`compolist: ${bikeComponents}`);
+
+            bike.bikeComponents = bikeComponents;
+
+            res.status(200);
+            res.json(bike);
         } else {
             res.status(400);
             return res.send('BikeId is required');

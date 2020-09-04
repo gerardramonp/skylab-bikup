@@ -1,11 +1,11 @@
 import React from 'react';
 import './CompoCard.scss';
+import { NavLink } from 'react-router-dom';
 
-function CompoCard({ compoInfo }) {
+function CompoCard({ compoInfo, bikeName }) {
     console.log(compoInfo);
     return (
         <div className="compocard">
-            <div className="card-decoration-1"></div>
             <div className="compocard__content">
                 <img
                     src="https://image.flaticon.com/icons/svg/2623/2623442.svg"
@@ -14,28 +14,35 @@ function CompoCard({ compoInfo }) {
                 />
                 <div className="compocard__info">
                     <div className="compocard__labels">
-                        <p>{compoInfo.name}</p>
+                        <p>{compoInfo.compoDisplayName}</p>
 
                         <p className="labels__status">
-                            ({compoInfo.accumulatedMeters / 1000} /
-                            {compoInfo.life / 1000} Km)
+                            ({compoInfo.compoAccumulatedMeters / 1000} /
+                            {compoInfo.compoLife / 1000} Km)
                         </p>
                     </div>
                     <div>
                         <progress
                             id="progress"
-                            value={compoInfo.accumulatedMeters / 1000}
-                            max={compoInfo.life / 1000}
+                            value={compoInfo.compoAccumulatedMeters / 1000}
+                            max={compoInfo.compoLife / 1000}
                         ></progress>
                     </div>
                 </div>
-                <button className="compocard__button">
+
+                <NavLink
+                    className="compocard__button"
+                    to={`/bikes/${bikeName.replace(
+                        / /g,
+                        ''
+                    )}/${compoInfo.compoDisplayName.replace(/ /g, '')}`}
+                >
                     <img
                         className="button__img"
                         src="https://image.flaticon.com/icons/svg/271/271228.svg"
                         alt=">"
                     />
-                </button>
+                </NavLink>
             </div>
         </div>
     );

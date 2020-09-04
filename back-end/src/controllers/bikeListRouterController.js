@@ -1,5 +1,4 @@
 const debug = require('debug')('app:bikeListRouterController');
-const util = require('util');
 
 function bikeListRouterController(UserModel, BikeModel, CompoModel) {
     let localBikeList = [];
@@ -52,9 +51,8 @@ function bikeListRouterController(UserModel, BikeModel, CompoModel) {
         userBikeList = await findUserBikes(req.query.bikeUserId);
         do {
             userCompoList = await findUserComponents(req.query.bikeUserId);
-        } while (!userCompoList && count++ < 4);
+        } while (!userCompoList && count++ < 3);
 
-        debug('\n\n__PARTICION__ \n\n');
         Promise.all([userBikeList, userCompoList]).then(
             ([bikeList, compoList]) => {
                 bikeList = bikeList.reduce((acc, curr) => {

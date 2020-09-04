@@ -12,14 +12,6 @@ $main-color: #0c9;
     box-shadow: 5px 5px 5px 0px rgba(209, 205, 209, 1);
 }
 
-.card-decoration-1 {
-    height: inherit;
-    width: 2%;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    background-color: $main-color;
-}
-
 .compocard__img {
     height: 30px;
     width: 30px;
@@ -33,6 +25,8 @@ $main-color: #0c9;
     align-items: center;
     width: 98%;
     padding: 6px 12px;
+    border-left: 4px solid $main-color;
+    border-radius: 5px;
 }
 
 .compocard__info {
