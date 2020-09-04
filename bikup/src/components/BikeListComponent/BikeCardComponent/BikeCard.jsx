@@ -36,10 +36,10 @@ function BikeCard({ bikeInfo }) {
     }
 
     if (bikeInfo) {
-        //soonCompo = checkSoonRepair(bikeInfo.components) || 'hello';
+        soonCompo = checkSoonRepair(bikeInfo.bikeComponentList);
     }
     return (
-        soonCompo && (
+        (soonCompo && (
             <div className="bikecard__container">
                 <div className="bikecard">
                     <div className="bikecard__top">
@@ -92,7 +92,7 @@ function BikeCard({ bikeInfo }) {
                     </div>
                 </div>
             </div>
-        )
+        )) || <p>esta basura no carga el compo soon</p>
     );
 }
 

@@ -48,7 +48,6 @@ function bikeListRouterController(UserModel, BikeModel, CompoModel) {
                     );
                 } else {
                     bikeList.forEach((bike, index) => {
-                        //debug(`foreach vuelta ${index + 1}`);
                         tempBike = { ...bike._doc };
                         localBikeList = [...localBikeList, tempBike];
                     });
@@ -61,10 +60,6 @@ function bikeListRouterController(UserModel, BikeModel, CompoModel) {
                 (async function loadUniqueBike() {
                     await loadBikeCompoList(bike._id);
 
-                    // debug(
-                    //     `checking bike ${bike._id} iterating ${localCompoList.length} compos`
-                    // );
-
                     let correspondingIndex = 0;
                     localCompoList.forEach((bikeCompos, index) => {
                         correspondingCompo = bikeCompos.find(
@@ -73,19 +68,12 @@ function bikeListRouterController(UserModel, BikeModel, CompoModel) {
                         if (correspondingCompo) {
                             correspondingIndex = index;
                         }
-
-                        // debug(
-                        //     `found this compo: ${correspondingCompo} at index ${index}`
-                        // );
                     });
 
                     bike.bikeComponentList = localCompoList[correspondingIndex];
                     finalBikeList = [...finalBikeList, bike];
 
                     if (index === localBikeList.length - 1) {
-                        // debug(
-                        //     `sending bike list with compos (${finalBikeList.length})...`
-                        // );
                         res.status(200);
                         return res.json(finalBikeList);
                     }

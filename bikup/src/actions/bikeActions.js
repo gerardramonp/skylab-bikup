@@ -13,10 +13,9 @@ export function loadUserBikeList(bikeUserId) {
             }
         };
         return axios.get(`/api/bikes`, props).then((payload) => {
-            debugger;
             dispatcher.dispatch({
                 type: actionTypes.LOAD_USER_BIKE_LIST,
-                data: payload.data.bikeComponentList
+                data: payload.data
             });
         });
     }
