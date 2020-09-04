@@ -9,12 +9,14 @@ import '../../App.scss';
 import './BikeDetail.scss';
 
 function BikeDetail(props) {
-    const [bikeDetail, setBikeDetail] = useState({});
+    const [bikeDetails, setBikeDetail] = useState(
+        bikeStore.getBikeDetail() || {}
+    );
+    const [bikeCompos, setBikeCompos] = useState();
 
     useEffect(() => {
         bikeStore.addChangeListener(onChange);
-        if (!bikeDetail.bikeId) {
-            setBikeDetail(bikeStore.getBikeDetail());
+        if (bikeDetails) {
         }
         return () => bikeStore.removeChangeListener(onChange);
     });
@@ -24,7 +26,7 @@ function BikeDetail(props) {
     }
 
     return (
-        bikeDetail && (
+        bikeDetails && (
             <div className="general-container">
                 <div className="desktop">
                     <StandardAside />
@@ -38,7 +40,7 @@ function BikeDetail(props) {
 
                     <div className="bike-detail__head">
                         <h2 className="head__bikename">
-                            {bikeDetail.bikeName || 'Your Bike'}
+                            {bikeDetails.bikeName || 'Your Bike'}
                         </h2>
                         <div className="separator"></div>
 
@@ -47,7 +49,7 @@ function BikeDetail(props) {
                                 <p className="km-hours__title">Total KM</p>
                                 <div className="separator-small"></div>
                                 <p className="km__value">
-                                    {bikeDetail.bikeTotalMeters / 1000}
+                                    {bikeDetails.bikeTotalMeters / 1000}
                                 </p>
                             </div>
                             <div className="km-hours__hours km-hours">
@@ -55,7 +57,7 @@ function BikeDetail(props) {
                                 <div className="separator-small"></div>
                                 <p className="km-hours__value">
                                     {Math.floor(
-                                        bikeDetail.bikeTotalMinutes / 60
+                                        bikeDetails.bikeTotalMinutes / 60
                                     )}
                                 </p>
                             </div>
@@ -64,8 +66,8 @@ function BikeDetail(props) {
                     </div>
 
                     <div className="bike-detail__components">
-                        {bikeDetail.components &&
-                            bikeDetail.components.map((compo) => (
+                        {bikeDetails.components &&
+                            bikeDetails.components.map((compo) => (
                                 <CompoCard key={compo.name} compoInfo={compo} />
                             ))}
                     </div>
@@ -80,14 +82,14 @@ function BikeDetail(props) {
                             />
                             <div className="details__info">
                                 <p className="info__type">
-                                    {bikeDetail.bikeType}
+                                    {bikeDetails.bikeType}
                                 </p>
                                 <p>
-                                    {bikeDetail.bikeBrand || 'Unknown Brand'} -{' '}
-                                    {bikeDetail.bikeModel || 'Unknown Model'}
+                                    {bikeDetails.bikeBrand || 'Unknown Brand'} -{' '}
+                                    {bikeDetails.bikeModel || 'Unknown Model'}
                                 </p>
                                 <p>
-                                    Driving Style: {bikeDetail.bikeDriveStyle}
+                                    Driving Style: {bikeDetails.bikeDriveStyle}
                                 </p>
                             </div>
                         </div>

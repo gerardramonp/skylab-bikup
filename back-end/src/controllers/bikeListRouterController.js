@@ -1,88 +1,75 @@
 const debug = require('debug')('app:bikeListRouterController');
+const util = require('util');
 
 function bikeListRouterController(UserModel, BikeModel, CompoModel) {
     let localBikeList = [];
-    let finalBikeList = [];
-    let tempBike = null;
-    let localCompoList = [];
-    let correspondingCompo = null;
 
-    function resetState() {
-        localBikeList = [];
-        localBikeList = [];
-        finalBikeList = [];
-        tempBike = null;
-        localCompoList = [];
-        correspondingCompo = null;
+    async function findUserBikes(userId) {
+        const bikeQuery = {
+            bikeUserId: userId
+        };
+
+        await BikeModel.find(bikeQuery, (error, bikeList) => {
+            if (error) {
+                debug(error);
+                return error;
+            } else {
+                bikeList.forEach((bike, index) => {
+                    const tempBike = { ...bike._doc };
+                    localBikeList = [...localBikeList, tempBike];
+                });
+            }
+        });
+        return localBikeList;
     }
 
-    async function loadBikeCompoList(bikeId) {
+    async function findUserComponents(userId) {
         const compoQuery = {
-            compoBikeId: bikeId
+            compoUserId: userId
         };
+
+        let localCompoList = null;
 
         await CompoModel.find(compoQuery, (error, compoList) => {
             if (error) {
                 debug(error);
-                return null;
+                return error;
             } else {
-                localCompoList = [...localCompoList, compoList];
+                localCompoList = [...compoList];
             }
         });
-        debug(`Found ${localCompoList.length} components`);
+
+        return localCompoList;
     }
 
+    // ################## ROUTER PUBLIC METHODS ########################
+
     async function get(req, res) {
-        resetState();
-        const bikeQuery = {
-            bikeUserId: req.query.bikeUserId
-        };
+        let count = 0;
+        let userBikeList = null;
+        let userCompoList = null;
 
-        if (req.query && req.query.bikeUserId) {
-            await BikeModel.find(bikeQuery, (error, bikeList) => {
-                if (error) {
-                    debug(error);
-                    res.status(400);
-                    return res.send(
-                        `Could not get bike list from DB: ${error}`
-                    );
-                } else {
-                    bikeList.forEach((bike, index) => {
-                        tempBike = { ...bike._doc };
-                        localBikeList = [...localBikeList, tempBike];
+        userBikeList = await findUserBikes(req.query.bikeUserId);
+        do {
+            userCompoList = await findUserComponents(req.query.bikeUserId);
+        } while (!userCompoList && count++ < 4);
+
+        debug('\n\n__PARTICION__ \n\n');
+        Promise.all([userBikeList, userCompoList]).then(
+            ([bikeList, compoList]) => {
+                bikeList = bikeList.reduce((acc, curr) => {
+                    const bikeComponentList = compoList.filter((compo) => {
+                        return compo.compoBikeId == curr._id;
                     });
-                }
-            });
+                    const tempBike = { ...curr, bikeComponentList };
 
-            debug(`Found ${localBikeList.length} bikes`);
+                    return [...acc, tempBike];
+                }, []);
 
-            localBikeList.forEach((bike, index) => {
-                (async function loadUniqueBike() {
-                    await loadBikeCompoList(bike._id);
-
-                    let correspondingIndex = 0;
-                    localCompoList.forEach((bikeCompos, index) => {
-                        correspondingCompo = bikeCompos.find(
-                            (compo) => compo.compoBikeId == bike._id
-                        );
-                        if (correspondingCompo) {
-                            correspondingIndex = index;
-                        }
-                    });
-
-                    bike.bikeComponentList = localCompoList[correspondingIndex];
-                    finalBikeList = [...finalBikeList, bike];
-
-                    if (index === localBikeList.length - 1) {
-                        res.status(200);
-                        return res.json(finalBikeList);
-                    }
-                })();
-            });
-        } else {
-            res.status(400);
-            return res.send('bikeUserId is required');
-        }
+                res.status(200);
+                return res.json(bikeList);
+            }
+        );
     }
 
     return { get };

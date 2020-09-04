@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import bikeStore from '../../stores/bikeStore';
-import {
-    loadUserBikeList,
-    loadBikeComponentList
-} from '../../actions/bikeActions';
+import { loadUserBikeList } from '../../actions/bikeActions';
 
 import StandardAside from '../StandardAside/StandardAside';
 import BikeCard from './BikeCardComponent/BikeCard';

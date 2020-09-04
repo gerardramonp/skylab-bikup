@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import bikeStore from '../../../stores/bikeStore';
-import {
-    loadBikeById,
-    loadBikeComponentList
-} from '../../../actions/bikeActions';
+import { loadBikeById } from '../../../actions/bikeActions';
 import './BikeCard.scss';
 
 function calculateLifePercent(component) {
@@ -35,7 +31,7 @@ function BikeCard({ bikeInfo }) {
         loadBikeById(bikeId);
     }
 
-    if (bikeInfo) {
+    if (bikeInfo.bikeComponentList) {
         soonCompo = checkSoonRepair(bikeInfo.bikeComponentList);
     }
     return (

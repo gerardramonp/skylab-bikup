@@ -34,6 +34,7 @@ class BikeStore extends EventEmitter {
     }
 
     getBikeDetail() {
+        debugger;
         return _bike;
     }
 

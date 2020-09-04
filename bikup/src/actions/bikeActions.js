@@ -2,17 +2,18 @@ import dispatcher from '../dispatcher';
 import actionTypes from './actionTypes';
 import axios from 'axios';
 
-export function loadUserBikeList(bikeUserId) {
-    if (!bikeUserId) {
+export function loadUserBikeList(userId) {
+    if (!userId) {
         console.log('[loadUserBikeList] - userId param is required');
         return false;
     } else {
         const props = {
             params: {
-                bikeUserId
+                bikeUserId: userId
             }
         };
         return axios.get(`/api/bikes`, props).then((payload) => {
+            debugger;
             dispatcher.dispatch({
                 type: actionTypes.LOAD_USER_BIKE_LIST,
                 data: payload.data

@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
 
 const compoModel = new Schema({
+    compoUserId: { type: String },
     compoBikeId: { type: String },
     compoType: { type: String },
     compoDisplayName: { type: String },
