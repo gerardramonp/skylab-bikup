@@ -26,7 +26,7 @@ function CompoDetail(props) {
                 <div className="compodetail__head">
                     <div className="head__container">
                         <h2 className="head__compoName">
-                            {compoInfo.compoDisplayName}
+                            {bikeInfo.bikeName} - {compoInfo.compoDisplayName}
                         </h2>
                         <button className="compodetail__reset desktop">
                             Reset Component
@@ -46,7 +46,9 @@ function CompoDetail(props) {
                             <p className="km-hours__title">Total Hours</p>
                             <div className="separator-small"></div>
                             <p className="km-hours__value">
-                                {Math.floor(compoInfo.accumulatedMinutes / 60)}
+                                {Math.floor(
+                                    compoInfo.compoAccumulatedMinutes / 60
+                                )}
                             </p>
                         </div>
                     </div>
@@ -64,7 +66,10 @@ function CompoDetail(props) {
                             className="details__type-img"
                         />
                         <div className="details__info">
-                            <p className="info__type">Info</p>
+                            <p className="info__type">
+                                {bikeInfo.bikeName} -{' '}
+                                {compoInfo.compoDisplayName}
+                            </p>
                             <p>'Unknown Brand' - 'Unknown Model'</p>
                             <p>Someinfo</p>
                         </div>

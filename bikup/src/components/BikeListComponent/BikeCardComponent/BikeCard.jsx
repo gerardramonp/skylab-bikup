@@ -28,7 +28,6 @@ function BikeCard({ bikeInfo }) {
     let soonCompo = null;
 
     function handleClick(bikeId) {
-        loadBikeById(bikeId);
         sessionStorage.actualBike = JSON.stringify(bikeInfo);
     }
 
