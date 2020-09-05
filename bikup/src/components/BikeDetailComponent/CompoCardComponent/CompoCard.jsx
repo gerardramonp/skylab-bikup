@@ -3,7 +3,9 @@ import './CompoCard.scss';
 import { NavLink } from 'react-router-dom';
 
 function CompoCard({ compoInfo, bikeName }) {
-    console.log(compoInfo);
+    function handleClick() {
+        sessionStorage.actualCompo = JSON.stringify(compoInfo);
+    }
     return (
         <div className="compocard">
             <div className="compocard__content">
@@ -32,6 +34,7 @@ function CompoCard({ compoInfo, bikeName }) {
 
                 <NavLink
                     className="compocard__button"
+                    onClick={handleClick}
                     to={`/bikes/${bikeName.replace(
                         / /g,
                         ''

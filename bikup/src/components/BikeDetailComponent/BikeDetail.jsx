@@ -10,14 +10,14 @@ import './BikeDetail.scss';
 
 function BikeDetail(props) {
     const [bikeDetails, setBikeDetail] = useState(
-        bikeStore.getBikeDetail() || {}
+        JSON.parse(sessionStorage.actualBike) || {}
     );
-    const [bikeCompos, setBikeCompos] = useState();
+
+    console.log(bikeDetails);
 
     useEffect(() => {
         bikeStore.addChangeListener(onChange);
-        if (bikeDetails) {
-        }
+
         return () => bikeStore.removeChangeListener(onChange);
     });
 
@@ -66,8 +66,8 @@ function BikeDetail(props) {
                     </div>
 
                     <div className="bike-detail__components">
-                        {bikeDetails.bikeComponents &&
-                            bikeDetails.bikeComponents.map((compo) => (
+                        {bikeDetails.bikeComponentList &&
+                            bikeDetails.bikeComponentList.map((compo) => (
                                 <CompoCard
                                     key={compo.compoDisplayName}
                                     compoInfo={compo}

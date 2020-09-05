@@ -1,9 +1,8 @@
 const debug = require('debug')('app:bikeListRouterController');
 
 function bikeListRouterController(UserModel, BikeModel, CompoModel) {
-    let localBikeList = [];
-
     async function findUserBikes(userId) {
+        let localBikeList = [];
         const bikeQuery = {
             bikeUserId: userId
         };
@@ -52,6 +51,8 @@ function bikeListRouterController(UserModel, BikeModel, CompoModel) {
         do {
             userCompoList = await findUserComponents(req.query.bikeUserId);
         } while (!userCompoList && count++ < 3);
+
+        debug(`length: ${userBikeList.length}`);
 
         Promise.all([userBikeList, userCompoList]).then(
             ([bikeList, compoList]) => {

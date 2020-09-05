@@ -29,6 +29,7 @@ function BikeCard({ bikeInfo }) {
 
     function handleClick(bikeId) {
         loadBikeById(bikeId);
+        sessionStorage.actualBike = JSON.stringify(bikeInfo);
     }
 
     if (bikeInfo.bikeComponentList) {

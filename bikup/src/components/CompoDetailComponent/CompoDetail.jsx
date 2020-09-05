@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import bikeStore from '../../stores/bikeStore';
 
 import StandardAside from '../StandardAside/StandardAside';
-import CompoCard from '../BikeDetailComponent/CompoCardComponent/CompoCard';
+import DetailCompoCard from './DetailCompoCardComponent/DetailCompoCard';
 
 import './CompoDetail.scss';
 
 function CompoDetail(props) {
+    const [compoInfo] = useState(JSON.parse(sessionStorage.actualCompo));
+    const [bikeInfo] = useState(JSON.parse(sessionStorage.actualBike));
+
     return (
         <div className="general-container">
             <div className="desktop">
@@ -15,35 +19,41 @@ function CompoDetail(props) {
 
             <div className="compodetail">
                 <div className="compodetail__upper mobile">
-                    <NavLink to="/bikes">Back</NavLink>
+                    <NavLink to="/bikes/">Back</NavLink>
                     <p className="upper__edit">Edit</p>
                 </div>
 
                 <div className="compodetail__head">
-                    <h2 className="head__compoName">componame</h2>
+                    <div className="head__container">
+                        <h2 className="head__compoName">
+                            {compoInfo.compoDisplayName}
+                        </h2>
+                        <button className="compodetail__reset desktop">
+                            Reset Component
+                        </button>
+                    </div>
                     <div className="separator"></div>
 
                     <div className="compodetail__km-hours">
                         <div className="km-hours km-hours__km">
                             <p className="km-hours__title">Total KM</p>
                             <div className="separator-small"></div>
-                            <p className="km__value">{1000000 / 1000}</p>
+                            <p className="km__value">
+                                {compoInfo.compoAccumulatedMeters / 1000}
+                            </p>
                         </div>
                         <div className="km-hours__hours km-hours">
                             <p className="km-hours__title">Total Hours</p>
                             <div className="separator-small"></div>
                             <p className="km-hours__value">
-                                {Math.floor(858 / 60)}
+                                {Math.floor(compoInfo.accumulatedMinutes / 60)}
                             </p>
                         </div>
                     </div>
                 </div>
 
                 <div className="compodetail__components">
-                    <CompoCard
-                        compoInfo={{ compoDisplayName: 'random' }}
-                        bikeName={'fullRandom'}
-                    />
+                    <DetailCompoCard compoInfo={compoInfo} />
                 </div>
 
                 <div className="compodetail__details">
