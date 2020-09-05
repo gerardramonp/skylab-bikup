@@ -45,6 +45,9 @@ $dark-highlight-color: #393e46;
 }
 
 .bikelist__add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 95%;
     height: 40px;
     background: none;
@@ -68,7 +71,7 @@ $dark-highlight-color: #393e46;
     }
 
     .desktop {
-        display: block;
+        display: flex;
     }
 
     .bikelist {
@@ -87,6 +90,8 @@ $dark-highlight-color: #393e46;
     }
 
     .bikelist__add--desktop {
+        display: flex;
+        justify-content: center;
         width: 30%;
         height: 40px;
         background: none;

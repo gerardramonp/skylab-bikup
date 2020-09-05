@@ -3,10 +3,55 @@ $main-color: #0c9;
 $header-separator-color: #393e46;
 
 .header {
-    display: nonete;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: fixed;
+    height: 50px;
+    background-color: $header-bg-color;
+    bottom: 0;
+    width: 100%;
 }
 
-@media only screen and (min-width: 600px) {
+.mobile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding: 0 24px;
+    color: white;
+}
+
+.logo {
+    height: 35px;
+}
+
+.mobile__nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.nav__item {
+    height: 25px;
+    transition: all 0.2s ease-in-out;
+}
+
+.active--mobile {
+    transform: scale(1.4);
+}
+
+.nav__menu {
+    height: 25px;
+}
+
+@media only screen and (min-width: 900px) {
+    .mobile {
+        display: none;
+    }
+
     .header {
         display: flex;
         flex-direction: row;
@@ -14,6 +59,17 @@ $header-separator-color: #393e46;
         height: 70px;
         background-color: $header-bg-color;
         color: whitesmoke;
+        width: 100%;
+    }
+
+    .desktop {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 70px;
+        background-color: $header-bg-color;
+        color: whitesmoke;
+        width: 100%;
     }
 
     .header__container {
@@ -60,7 +116,7 @@ $header-separator-color: #393e46;
         transition: all 0.2s ease-in-out;
     }
 
-    .active {
+    .active-desktop {
         background-color: $main-color;
         transform: scale(1.08);
         border: unset;
