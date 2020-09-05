@@ -21,6 +21,10 @@ function Header() {
                     );
                 })}
             </ul>
+            <div className="flex-spacer"></div>
+            <button className="login__button login__button--header">
+                Log In
+            </button>
         </header>
     );
 }

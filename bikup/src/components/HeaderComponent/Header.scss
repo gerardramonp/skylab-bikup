@@ -1,6 +1,7 @@
 $header-bg-color: #222831;
 $main-color: #0c9;
 $header-separator-color: #393e46;
+
 .header {
     display: flex;
     flex-direction: row;
@@ -8,6 +9,17 @@ $header-separator-color: #393e46;
     height: 70px;
     background-color: $header-bg-color;
     color: whitesmoke;
+}
+
+.header__container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.flex-spacer {
+    display: flex;
+    flex: 1;
 }
 
 .logo {
@@ -42,4 +54,8 @@ $header-separator-color: #393e46;
 
 li:nth-child(2) {
     background-color: $main-color;
+}
+
+.login__button--header {
+    margin-right: 12px;
 }
