@@ -2,13 +2,7 @@ $light-bg-color: white;
 $light-highlight-color: #eeeeee;
 $main-color: #0c9;
 $dark-highlight-color: #393e46;
-$main-gradient-background-img: linear-gradient(
-    to right,
-    #1d976c 0%,
-    #93f9b9 51%,
-    #1d976c 100%
-);
-$main-gradient-background-position-hover: right-center;
+
 .compodetail {
     display: flex;
     flex-direction: column;

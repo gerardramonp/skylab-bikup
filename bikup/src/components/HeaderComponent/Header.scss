@@ -3,59 +3,70 @@ $main-color: #0c9;
 $header-separator-color: #393e46;
 
 .header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 70px;
-    background-color: $header-bg-color;
-    color: whitesmoke;
+    display: nonete;
 }
 
-.header__container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
+@media only screen and (min-width: 600px) {
+    .header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 70px;
+        background-color: $header-bg-color;
+        color: whitesmoke;
+    }
 
-.flex-spacer {
-    display: flex;
-    flex: 1;
-}
+    .header__container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
 
-.logo {
-    height: 45px;
-    margin: 12px;
-}
+    .flex-spacer {
+        display: flex;
+        flex: 1;
+    }
 
-.appName {
-    font-size: 32px;
-    font-weight: bold;
-    margin-right: 32px;
-}
+    .logo {
+        height: 45px;
+        margin: 12px;
+    }
 
-.header__navigation {
-    display: flex;
-    flex-direction: row;
-}
+    .appName {
+        font-size: 32px;
+        font-weight: bold;
+        margin-right: 32px;
+    }
 
-.navigation__item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    list-style: none;
-    text-align: center;
-    height: 70px;
-    width: 100px;
-    font-weight: 500;
-    padding: 12px;
-    border-left: 1px solid $header-separator-color;
-}
+    .header__navigation {
+        display: flex;
+        flex-direction: row;
+    }
 
-li:nth-child(2) {
-    background-color: $main-color;
-}
+    .navigation__item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        list-style: none;
+        text-align: center;
+        text-decoration: none;
+        color: whitesmoke;
+        height: 70px;
+        width: 100px;
+        font-weight: 500;
+        padding: 12px;
+        border-left: 1px solid $header-separator-color;
+        transition: all 0.2s ease-in-out;
+    }
 
-.login__button--header {
-    margin-right: 12px;
+    .active {
+        background-color: $main-color;
+        transform: scale(1.08);
+        border: unset;
+    }
+
+    .login__button--header {
+        margin-right: 12px;
+    }
 }

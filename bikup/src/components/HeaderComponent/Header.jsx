@@ -1,8 +1,13 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+
 import './Header.scss';
 
 function Header() {
-    const nav = ['My Bikes', 'Profile'];
+    const nav = [
+        { text: 'My Bikes', url: '/bikes' },
+        { text: 'Profile', url: '/user' }
+    ];
 
     return (
         <header className="header">
@@ -15,9 +20,14 @@ function Header() {
             <ul className="header__navigation">
                 {nav.map((link) => {
                     return (
-                        <li key={link} className="navigation__item">
-                            {link}
-                        </li>
+                        <NavLink
+                            key={link}
+                            className="navigation__item"
+                            activeClassName="active"
+                            to={link.url}
+                        >
+                            {link.text}
+                        </NavLink>
                     );
                 })}
             </ul>
