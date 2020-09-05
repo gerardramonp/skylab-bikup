@@ -39,7 +39,7 @@ function StandardAside() {
                 </div>
             </div>
 
-            <div>
+            <div className="standardaside__card-container">
                 <h3 className="title">Give Away</h3>
                 <div className="standardaside__card">
                     <p>something free</p>

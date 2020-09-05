@@ -5,8 +5,9 @@ $main-color: #0c9;
 
 .standardaside {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 12px;
     width: 100%;
 }
@@ -18,7 +19,7 @@ $main-color: #0c9;
 .standardaside__card-container {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 90%;
 }
 
 .standardaside__card {
