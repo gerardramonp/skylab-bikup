@@ -28,4 +28,7 @@ const bikeRoutes = require('./src/routes/bikesRoutes')(
     CompoModel
 );
 
+const authRoutes = require('./src/routes/authRoutes')();
+
 app.use('/api/bikes', bikeRoutes);
+app.use('/api/auth', authRoutes);
