@@ -7,6 +7,7 @@ const userModel = new Schema({
     password: { type: String },
     username: { type: String },
     signUpDate: { type: Date, default: Date.now },
+    profilePicture: { type: String },
     stravaUserId: { type: String },
     stravaAccessToken: { type: String },
     stravaRefreshToken: { type: String },

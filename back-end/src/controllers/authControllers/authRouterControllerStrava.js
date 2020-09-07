@@ -10,6 +10,7 @@ function authRouterControllerStrava(UserModel) {
         if (req.authMethod === 'register') {
             const insertUser = {
                 username: user.athlete.username,
+                profilePicture: user.athlete.profile,
                 stravaUserId: user.athlete.id,
                 stravaAccessToken: user.access_token,
                 stravaRefreshToken: user.refresh_token,
