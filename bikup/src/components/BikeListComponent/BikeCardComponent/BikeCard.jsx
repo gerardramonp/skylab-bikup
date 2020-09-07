@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { loadBikeById } from '../../../actions/bikeActions';
 import './BikeCard.scss';
 
 function calculateLifePercent(component) {

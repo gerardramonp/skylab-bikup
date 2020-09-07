@@ -7,6 +7,8 @@ $strava-button-color: whitesmoke;
 $standard-button-color: black;
 $header-bg-color: #222831;
 
+$light-login-bg: rgba(238, 238, 238, 0.6);
+
 $card-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.514);
 
 .landing__header {
@@ -45,6 +47,7 @@ $card-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.514);
     align-items: center;
     height: 450px;
     width: 100%;
+    padding: 24px;
 }
 
 .landing__topContent::after {
@@ -72,7 +75,7 @@ $card-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.514);
     align-items: flex-end;
     justify-content: space-around;
     width: 60%;
-    padding: 32px 0 12px 0;
+    padding: 6px 0 12px 0;
 }
 
 .landing__bikup-logo {
@@ -89,7 +92,7 @@ $card-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.514);
 .subtitle {
     font-style: italic;
     font-size: 18px;
-    padding-bottom: 32px;
+    padding-bottom: 12px;
 }
 
 .landing__register--container {
@@ -114,6 +117,20 @@ $card-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.514);
     justify-content: center;
     width: 100%;
     padding: 10px;
+}
+
+.button__anchor {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    text-decoration: none;
+    color: black;
+}
+
+.button__anchor--strava {
+    color: whitesmoke;
 }
 
 .register__btn {
@@ -141,6 +158,25 @@ $card-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.514);
     font-size: 10px;
     height: 30px;
     padding-left: 10px;
+}
+
+.strava__things {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 10px;
+}
+
+.compatible__strava {
+    background-color: $light-login-bg;
+    border-radius: 5px;
+    align-self: flex-start;
+    margin-bottom: 24px;
+    margin-left: 5%;
+}
+
+.compatible__strava img {
+    height: 70px;
 }
 
 .btn__logo {

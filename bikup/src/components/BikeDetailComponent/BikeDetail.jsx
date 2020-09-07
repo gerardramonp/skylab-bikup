@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
+import { isUserAuthWithToken } from '../../actions/authActions';
+
 import bikeStore from '../../stores/bikeStore';
+import authStore from '../../stores/authStore';
 
 import Header from '../HeaderComponent/Header';
 import CompoCard from './CompoCardComponent/CompoCard';
@@ -9,14 +12,34 @@ import StandardAside from '../StandardAside/StandardAside';
 import '../../App.scss';
 import './BikeDetail.scss';
 
+let userCheck = false;
+let isUserAuth = null;
+
 function BikeDetail(props) {
     const [bikeDetails, setBikeDetail] = useState(
         JSON.parse(sessionStorage.actualBike) || {}
     );
 
-    console.log(bikeDetails);
+    const history = useHistory();
+
+    async function handleAuthorization() {
+        if (!userCheck) {
+            await checkIfUserIsAuth();
+        }
+    }
+
+    async function checkIfUserIsAuth() {
+        await isUserAuthWithToken();
+        isUserAuth = authStore.isUserAuth();
+        if (!isUserAuth) {
+            history.replace('/login');
+        }
+        userCheck = true;
+    }
 
     useEffect(() => {
+        handleAuthorization();
+
         bikeStore.addChangeListener(onChange);
 
         return () => bikeStore.removeChangeListener(onChange);

@@ -1,25 +1,24 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import DirectionsBikeIcon from '@material-ui/icons/DirectionsBike';
 
 import './Header.scss';
 
 function Header() {
     const mobileNav = [
         {
-            text: 'Explore',
+            text: 'ExploreMobile',
             url: '/search',
             image:
                 'https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f53d188f7827833bd79ef9b/214746d15b751953f02eb252fb879874/magnifying-glass.png'
         },
         {
-            text: 'MyBikes',
+            text: 'MyBikesMobile',
             url: '/bikes',
             image:
                 'https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f53d188f7827833bd79ef9b/ca1db79d00b304cb995a7491f0ce71a0/bike.png'
         },
         {
-            text: 'Profile',
+            text: 'ProfileMobile',
             url: '/user',
             image:
                 'https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f53d188f7827833bd79ef9b/e60b6c14d78fa03c5a1ae02b95f9cbca/user.png'

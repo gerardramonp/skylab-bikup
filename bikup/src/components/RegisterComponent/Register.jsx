@@ -6,8 +6,38 @@ import './Register.scss';
 function Register() {
     const history = useHistory();
 
+    let isFormValid = false;
+
     function handleLogoClick() {
         history.push('/');
+    }
+
+    function checkRepeatPassword() {
+        const password = document.getElementsByClassName(
+            'register__password'
+        )[0].value;
+        const repeat = document.getElementsByClassName(
+            'register__repeat-password'
+        )[0].value;
+
+        if (password === repeat) {
+            isFormValid = true;
+            debugger;
+        } else {
+            isFormValid = false;
+            const element = (document.getElementsByClassName(
+                'login__warning'
+            )[0].innerHTML = 'Passwords must match');
+        }
+    }
+
+    function handleSubmit() {
+        debugger;
+        if (isFormValid) {
+            document.registerForm.submit();
+            return true;
+        }
+        return false;
     }
 
     return (
@@ -43,8 +73,17 @@ function Register() {
                 <div className="register__container">
                     <h1>Create an account</h1>
 
-                    <form action="" className="register__form" method="POST">
-                        <label htmlFor="email" className="input__label">
+                    <form
+                        name="registerForm"
+                        action=""
+                        className="register__form"
+                        method="POST"
+                    >
+                        <label
+                            htmlFor="email"
+                            className="input__label"
+                            required
+                        >
                             Email
                         </label>
                         <input
@@ -52,6 +91,7 @@ function Register() {
                             className="register__email register__input"
                             name="email"
                             placeholder="Enter your email..."
+                            required
                         />
                         <label htmlFor="password" className="input__label">
                             Password
@@ -61,6 +101,8 @@ function Register() {
                             className="register__password register__input"
                             name="password"
                             placeholder="Enter your password..."
+                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
+                            required
                         />
                         <label
                             htmlFor="repeat-password"
@@ -73,10 +115,24 @@ function Register() {
                             className="register__repeat-password register__input"
                             name="repeat-password"
                             placeholder="Repeat the password..."
+                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
+                            required
+                            onChange={(event) => {
+                                event.preventDefault();
+
+                                checkRepeatPassword();
+                            }}
                         />
-                        <div className="login__warning warning__error"></div>
+                        <div className="login__warning "></div>
                         <div className="register__form__bottom">
-                            <button className="register__button" type="submit">
+                            <button
+                                className="register__button"
+                                type="submit"
+                                onSubmit={(event) => {
+                                    event.preventDefault();
+                                    handleSubmit();
+                                }}
+                            >
                                 Create Account
                             </button>
                         </div>

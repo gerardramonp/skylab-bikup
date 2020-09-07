@@ -2,8 +2,6 @@ import React from 'react';
 import './CompoCard.scss';
 import { NavLink } from 'react-router-dom';
 
-import Header from '../../HeaderComponent/Header';
-
 function CompoCard({ compoInfo, bikeName }) {
     function handleClick() {
         sessionStorage.actualCompo = JSON.stringify(compoInfo);

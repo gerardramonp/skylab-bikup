@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import bikeStore from '../../stores/bikeStore';
+import authStore from '../../stores/authStore';
 import { loadUserBikeList } from '../../actions/bikeActions';
+import { isUserAuthWithToken } from '../../actions/authActions';
+import { useHistory } from 'react-router-dom';
 
 import Header from '../HeaderComponent/Header';
 import StandardAside from '../StandardAside/StandardAside';
@@ -9,19 +12,41 @@ import BikeCard from './BikeCardComponent/BikeCard';
 import '../../App.scss';
 import './BikeList.scss';
 
+let userCheck = false;
+let isUserAuth = null;
+let userId = '';
 function BikeList(props) {
     const [bikeList, setBikeList] = useState([]);
 
-    const userId = '5f4e6c437edd9832f01d6cc5';
+    const history = useHistory();
+
+    async function handleAuthorization() {
+        if (!userCheck) {
+            await checkIfUserIsAuth();
+        }
+    }
+
+    async function checkIfUserIsAuth() {
+        await isUserAuthWithToken();
+        isUserAuth = authStore.isUserAuth();
+        if (!isUserAuth) {
+            history.replace('/login');
+        }
+        userCheck = true;
+    }
 
     useEffect(() => {
+        handleAuthorization();
+
         bikeStore.addChangeListener(onChange);
+
         if (bikeList.length === 0) {
+            userId = JSON.parse(sessionStorage.authUser)._id;
             loadUserBikeList(userId);
         }
 
         return () => bikeStore.removeChangeListener(onChange);
-    });
+    }, [bikeList.length]);
 
     function onChange() {
         setBikeList(bikeStore.getBikeList());
@@ -29,7 +54,6 @@ function BikeList(props) {
 
     function renderBikeList(bikeList) {
         const renderedBikeList = bikeList.map((bike) => {
-            console.log(bikeList.length);
             return <BikeCard key={bike.bikeName} bikeInfo={bike} />;
         });
         return renderedBikeList;
@@ -55,7 +79,7 @@ function BikeList(props) {
                         {bikeList.length > 0 ? (
                             renderBikeList(bikeList)
                         ) : (
-                            <p>Loading bikes...</p>
+                            <p>OOPS! It seems that you don't have any bikes</p>
                         )}
                     </div>
                     <button className="bikelist__add mobile">

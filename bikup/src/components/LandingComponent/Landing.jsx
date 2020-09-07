@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
+import STRAVA_AUTH from '../../Constants/stravaAuth';
 
 import './Landing.scss';
 
@@ -7,7 +8,6 @@ function Landing() {
     const history = useHistory();
 
     function handleRegisterClick() {
-        console.log('redirecting....');
         history.push('/register');
     }
 
@@ -44,15 +44,20 @@ function Landing() {
                 <div className="landing__register--container">
                     <div className="register__strava registerItem">
                         <button className="register__btn strava">
-                            <div className="btn__logo">
-                                <img
-                                    src="https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f53a18bf970328231db4f61/2f6af477333d585dfbfc19a14da9f857/strava-2.svg"
-                                    alt="google logo"
-                                />
-                            </div>
-                            <div className="btn__text">
-                                Register with Strava
-                            </div>
+                            <a
+                                href={`http://www.strava.com/oauth/authorize?client_id=${STRAVA_AUTH.CLIENT_ID}&response_type=code&redirect_uri=${STRAVA_AUTH.REDIRECT_URL}&approval_prompt=force&scope=${STRAVA_AUTH.SCOPE}`}
+                                className="button__anchor button__anchor--strava"
+                            >
+                                <div className="btn__logo">
+                                    <img
+                                        src="https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f53a18bf970328231db4f61/2f6af477333d585dfbfc19a14da9f857/strava-2.svg"
+                                        alt="google logo"
+                                    />
+                                </div>
+                                <div className="btn__text">
+                                    Register with Strava
+                                </div>
+                            </a>
                         </button>
                     </div>
                     <div className="register__google registerItem">
