@@ -7,6 +7,7 @@ const stravaAPI = require('../Constants/stravaAPI');
 const authRouter = express.Router();
 
 function routes() {
+    // Fer el procés de register amb Strava
     authRouter.route('/');
 
     return authRouter;

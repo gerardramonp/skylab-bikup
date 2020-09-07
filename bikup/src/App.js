@@ -2,7 +2,6 @@ import React from 'react';
 import './App.scss';
 import { Route, Switch } from 'react-router-dom';
 
-import Header from './components/HeaderComponent/Header';
 import Landing from './components/LandingComponent/Landing';
 import BikeList from './components/BikeListComponent/BikeList';
 import BikeDetail from './components/BikeDetailComponent/BikeDetail';
@@ -11,7 +10,6 @@ import CompoDetail from './components/CompoDetailComponent/CompoDetail';
 function App() {
     return (
         <>
-            <Header />
             <Switch>
                 <Route path="/" exact component={Landing} />
                 <Route path="/bikes" exact component={BikeList} />

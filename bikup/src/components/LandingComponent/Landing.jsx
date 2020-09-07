@@ -6,6 +6,18 @@ import './Landing.scss';
 function Landing() {
     return (
         <div className="landing">
+            <div className="landing__header desktop">
+                <img
+                    className="logo"
+                    src="https://cdn.discordapp.com/attachments/692420285143711814/693437226146594876/LogoGerili.png"
+                    alt="logo"
+                />
+                <p className="appName">bikUP</p>
+                <div className="flex-spacer"></div>
+                <button className="login__button login__button--header">
+                    Log In
+                </button>
+            </div>
             <div className="landing__upper mobile">
                 <NavLink className="login__button" to="/bikes">
                     Log In

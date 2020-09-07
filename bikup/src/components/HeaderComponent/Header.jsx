@@ -34,7 +34,7 @@ function Header() {
 
     return (
         <header className="header">
-            <div className="mobile">
+            <div className="header__mobile">
                 <img
                     className="logo"
                     src="https://cdn.discordapp.com/attachments/692420285143711814/693437226146594876/LogoGerili.png"
@@ -64,7 +64,7 @@ function Header() {
                 />
             </div>
 
-            <div className="desktop">
+            <div className="header__desktop">
                 <img
                     className="logo"
                     src="https://cdn.discordapp.com/attachments/692420285143711814/693437226146594876/LogoGerili.png"
