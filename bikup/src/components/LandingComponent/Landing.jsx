@@ -1,9 +1,16 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 import './Landing.scss';
 
 function Landing() {
+    const history = useHistory();
+
+    function handleRegisterClick() {
+        console.log('redirecting....');
+        history.push('/register');
+    }
+
     return (
         <div className="landing">
             <div className="landing__header desktop">
@@ -19,7 +26,7 @@ function Landing() {
                 </button>
             </div>
             <div className="landing__upper mobile">
-                <NavLink className="login__button" to="/bikes">
+                <NavLink className="login__button" to="/login">
                     Log In
                 </NavLink>
             </div>
@@ -67,7 +74,10 @@ function Landing() {
                         <div className="line"></div>
                     </div>
                     <div className="register__mail registerItem">
-                        <button className="register__btn mail">
+                        <button
+                            className="register__btn mail"
+                            onClick={handleRegisterClick}
+                        >
                             <div className="btn__logo">
                                 <img
                                     src="https://image.flaticon.com/icons/svg/561/561127.svg"
