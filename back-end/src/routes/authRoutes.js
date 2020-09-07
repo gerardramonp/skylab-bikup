@@ -28,14 +28,17 @@ function routes(UserModel) {
                         debug(error);
                         return res.send(error);
                     } else {
-                        req.authUser = {
-                            ...stravaUser,
-                            _id: existingUser[0]._id
-                        };
-                        debug(req.authUser);
-                        existingUser.length > 0
-                            ? (req.authMethod = 'login')
-                            : (req.authMethod = 'register');
+                        if (existingUser.length > 0) {
+                            req.authUser = {
+                                ...stravaUser,
+                                _id: existingUser[0]._id
+                            };
+                            req.authMethod = 'login';
+                        } else {
+                            req.authUser = { ...stravaUser };
+                            req.authMethod = 'register';
+                        }
+
                         next();
                     }
                 });

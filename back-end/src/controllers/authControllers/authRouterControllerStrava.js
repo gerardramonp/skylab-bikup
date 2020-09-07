@@ -17,11 +17,14 @@ function authRouterControllerStrava(UserModel) {
             };
             debug('Inserting new user...');
             UserModel.create(insertUser, (error, newUser) => {
+                debug('doc: ' + newUser._doc._id);
+                debug('id: ' + newUser._id);
                 if (error) {
                     debug(error);
                     res.status(400);
                     return res.send(error);
                 } else {
+                    user._id = newUser._id;
                     res.status(201);
                     return res.json(user);
                 }
