@@ -1,12 +1,12 @@
 [
     {
-        "email": "gerardramonp@gmail.com",
+        "email": "stravauser@gmail.com",
         "password": "123456",
-        "username": "gerardramonp"
-    },
-    {
-        "email": "mouradmounim@gmail.com",
-        "password": "123456",
-        "username": "moumou"
+        "username": "",
+        "stravaUserId": "",
+        "stravaAccessToken": "",
+        "stravaRefreshToken": "",
+        "stravaTokenExpire": "12334345345",
+        "stravaLastRoute": "24/07/2020"
     }
 ]
