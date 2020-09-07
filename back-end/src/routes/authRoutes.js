@@ -2,6 +2,7 @@
 const express = require('express');
 const debug = require('debug')('app:authRoutes');
 const axios = require('axios');
+const { ObjectID } = require('mongodb');
 
 const stravaAPI = require('../Constants/stravaAPI');
 
@@ -13,6 +14,22 @@ function routes(UserModel) {
     const stravaController = authRouterControllerStrava(UserModel);
 
     authRouter.route('/');
+
+    authRouter.route('/check').post((req, res) => {
+        const { userId } = req.body;
+        const query = {
+            _id: new ObjectID(userId)
+        };
+        UserModel.findOne(query, (error, user) => {
+            if (error) {
+                res.send(false);
+            }
+            if (user) {
+                res.send(true);
+            }
+        });
+    });
+
     authRouter
         .route('/strava')
         .all((req, res, next) => {

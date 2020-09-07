@@ -50,8 +50,6 @@ function bikeRouterController(BikeModel, CompoModel) {
                 bikeComponents = await loadBikeComponents(req.params.bikeId);
             } while (!bikeComponents && count++ < 3);
 
-            //debug(`compolist: ${bikeComponents}`);
-
             bike.bikeComponents = bikeComponents;
 
             res.status(200);

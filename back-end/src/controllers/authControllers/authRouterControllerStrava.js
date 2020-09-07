@@ -15,10 +15,7 @@ function authRouterControllerStrava(UserModel) {
                 stravaRefreshToken: user.refresh_token,
                 stravaTokenExpire: user.expires_at
             };
-            debug('Inserting new user...');
             UserModel.create(insertUser, (error, newUser) => {
-                debug('doc: ' + newUser._doc._id);
-                debug('id: ' + newUser._id);
                 if (error) {
                     debug(error);
                     res.status(400);
@@ -40,7 +37,6 @@ function authRouterControllerStrava(UserModel) {
                 }
             };
 
-            debug('updating user....');
             UserModel.updateOne(
                 searchQuery,
                 updateQuery,
@@ -50,7 +46,6 @@ function authRouterControllerStrava(UserModel) {
                         res.status(400);
                         return res.send(error);
                     } else {
-                        debug('User updated: ' + updatedUser);
                         res.status(200);
                         return res.json(user);
                     }
