@@ -16,9 +16,7 @@ let userCheck = false;
 let isUserAuth = null;
 
 function BikeDetail(props) {
-    const [bikeDetails, setBikeDetail] = useState(
-        JSON.parse(sessionStorage.actualBike) || {}
-    );
+    const [bikeDetails, setBikeDetail] = useState({});
 
     const history = useHistory();
 
@@ -41,6 +39,10 @@ function BikeDetail(props) {
         handleAuthorization();
 
         bikeStore.addChangeListener(onChange);
+
+        if (userCheck) {
+            setBikeDetail(JSON.parse(sessionStorage.actualBike));
+        }
 
         return () => bikeStore.removeChangeListener(onChange);
     });

@@ -6,7 +6,6 @@ import Landing from './components/LandingComponent/Landing';
 import Login from './components/LoginComponent/Login';
 import Register from './components/RegisterComponent/Register';
 import AuthStrava from './components/AuthComponent/AuthStrava';
-import AuthMail from './components/AuthComponent/AuthMail';
 
 import BikeList from './components/BikeListComponent/BikeList';
 import BikeDetail from './components/BikeDetailComponent/BikeDetail';
@@ -20,7 +19,6 @@ function App() {
                 <Route path="/login" exact component={Login} />
                 <Route path="/register" exact component={Register} />
                 <Route path="/auth/strava" exact component={AuthStrava} />
-                <Route path="/api/auth/mail" exact component={AuthMail} />
 
                 <Route path="/bikes" exact component={BikeList} />
                 <Route path="/bikes/:bikeId" exact component={BikeDetail} />
