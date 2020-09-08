@@ -22,9 +22,7 @@ function BikeList(props) {
 	const history = useHistory();
 
 	async function handleAuthorization() {
-		if (!userCheck) {
-			await checkIfUserIsAuth();
-		}
+		await checkIfUserIsAuth();
 	}
 
 	async function checkIfUserIsAuth() {
@@ -42,16 +40,28 @@ function BikeList(props) {
 		handleAuthorization();
 
 		bikeStore.addChangeListener(onChange);
+		authStore.addChangeListener(authChange);
 
 		if (bikeList.length === 0) {
 			loadUserBikeList(userId);
 		}
 
-		return () => bikeStore.removeChangeListener(onChange);
-	}, [bikeList.length]);
+		return () => {
+			bikeStore.removeChangeListener(onChange);
+			authStore.removeChangeListener(authChange);
+		};
+	}, [bikeList.length, isUserAuth]);
 
 	function onChange() {
 		setBikeList(bikeStore.getBikeList());
+	}
+
+	function authChange() {
+		isUserAuth = authStore.isUserAuth();
+		if (isUserAuth) {
+			userId = JSON.parse(sessionStorage.authUser)._id;
+			loadUserBikeList(userId);
+		}
 	}
 
 	function renderBikeList(bikeList) {

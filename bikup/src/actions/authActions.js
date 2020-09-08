@@ -24,6 +24,22 @@ export function createUserWithMail(formData) {
 	});
 }
 
+export function loginUserWithMail(email, password) {
+	const props = {
+		params: {
+			email,
+			password,
+		},
+	};
+
+	return axios.get('/api/auth/login/mail', props).then((response) => {
+		dispatcher.dispatch({
+			type: actionTypes.LOGIN_USER_MAIL,
+			data: response.data,
+		});
+	});
+}
+
 export function isUserAuthWithToken() {
 	if (sessionStorage.authUser) {
 		const { _id } = JSON.parse(sessionStorage.authUser) || null;

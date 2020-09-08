@@ -1,22 +1,21 @@
 const debug = require('debug')('app:authRouterControllerMail');
 
-function authRouterControllerStrava(UserModel) {
-    function post(req, res) {
-        const newUser = req.newUser;
+function authRouterControllerMail(UserModel) {
+	function post(req, res) {
+		const newUser = req.newUser;
 
-        UserModel.create(newUser, (error, createdUser) => {
-            if (error) {
-                res.status(400);
-                return res.send(error);
-            } else {
-                debug('created user... ');
-                res.status(201);
-                return res.json(createdUser);
-            }
-        });
-    }
+		UserModel.create(newUser, (error, createdUser) => {
+			if (error) {
+				res.status(400);
+				return res.send(error);
+			} else {
+				res.status(201);
+				return res.json(createdUser);
+			}
+		});
+	}
 
-    return { post };
+	return { post };
 }
 
-module.exports = authRouterControllerStrava;
+module.exports = authRouterControllerMail;

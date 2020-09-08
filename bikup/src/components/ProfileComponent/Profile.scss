@@ -1,0 +1,35 @@
+$light-bg-color: white;
+$light-highlight-color: #eeeeee;
+$main-color: #0c9;
+$dark-highlight-color: #393e46;
+$strava-button-bg-color: #fc4c02;
+$strava-button-color: whitesmoke;
+$standard-button-color: black;
+$header-bg-color: #222831;
+
+$light-login-bg: rgba(238, 238, 238, 0.6);
+
+$card-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.514);
+
+.profile {
+	display: flex;
+	flex-direction: column;
+	padding: 12px;
+}
+
+.profile__container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.profile__picture {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.picture__img {
+	border-radius: 50%;
+	height: 150px;
+}
