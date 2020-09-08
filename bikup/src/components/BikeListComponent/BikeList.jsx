@@ -40,7 +40,7 @@ function BikeList(props) {
 
         bikeStore.addChangeListener(onChange);
 
-        if (bikeList.length === 0) {
+        if (userCheck && bikeList.length === 0) {
             userId = JSON.parse(sessionStorage.authUser)._id;
             loadUserBikeList(userId);
         }

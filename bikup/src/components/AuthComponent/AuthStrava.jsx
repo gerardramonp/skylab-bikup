@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import authStore from '../../stores/authStore';
 
 function AuthStrava(props) {
-    const [stravaUser, setStravaUser] = useState(authStore.getStravaUser());
+    const [stravaUser, setStravaUser] = useState(authStore.getAuthUser());
 
     const history = useHistory();
 
@@ -21,10 +21,10 @@ function AuthStrava(props) {
     });
 
     function onChange() {
-        setStravaUser(authStore.getStravaUser());
+        setStravaUser(authStore.getAuthUser());
     }
 
-    return <p className="">checking account...</p>;
+    return <p className="">Checking account...</p>;
 }
 
 export default AuthStrava;

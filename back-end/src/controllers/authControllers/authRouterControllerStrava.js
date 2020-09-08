@@ -1,5 +1,3 @@
-const { update } = require('../../models/userModel');
-
 const debug = require('debug')('app:authRouterControllerStrava');
 
 function authRouterControllerStrava(UserModel) {

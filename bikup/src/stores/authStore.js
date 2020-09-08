@@ -4,7 +4,7 @@ import { EventEmitter } from 'events';
 
 const CHANGE_EVENT = 'change';
 
-let _stravaUser = null;
+let _authUser = null;
 let _isUserAuth = false;
 
 class AuthStore extends EventEmitter {
@@ -20,8 +20,8 @@ class AuthStore extends EventEmitter {
         this.emit(CHANGE_EVENT);
     }
 
-    getStravaUser() {
-        return _stravaUser;
+    getAuthUser() {
+        return _authUser;
     }
 
     isUserAuth() {
@@ -34,8 +34,13 @@ const authStore = new AuthStore();
 dispatcher.register((action) => {
     switch (action.type) {
         case actionTypes.LOGIN_USER_STRAVA:
-            _stravaUser = action.data;
-            sessionStorage.authUser = JSON.stringify(_stravaUser);
+            _authUser = action.data;
+            sessionStorage.authUser = JSON.stringify(_authUser);
+            authStore.emitChange();
+            break;
+        case actionTypes.CREATE_USER_MAIL:
+            _authUser = action.data;
+            sessionStorage.authUser = JSON.stringify(_authUser);
             authStore.emitChange();
             break;
         case actionTypes.CHECK_CORRECT_USER:

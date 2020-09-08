@@ -7,11 +7,13 @@ const { ObjectID } = require('mongodb');
 const stravaAPI = require('../Constants/stravaAPI');
 
 const authRouterControllerStrava = require('../controllers/authControllers/authRouterControllerStrava');
+const authRouterControllerMail = require('../controllers/authControllers/authRouterControllerMail');
 
 const authRouter = express.Router();
 
 function routes(UserModel) {
     const stravaController = authRouterControllerStrava(UserModel);
+    const mailController = authRouterControllerMail(UserModel);
 
     authRouter.route('/');
 
@@ -63,6 +65,36 @@ function routes(UserModel) {
         })
         .post(stravaController.post);
 
+    authRouter
+        .route('/mail')
+        .all((req, res, next) => {
+            const formData = req.body;
+
+            // Check if user already exist
+            const userQuery = {
+                email: formData.email
+            };
+            UserModel.find(userQuery, (error, user) => {
+                if (error) {
+                    res.status(400);
+                    return res.send(error);
+                } else {
+                    debug(user);
+                    if (user.length > 0) {
+                        return res.send('Email already registered');
+                    } else {
+                        const newUser = {
+                            email: formData.email,
+                            password: formData.password,
+                            username: formData.email.split('@')[0]
+                        };
+                        req.newUser = newUser;
+                        next();
+                    }
+                }
+            });
+        })
+        .post(mailController.post);
     return authRouter;
 }
 

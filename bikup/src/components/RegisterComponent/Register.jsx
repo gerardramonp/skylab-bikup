@@ -1,6 +1,10 @@
 import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 
+import authStore from '../../stores/authStore';
+
+import { createUserWithMail } from '../../actions/authActions';
+
 import './Register.scss';
 
 function Register() {
@@ -10,6 +14,92 @@ function Register() {
 
     function handleLogoClick() {
         history.push('/');
+    }
+
+    function getFormElements() {
+        const emailInputElement = document.getElementsByClassName(
+            'register__email'
+        )[0];
+        const passwordInputElement = document.getElementsByClassName(
+            'register__password'
+        )[0];
+        const repeatInputElement = document.getElementsByClassName(
+            'register__repeat-password'
+        )[0];
+        const submitButtonElement = document.getElementsByClassName(
+            'register__button'
+        )[0];
+        const loadingElement = document.getElementsByClassName('loading')[0];
+        const noLoadingElement = document.getElementsByClassName(
+            'no-loading'
+        )[0];
+        const warningMessageElement = document.getElementsByClassName(
+            'login__warning'
+        )[0];
+
+        const formElements = {
+            emailInputElement,
+            passwordInputElement,
+            repeatInputElement,
+            submitButtonElement,
+            loadingElement,
+            noLoadingElement,
+            warningMessageElement
+        };
+
+        return formElements;
+    }
+
+    function disableForm(formElements) {
+        formElements.emailInputElement.disabled = true;
+        formElements.passwordInputElement.disabled = true;
+        formElements.repeatInputElement.disabled = true;
+        formElements.submitButtonElement.disabled = true;
+
+        formElements.loadingElement.style.display = 'flex';
+        formElements.noLoadingElement.style.display = 'none';
+    }
+
+    function enableForm(formElements) {
+        formElements.emailInputElement.disabled = false;
+        formElements.passwordInputElement.disabled = false;
+        formElements.repeatInputElement.disabled = false;
+        formElements.submitButtonElement.disabled = false;
+
+        formElements.loadingElement.style.display = 'none';
+        formElements.noLoadingElement.style.display = 'flex';
+    }
+
+    async function handleSubmit() {
+        const formElements = getFormElements();
+
+        const email = formElements.emailInputElement.value;
+        const password = formElements.passwordInputElement.value;
+        const repeat = formElements.repeatInputElement.value;
+
+        if (email && password && repeat) {
+            if (password !== repeat) {
+                formElements.warningMessageElement.innerHTML =
+                    'Passwords must match';
+            } else {
+                disableForm(formElements);
+
+                const formData = {
+                    email,
+                    password
+                };
+                await createUserWithMail(formData);
+                const userResponse = authStore.getAuthUser();
+                if (typeof userResponse === 'string') {
+                    formElements.warningMessageElement.innerHTML = userResponse;
+                    enableForm(formElements);
+                } else {
+                    debugger;
+                    history.replace('/bikes');
+                }
+            }
+        }
+        //window.registerForm.submit();
     }
 
     function checkRepeatPassword() {
@@ -22,22 +112,12 @@ function Register() {
 
         if (password === repeat) {
             isFormValid = true;
-            debugger;
+            document.getElementsByClassName('login__warning')[0].innerHTML = '';
         } else {
             isFormValid = false;
-            const element = (document.getElementsByClassName(
-                'login__warning'
-            )[0].innerHTML = 'Passwords must match');
+            document.getElementsByClassName('login__warning')[0].innerHTML =
+                'Passwords must match';
         }
-    }
-
-    function handleSubmit() {
-        debugger;
-        if (isFormValid) {
-            document.registerForm.submit();
-            return true;
-        }
-        return false;
     }
 
     return (
@@ -75,7 +155,7 @@ function Register() {
 
                     <form
                         name="registerForm"
-                        action=""
+                        action="/api/auth/mail"
                         className="register__form"
                         method="POST"
                     >
@@ -113,13 +193,12 @@ function Register() {
                         <input
                             type="password"
                             className="register__repeat-password register__input"
-                            name="repeat-password"
+                            name="repeat_password"
                             placeholder="Repeat the password..."
                             pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
                             required
                             onChange={(event) => {
                                 event.preventDefault();
-
                                 checkRepeatPassword();
                             }}
                         />
@@ -128,12 +207,22 @@ function Register() {
                             <button
                                 className="register__button"
                                 type="submit"
-                                onSubmit={(event) => {
+                                onClick={(event) => {
                                     event.preventDefault();
                                     handleSubmit();
                                 }}
                             >
-                                Create Account
+                                <div className="loading hidden">
+                                    <img
+                                        src="https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f5753c458a8b552f891bb81/af512a8cb3c1285000d1191fdaaa670c/Spinner-1s-200px_(1).gif"
+                                        alt="loading..."
+                                        className="loading__img"
+                                    />
+                                    <p>Loading...</p>
+                                </div>
+                                <div className="no-loading" Create Account>
+                                    Create an account
+                                </div>
                             </button>
                         </div>
                     </form>

@@ -15,7 +15,14 @@ export function loginOrRegisterUserStrava(authCode) {
     });
 }
 
-export function createUserWithMail(authToken) {}
+export function createUserWithMail(formData) {
+    return axios.post('/api/auth/mail', formData).then((response) => {
+        dispatcher.dispatch({
+            type: actionTypes.CREATE_USER_MAIL,
+            data: response.data
+        });
+    });
+}
 
 export function isUserAuthWithToken() {
     if (sessionStorage.authUser) {

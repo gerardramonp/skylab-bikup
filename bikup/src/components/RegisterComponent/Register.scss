@@ -119,9 +119,11 @@ input:focus {
     flex-direction: row;
     justify-content: flex-end;
     width: 100%;
-    padding: 0 32px;
+    padding: 0 24px;
     font-weight: 500;
     height: 20px;
+    color: red;
+    font-size: 14px;
 }
 
 .warning__error {
@@ -142,9 +144,38 @@ input:focus {
     font-size: 18px;
     width: 100%;
     margin-top: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.register__button:hover {
+    transform: scale(1.03);
+    color: black;
 }
 
 .register__btn {
     height: 45px;
     margin: 6px 0;
+}
+
+.loading {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading__img {
+    height: 30px;
+}
+
+.no-loading {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.hidden {
+    display: none;
 }
