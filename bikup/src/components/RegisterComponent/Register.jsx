@@ -10,8 +10,6 @@ import './Register.scss';
 function Register() {
 	const history = useHistory();
 
-	let isFormValid = false;
-
 	function handleLogoClick() {
 		history.push('/');
 	}
@@ -109,10 +107,8 @@ function Register() {
 		)[0].value;
 
 		if (password === repeat) {
-			isFormValid = true;
 			document.getElementsByClassName('login__warning')[0].innerHTML = '';
 		} else {
-			isFormValid = false;
 			document.getElementsByClassName('login__warning')[0].innerHTML =
 				'Passwords must match';
 		}

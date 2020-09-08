@@ -15,83 +15,87 @@ import './BikeList.scss';
 let userCheck = false;
 let isUserAuth = null;
 let userId = '';
+
 function BikeList(props) {
-    const [bikeList, setBikeList] = useState([]);
+	const [bikeList, setBikeList] = useState([]);
 
-    const history = useHistory();
+	const history = useHistory();
 
-    async function handleAuthorization() {
-        if (!userCheck) {
-            await checkIfUserIsAuth();
-        }
-    }
+	async function handleAuthorization() {
+		if (!userCheck) {
+			await checkIfUserIsAuth();
+		}
+	}
 
-    async function checkIfUserIsAuth() {
-        await isUserAuthWithToken();
-        isUserAuth = authStore.isUserAuth();
-        if (!isUserAuth) {
-            history.replace('/login');
-        }
-        userCheck = true;
-    }
+	async function checkIfUserIsAuth() {
+		await isUserAuthWithToken();
+		isUserAuth = authStore.isUserAuth();
+		if (!isUserAuth) {
+			history.replace('/login');
+		} else {
+			userCheck = true;
+			userId = JSON.parse(sessionStorage.authUser)._id;
+		}
+	}
 
-    useEffect(() => {
-        handleAuthorization();
+	useEffect(() => {
+		handleAuthorization();
 
-        bikeStore.addChangeListener(onChange);
+		bikeStore.addChangeListener(onChange);
 
-        if (userCheck && bikeList.length === 0) {
-            userId = JSON.parse(sessionStorage.authUser)._id;
-            loadUserBikeList(userId);
-        }
+		if (bikeList.length === 0) {
+			loadUserBikeList(userId);
+		}
 
-        return () => bikeStore.removeChangeListener(onChange);
-    }, [bikeList.length]);
+		return () => bikeStore.removeChangeListener(onChange);
+	}, [bikeList.length]);
 
-    function onChange() {
-        setBikeList(bikeStore.getBikeList());
-    }
+	function onChange() {
+		setBikeList(bikeStore.getBikeList());
+	}
 
-    function renderBikeList(bikeList) {
-        const renderedBikeList = bikeList.map((bike) => {
-            return <BikeCard key={bike.bikeName} bikeInfo={bike} />;
-        });
-        return renderedBikeList;
-    }
+	function renderBikeList(bikeList) {
+		const renderedBikeList = bikeList.map((bike) => {
+			return (
+				<BikeCard key={`bikelist-${bike.bikeName}`} bikeInfo={bike} />
+			);
+		});
+		return renderedBikeList;
+	}
 
-    return (
-        <>
-            <Header />
-            <div className="bikelist">
-                <div className="bikelist__content">
-                    <div className="bikelist__top">
-                        <h2>Your Bikes</h2>
-                        <img
-                            className="strava__connect-btn"
-                            src="https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f4f63b8021a9d482184baf2/3cca3ad9320164155dfbb9d09ff7982f/btn_strava_connectwith_orange%402x.png"
-                            alt="connect with strava"
-                        />
-                        <button className="bikelist__add--desktop desktop">
-                            + Add new bike
-                        </button>
-                    </div>
-                    <div className="bikelist__cards">
-                        {bikeList.length > 0 ? (
-                            renderBikeList(bikeList)
-                        ) : (
-                            <p>OOPS! It seems that you don't have any bikes</p>
-                        )}
-                    </div>
-                    <button className="bikelist__add mobile">
-                        + Add new bike
-                    </button>
-                </div>
-                <div className="bikelist__challenges-giveaways">
-                    <StandardAside />
-                </div>
-            </div>
-        </>
-    );
+	return (
+		<>
+			<Header />
+			<div className='bikelist'>
+				<div className='bikelist__content'>
+					<div className='bikelist__top'>
+						<h2>Your Bikes</h2>
+						<img
+							className='strava__connect-btn'
+							src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f4f63b8021a9d482184baf2/3cca3ad9320164155dfbb9d09ff7982f/btn_strava_connectwith_orange%402x.png'
+							alt='connect with strava'
+						/>
+						<button className='bikelist__add--desktop desktop'>
+							+ Add new bike
+						</button>
+					</div>
+					<div className='bikelist__cards'>
+						{bikeList.length > 0 ? (
+							renderBikeList(bikeList)
+						) : (
+							<p>OOPS! It seems that you don't have any bikes</p>
+						)}
+					</div>
+					<button className='bikelist__add mobile'>
+						+ Add new bike
+					</button>
+				</div>
+				<div className='bikelist__challenges-giveaways'>
+					<StandardAside />
+				</div>
+			</div>
+		</>
+	);
 }
 
 export default BikeList;

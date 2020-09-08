@@ -17,7 +17,7 @@
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "3.4.3",
 		"react-test-renderer": "^16.13.1",
-		"sinon": "^9.0.3"
+		"firebase": "^7.17.1"
 	},
 	"devDependencies": {
 		"debug": "^4.1.1",
