@@ -35,16 +35,13 @@ dispatcher.register((action) => {
 	switch (action.type) {
 		case actionTypes.LOGIN_USER_STRAVA:
 			_authUser = action.data;
-			if (_authUser) {
-				sessionStorage.authUser = JSON.stringify(_authUser);
-			}
+			_authUser && (sessionStorage.authUser = JSON.stringify(_authUser));
 			authStore.emitChange();
 			break;
 		case actionTypes.LOGIN_USER_MAIL:
 			_authUser = action.data;
-			if (_authUser) {
-				sessionStorage.authUser = JSON.stringify(_authUser);
-			}
+			_authUser && (sessionStorage.authUser = JSON.stringify(_authUser));
+			authStore.emitChange();
 			break;
 		case actionTypes.CREATE_USER_MAIL:
 			_authUser = action.data;

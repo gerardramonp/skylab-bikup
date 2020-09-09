@@ -1,7 +1,6 @@
 import bikeStore from '../stores/bikeStore';
 import dispatcher from '../dispatcher';
 import actionTypes from '../actions/actionTypes';
-import jest from 'jest';
 
 describe('Bike Store', () => {
 	it('Should set a bike and get it', () => {
