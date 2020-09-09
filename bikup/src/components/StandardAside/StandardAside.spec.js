@@ -7,13 +7,13 @@ import bikeStore from '../../stores/bikeStore';
 import actionTypes from '../../actions/actionTypes';
 
 describe('Standard Aside', () => {
-    let tree = renderer.create(
-        <Router>
-            <StandardAside />
-        </Router>
-    );
+	let tree = renderer.create(
+		<Router>
+			<StandardAside />
+		</Router>
+	);
 
-    xit('should match', () => {
-        expect(tree.toJSON()).toMatchSnapshot();
-    });
+	xit('should match', () => {
+		expect(tree.toJSON()).toMatchSnapshot();
+	});
 });

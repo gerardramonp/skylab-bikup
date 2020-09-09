@@ -1,3 +1,3 @@
-it('should work', () => {
-    expect(true).toBe(true);
+xit('should work', () => {
+	expect(true).toBe(true);
 });

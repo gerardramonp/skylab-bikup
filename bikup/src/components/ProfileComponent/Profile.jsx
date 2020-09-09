@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-
 import { isUserAuthWithToken } from '../../actions/authActions';
-
 import authStore from '../../stores/authStore';
 
 import './Profile.scss';
+
+import Header from '../HeaderComponent/Header';
 
 let isUserAuth = null;
 let userCheck = false;
@@ -42,9 +42,19 @@ function Profile() {
 			setUserInfo((userInfo = JSON.parse(sessionStorage.authUser)));
 	}
 
+	const connectStravaButton = (
+		<img
+			className='strava__connect-btn'
+			src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f4f63b8021a9d482184baf2/3cca3ad9320164155dfbb9d09ff7982f/btn_strava_connectwith_orange%402x.png'
+			alt='connect with strava'
+		/>
+	);
+
 	return (
 		(userInfo && (
 			<>
+				<Header />
+
 				<div className='general-container'>
 					<div className='profile'>
 						<div className='profile__container'>
@@ -56,17 +66,22 @@ function Profile() {
 								/>
 							</div>
 							<div className='profile__main'>
-								<h3>{userInfo.username} Profile</h3>
+								<h3 className='main__username'>
+									{userInfo.username}
+								</h3>
 								<div className='main__info'>
 									<p>
-										Connected with strava:{' '}
 										{userInfo.stravaAccessToken
-											? 'yes'
-											: 'no'}
+											? 'Connected with Strava'
+											: connectStravaButton}
 									</p>
 								</div>
 							</div>
-							<div className='profile__edit'></div>
+							<div className='profile__edit'>
+								<button className='edit__button'>
+									Edit Profile
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
