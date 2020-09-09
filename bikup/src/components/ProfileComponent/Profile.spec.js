@@ -1,36 +1,33 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import CompoDetail from './CompoDetail';
+import Profile from './Profile';
 import { BrowserRouter as Router } from 'react-router-dom';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 import dispatcher from '../../dispatcher';
 import actionTypes from '../../actions/actionTypes';
 
-describe('CompoDetail Component', () => {
+Enzyme.configure({ adapter: new Adapter() });
+
+describe('Profile Component', () => {
 	let tree = null;
+	let compo = null;
+	let mountedCompo = null;
 
 	beforeEach(() => {
 		tree = renderer.create(
 			<Router>
-				<CompoDetail props={'hola'} />
+				<Profile />
 			</Router>
 		);
 	});
 
 	it('should match', () => {
-		tree = renderer.create(
-			<Router>
-				<CompoDetail props={'hola'} />
-			</Router>
-		);
-		expect(tree.toJSON()).toMatchSnapshot();
-	});
-
-	it('Should call onChange function', () => {
 		dispatcher.dispatch({
-			type: actionTypes.LOAD_BIKE_BY_ID,
-			data: 'random',
+			type: actionTypes.LOGIN_USER_STRAVA,
+			data: true,
 		});
-
-		expect(tree).toBeTruthy();
+		expect(tree.toJSON()).toMatchSnapshot();
 	});
 });

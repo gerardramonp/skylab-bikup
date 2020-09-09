@@ -42,7 +42,7 @@ export function loginUserWithMail(email, password) {
 
 export function isUserAuthWithToken() {
 	if (sessionStorage.authUser) {
-		const { _id } = JSON.parse(sessionStorage.authUser) || null;
+		const { _id } = JSON.parse(sessionStorage.authUser);
 		const reqBody = {
 			userId: _id,
 		};
@@ -53,6 +53,9 @@ export function isUserAuthWithToken() {
 			});
 		});
 	} else {
-		return false;
+		dispatcher.dispatch({
+			type: actionTypes.CHECK_CORRECT_USER,
+			data: false,
+		});
 	}
 }

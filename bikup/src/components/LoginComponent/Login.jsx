@@ -57,39 +57,43 @@ function Login() {
 	}
 
 	async function handleSubmit() {
-		const formElements = getFormElements();
+		try {
+			const formElements = getFormElements();
 
-		const email = formElements.emailInputElement.value;
-		const password = formElements.passwordInputElement.value;
+			const email = formElements.emailInputElement.value;
+			const password = formElements.passwordInputElement.value;
 
-		if (email && password) {
-			disableForm(formElements);
-			await loginUserWithMail(email, password);
-			const user = authStore.getAuthUser();
+			if (email && password) {
+				disableForm(formElements);
+				await loginUserWithMail(email, password);
+				const user = authStore.getAuthUser();
 
-			if (!user) {
-				formElements.warningMessageElement.innerHTML =
-					'Wrong email or password';
-				enableForm(formElements);
-			} else {
-				history.replace('/bikes');
+				if (!user) {
+					formElements.warningMessageElement.innerHTML =
+						'Wrong email or password';
+					enableForm(formElements);
+				} else {
+					history.replace('/bikes');
+				}
 			}
+		} catch (error) {
+			console.log(error);
 		}
 	}
 
 	return (
 		<>
 			<div className='landing__header desktop'>
-				<img
-					className='logo'
-					src='https://cdn.discordapp.com/attachments/692420285143711814/693437226146594876/LogoGerili.png'
-					alt='logo'
-				/>
-				<p className='appName'>bikUP</p>
+				<NavLink to='/' className='header__linkhome'>
+					<img
+						className='logo'
+						src='https://cdn.discordapp.com/attachments/692420285143711814/693437226146594876/LogoGerili.png'
+						alt='logo'
+					/>
+
+					<p className='appName'>bikUP</p>
+				</NavLink>
 				<div className='flex-spacer'></div>
-				<button className='login__button login__button--header'>
-					Log In
-				</button>
 			</div>
 			<div className='register__upper mobile'>
 				<NavLink to='/'>
@@ -129,7 +133,7 @@ function Login() {
 							<NavLink to='/register'>Create an account</NavLink>
 							<div className='flex-spacer'></div>
 							<button
-								className='login__button'
+								className='login__submitbutton'
 								type='submit'
 								onClick={(event) => {
 									event.preventDefault();

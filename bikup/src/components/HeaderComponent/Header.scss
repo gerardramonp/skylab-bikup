@@ -3,138 +3,138 @@ $main-color: #0c9;
 $header-separator-color: #393e46;
 
 .header__desktop {
-    display: none;
+	display: none;
 }
 
 .header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    position: fixed;
-    height: 50px;
-    background-color: $header-bg-color;
-    bottom: 0;
-    width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	position: fixed;
+	height: 50px;
+	background-color: $header-bg-color;
+	bottom: 0;
+	width: 100%;
 }
 
 .header__mobile {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    padding: 0 24px;
-    color: white;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 100%;
+	padding: 0 24px;
+	color: white;
 }
 
 .logo {
-    height: 35px;
+	height: 35px;
 }
 
 .mobile__nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	width: 100%;
 }
 
 .nav__item {
-    height: 25px;
-    transition: all 0.2s ease-in-out;
+	height: 25px;
+	transition: all 0.2s ease-in-out;
 }
 
 .active--mobile {
-    transform: scale(1.4);
+	transform: scale(1.4);
 }
 
 .nav__menu {
-    height: 25px;
+	height: 25px;
 }
 
 @media only screen and (min-width: 900px) {
-    .header__mobile {
-        display: none;
-    }
+	.header__mobile {
+		display: none;
+	}
 
-    .general-container {
-        margin-top: 75px;
-    }
+	.general-container {
+		margin-top: 75px;
+	}
 
-    .header {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        height: 70px;
-        position: fixed;
-        top: 0;
-        margin-bottom: 300px;
-        background-color: $header-bg-color;
-        color: whitesmoke;
-        width: 100%;
-    }
+	.header {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		height: 70px;
+		position: fixed;
+		top: 0;
+		margin-bottom: 300px;
+		background-color: $header-bg-color;
+		color: whitesmoke;
+		width: 100%;
+	}
 
-    .header__desktop {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        height: 70px;
-        background-color: $header-bg-color;
-        color: whitesmoke;
-        width: 100%;
-    }
+	.header__desktop {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		height: 70px;
+		background-color: $header-bg-color;
+		color: whitesmoke;
+		width: 100%;
+	}
 
-    .header__container {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
+	.header__container {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
 
-    .flex-spacer {
-        display: flex;
-        flex: 1;
-    }
+	.flex-spacer {
+		display: flex;
+		flex: 1;
+	}
 
-    .logo {
-        height: 45px;
-        margin: 12px;
-    }
+	.logo {
+		height: 45px;
+		margin: 12px;
+	}
 
-    .appName {
-        font-size: 32px;
-        font-weight: bold;
-        margin-right: 32px;
-    }
+	.appName {
+		font-size: 32px;
+		font-weight: bold;
+		margin-right: 32px;
+	}
 
-    .header__navigation {
-        display: flex;
-        flex-direction: row;
-    }
+	.header__navigation {
+		display: flex;
+		flex-direction: row;
+	}
 
-    .navigation__item {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        list-style: none;
-        text-align: center;
-        text-decoration: none;
-        color: whitesmoke;
-        height: 70px;
-        width: 100px;
-        font-weight: 500;
-        padding: 12px;
-        border-left: 1px solid $header-separator-color;
-        transition: all 0.2s ease-in-out;
-    }
+	.navigation__item {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		list-style: none;
+		text-align: center;
+		text-decoration: none;
+		color: whitesmoke;
+		height: 70px;
+		width: 100px;
+		font-weight: 500;
+		padding: 12px;
+		border-left: 1px solid $header-separator-color;
+		transition: all 0.2s ease-in-out;
+	}
 
-    .active-desktop {
-        background-color: $main-color;
-        transform: scale(1.08);
-        border: unset;
-    }
+	.active-desktop {
+		background-color: $main-color;
+		transform: scale(1.08);
+		border: unset;
+	}
 
-    .login__button--header {
-        margin-right: 12px;
-        cursor: pointer;
-    }
+	.login__button--header {
+		margin-right: 12px;
+		cursor: pointer;
+	}
 }

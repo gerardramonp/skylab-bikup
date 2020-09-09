@@ -117,16 +117,19 @@ function Register() {
 	return (
 		<>
 			<div className='landing__header desktop'>
-				<img
-					className='logo'
-					src='https://cdn.discordapp.com/attachments/692420285143711814/693437226146594876/LogoGerili.png'
-					alt='logo'
-				/>
-				<p className='appName'>bikUP</p>
+				<NavLink to='/' className='header__linkhome'>
+					<img
+						className='logo'
+						src='https://cdn.discordapp.com/attachments/692420285143711814/693437226146594876/LogoGerili.png'
+						alt='logo'
+					/>
+					<p className='appName'>bikUP</p>
+				</NavLink>
+
 				<div className='flex-spacer'></div>
-				<button className='register__button register__button--header'>
-					Log In
-				</button>
+				<NavLink to='/login' className='landing-header-login'>
+					<button className='register__button--header'>Log In</button>
+				</NavLink>
 			</div>
 			<div className='register__upper mobile'>
 				<img
@@ -199,7 +202,7 @@ function Register() {
 						<div className='login__warning '></div>
 						<div className='register__form__bottom'>
 							<button
-								className='register__button'
+								className='form-register__button'
 								type='submit'
 								onClick={(event) => {
 									event.preventDefault();

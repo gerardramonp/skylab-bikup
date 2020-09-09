@@ -13,7 +13,7 @@ describe('Standard Aside', () => {
 		</Router>
 	);
 
-	xit('should match', () => {
+	it('should match', () => {
 		expect(tree.toJSON()).toMatchSnapshot();
 	});
 });

@@ -1,7 +1,6 @@
 import { loadUserBikeList, loadBikeById, loadCompoById } from './bikeActions';
 import dispatcher from '../dispatcher';
 import axios from 'axios';
-import actionTypes from './actionTypes';
 
 jest.dontMock('./bikeActions');
 jest.mock('axios');

@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Compo Card should match 1`] = `
+<div
+  className="compocard"
+>
+  <div
+    className="compocard__content"
+  >
+    <img
+      alt="compo img"
+      className="compocard__img"
+      src="https://image.flaticon.com/icons/svg/2623/2623442.svg"
+    />
+    <div
+      className="compocard__info"
+    >
+      <div
+        className="compocard__labels"
+      >
+        <p>
+          
+        </p>
+        <p
+          className="labels__status"
+        >
+          (
+          0.01
+           /
+          0.001
+           Km)
+        </p>
+      </div>
+      <div>
+        <progress
+          id="progress"
+          max={0.001}
+          value={0.01}
+        />
+      </div>
+    </div>
+    <a
+      aria-current={null}
+      className="compocard__button"
+      href="/bikes/alma/"
+      onClick={[Function]}
+    >
+      <img
+        alt=">"
+        className="button__img"
+        src="https://image.flaticon.com/icons/svg/271/271228.svg"
+      />
+    </a>
+  </div>
+</div>
+`;
