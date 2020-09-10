@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header Component should match 1`] = `
+<header
+  className="header"
+>
+  <div
+    className="header__mobile"
+  >
+    <img
+      alt="logo"
+      className="logo"
+      src="https://cdn.discordapp.com/attachments/692420285143711814/693437226146594876/LogoGerili.png"
+    />
+    <div
+      className="mobile__nav"
+    >
+      <a
+        aria-current={null}
+        href="/search"
+        onClick={[Function]}
+      >
+        <img
+          alt="ExploreMobile"
+          className="nav__item"
+          src="https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f53d188f7827833bd79ef9b/214746d15b751953f02eb252fb879874/magnifying-glass.png"
+        />
+      </a>
+      <a
+        aria-current={null}
+        href="/bikes"
+        onClick={[Function]}
+      >
+        <img
+          alt="MyBikesMobile"
+          className="nav__item"
+          src="https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f53d188f7827833bd79ef9b/ca1db79d00b304cb995a7491f0ce71a0/bike.png"
+        />
+      </a>
+      <a
+        aria-current={null}
+        href="/user"
+        onClick={[Function]}
+      >
+        <img
+          alt="ProfileMobile"
+          className="nav__item"
+          src="https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f53d188f7827833bd79ef9b/e60b6c14d78fa03c5a1ae02b95f9cbca/user.png"
+        />
+      </a>
+    </div>
+    <img
+      alt="menu"
+      className="nav__menu"
+      src="https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f53d188f7827833bd79ef9b/ea9ccf0f7a5fe6c8d066bb89f204f504/open-menu.png"
+    />
+  </div>
+  <div
+    className="header__desktop"
+  >
+    <img
+      alt="logo"
+      className="logo"
+      src="https://cdn.discordapp.com/attachments/692420285143711814/693437226146594876/LogoGerili.png"
+    />
+    <p
+      className="appName"
+    >
+      bikUP
+    </p>
+    <ul
+      className="header__navigation"
+    >
+      <a
+        aria-current={null}
+        className="navigation__item"
+        href="/bikes"
+        onClick={[Function]}
+      >
+        My Bikes
+      </a>
+      <a
+        aria-current={null}
+        className="navigation__item"
+        href="/search"
+        onClick={[Function]}
+      >
+        Explore
+      </a>
+      <a
+        aria-current={null}
+        className="navigation__item"
+        href="/user"
+        onClick={[Function]}
+      >
+        Profile
+      </a>
+    </ul>
+    <div
+      className="flex-spacer"
+    />
+    <button
+      className="login__button login__button--header"
+    >
+      Log In
+    </button>
+  </div>
+</header>
+`;

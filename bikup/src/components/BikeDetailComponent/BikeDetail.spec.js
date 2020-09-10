@@ -3,28 +3,29 @@ import renderer from 'react-test-renderer';
 import BikeDetail from './BikeDetail';
 import { BrowserRouter as Router } from 'react-router-dom';
 import dispatcher from '../../dispatcher';
-import bikeStore from '../../stores/bikeStore';
 import actionTypes from '../../actions/actionTypes';
 
 describe('Bike Detail', () => {
-    xit('should match', () => {
-        let tree = renderer.create(
-            <Router>
-                <BikeDetail />
-            </Router>
-        );
-        expect(tree.toJSON()).toMatchSnapshot();
-    });
+	let tree = null;
 
-    it('should load bike list', () => {
-        const bikeTestName = 'testName';
-        dispatcher.dispatch({
-            type: actionTypes.LOAD_BIKE_BY_ID,
-            data: { bikeName: bikeTestName }
-        });
+	beforeEach(() => {
+		tree = renderer.create(
+			<Router>
+				<BikeDetail />
+			</Router>
+		);
+	});
 
-        const bike = bikeStore.getBikeDetail();
+	it('should match', () => {
+		expect(tree.toJSON()).toMatchSnapshot();
+	});
 
-        expect(bike.bikeName).toEqual(bikeTestName);
-    });
+	it('Should call onChange function', () => {
+		dispatcher.dispatch({
+			type: actionTypes.LOAD_BIKE_BY_ID,
+			data: 'random',
+		});
+
+		expect(tree).toBeTruthy();
+	});
 });

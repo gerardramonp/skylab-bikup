@@ -4,72 +4,82 @@ exports[`Standard Aside should match 1`] = `
 <div
   className="standardaside"
 >
-  <h3
-    className="title"
-  >
-    Challenges
-  </h3>
   <div
-    className="standardaside__card"
+    className="standardaside__card-container"
   >
-    <div>
-      <div
-        className="challenges__item"
-      >
+    <h3
+      className="title"
+    >
+      Challenges
+    </h3>
+    <div
+      className="standardaside__card"
+    >
+      <div>
         <div
-          className="item__title"
+          className="challenges__item"
         >
-          <img
-            alt="trophy"
-            className="title__img"
-            src="https://image.flaticon.com/icons/svg/3112/3112946.svg"
-          />
-          - 
-          BIrlfriend
-           -
+          <div
+            className="item__title"
+          >
+            <img
+              alt="trophy"
+              className="title__img"
+              src="https://image.flaticon.com/icons/svg/3112/3112946.svg"
+            />
+            - 
+            BIrlfriend
+             -
+          </div>
+          <p>
+            Travel 5000km with a bike
+          </p>
         </div>
-        <p>
-          Travel 5000km with a bike
-        </p>
-      </div>
-      <div
-        className="separator"
-      />
-    </div>
-    <div>
-      <div
-        className="challenges__item"
-      >
         <div
-          className="item__title"
-        >
-          <img
-            alt="trophy"
-            className="title__img"
-            src="https://image.flaticon.com/icons/svg/3112/3112946.svg"
-          />
-          - 
-          CompoManiac
-           -
-        </div>
-        <p>
-          Change the same component 3 times
-        </p>
+          className="separator"
+        />
       </div>
-      <div
-        className="separator"
-      />
+      <div>
+        <div
+          className="challenges__item"
+        >
+          <div
+            className="item__title"
+          >
+            <img
+              alt="trophy"
+              className="title__img"
+              src="https://image.flaticon.com/icons/svg/3112/3112946.svg"
+            />
+            - 
+            CompoManiac
+             -
+          </div>
+          <p>
+            Change the same component 3 times
+          </p>
+        </div>
+        <div
+          className="separator"
+        />
+      </div>
     </div>
   </div>
-  <h3>
-    Give Away
-  </h3>
   <div
-    className="standardaside__card"
+    className="standardaside__card-container"
   >
-    <p>
-      something free
-    </p>
+    <h3
+      className="title"
+    >
+      Give Away
+    </h3>
+    <div
+      className="standardaside__card"
+    >
+      <p>
+        something free
+      </p>
+    </div>
   </div>
 </div>
 `;

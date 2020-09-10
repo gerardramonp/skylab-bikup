@@ -16,7 +16,6 @@ function compoListRouterController(CompoModel) {
                     );
                 } else {
                     res.status(200);
-                    debug(compo);
                     return res.json(compo);
                 }
             });
