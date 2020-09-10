@@ -2,65 +2,72 @@ const debug = require('debug')('app:bikesRouterController');
 const { ObjectID } = require('mongodb');
 
 function bikeRouterController(BikeModel, CompoModel) {
-    let tempBike = null;
-    async function loadBikeById(bikeId) {
-        const bikeQuery = {
-            _id: new ObjectID(bikeId)
-        };
+	let tempBike = null;
 
-        await BikeModel.find(bikeQuery, (error, bike) => {
-            if (error) {
-                debug(error);
-                return error;
-            } else {
-                [tempBike] = bike;
-                tempBike = { ...tempBike._doc };
-            }
-        });
+	async function loadBikeById(bikeId) {
+		const bikeQuery = {
+			_id: new ObjectID(bikeId),
+		};
 
-        return tempBike;
-    }
+		await BikeModel.find(bikeQuery, (error, bike) => {
+			if (error) {
+				debug(error);
+				return error;
+			} else {
+				[tempBike] = bike;
+				tempBike = { ...tempBike._doc };
+			}
+		});
 
-    async function loadBikeComponents(bikeId) {
-        let tempCompoList = null;
-        const compoQuery = {
-            compoBikeId: bikeId
-        };
+		return tempBike;
+	}
 
-        await CompoModel.find(compoQuery, (error, compoList) => {
-            if (error) {
-                debug(error);
-                return error;
-            } else {
-                tempCompoList = [...compoList];
-            }
-        });
+	async function loadBikeComponents(bikeId) {
+		let tempCompoList = null;
+		const compoQuery = {
+			compoBikeId: bikeId,
+		};
 
-        return tempCompoList;
-    }
+		await CompoModel.find(compoQuery, (error, compoList) => {
+			if (error) {
+				debug(error);
+				return error;
+			} else {
+				tempCompoList = [...compoList];
+			}
+		});
 
-    async function get(req, res) {
-        let count = 0;
-        let bike = null;
-        let bikeComponents = null;
-        if (req.params && req.params.bikeId) {
-            const bike = await loadBikeById(req.params.bikeId);
+		return tempCompoList;
+	}
 
-            do {
-                bikeComponents = await loadBikeComponents(req.params.bikeId);
-            } while (!bikeComponents && count++ < 3);
+	async function get(req, res) {
+		let count = 0;
+		let bikeComponents = null;
+		if (req.params && req.params.bikeId) {
+			try {
+				const bike = await loadBikeById(req.params.bikeId);
 
-            bike.bikeComponents = bikeComponents;
+				do {
+					bikeComponents = await loadBikeComponents(
+						req.params.bikeId
+					);
+				} while (!bikeComponents && count++ < 3);
 
-            res.status(200);
-            res.json(bike);
-        } else {
-            res.status(400);
-            return res.send('BikeId is required');
-        }
-    }
+				bike.bikeComponents = bikeComponents;
 
-    return { get };
+				res.status(200);
+				res.json(bike);
+			} catch (error) {
+				res.status(400);
+				return res.send(error);
+			}
+		} else {
+			res.status(400);
+			return res.send('BikeId is required');
+		}
+	}
+
+	return { get, loadBikeById, loadBikeComponents };
 }
 
 module.exports = bikeRouterController;
