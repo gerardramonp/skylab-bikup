@@ -7,7 +7,7 @@ function Header() {
 	const mobileNav = [
 		{
 			text: 'ExploreMobile',
-			url: '/search',
+			url: '/bikes',
 			image:
 				'https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f53d188f7827833bd79ef9b/214746d15b751953f02eb252fb879874/magnifying-glass.png',
 		},

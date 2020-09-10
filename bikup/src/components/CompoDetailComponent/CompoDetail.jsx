@@ -37,11 +37,11 @@ function CompoDetail(props) {
 	useEffect(() => {
 		handleAuthorization();
 
-		if (userCheck) {
+		if (sessionStorage.actualCompo && sessionStorage.actualBike) {
 			setCompoinfo(JSON.parse(sessionStorage.actualCompo));
 			setBikeInfo(JSON.parse(sessionStorage.actualBike));
 		}
-	});
+	}, [userCheck]);
 
 	return (
 		compoInfo && (
