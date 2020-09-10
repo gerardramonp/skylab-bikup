@@ -1,9 +1,37 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 import './Header.scss';
 
 function Header() {
+	const history = useHistory();
+
+	window.addEventListener('mouseup', function (event) {
+		const menu = document.getElementsByClassName('mobile__menu')[0];
+		if (event.target != menu && event.target.parentNode != menu) {
+			menu.classList.remove('mobile__menu-show');
+			menu.classList.add('mobile__menu-hide');
+		}
+	});
+
+	function handleLogoutClick() {
+		sessionStorage.clear();
+		history.replace('/');
+	}
+
+	function handleMenuClick() {
+		const menu = document.getElementsByClassName('mobile__menu')[0];
+		menu.style.display = 'block';
+		menu.classList.remove('mobile__menu-hide');
+		menu.classList.add('mobile__menu-show');
+	}
+
+	function handleDecoratorClick() {
+		const menu = document.getElementsByClassName('mobile__menu')[0];
+		menu.classList.remove('mobile__menu-show');
+		menu.classList.add('mobile__menu-hide');
+	}
+
 	const mobileNav = [
 		{
 			text: 'ExploreMobile',
@@ -31,65 +59,104 @@ function Header() {
 		{ text: 'Profile', url: '/user', image: '' },
 	];
 
+	const menuOptions = [
+		{
+			text: 'Logout',
+			callback: handleLogoutClick,
+			image:
+				'https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f5a496d520b7b130a5d4819/7f0d35433cdacef755bec9d18cbcce2c/logout.png',
+		},
+	];
+
 	return (
-		<header className='header'>
-			<div className='header__mobile'>
-				<img
-					className='logo'
-					src='https://cdn.discordapp.com/attachments/692420285143711814/693437226146594876/LogoGerili.png'
-					alt='logo'
-				/>
-				<div className='mobile__nav'>
-					{mobileNav.map((link) => {
+		<>
+			<div className='mobile__menu'>
+				<div className='menu__decorator' onClick={handleDecoratorClick}>
+					<div className='decorator__line'></div>
+				</div>
+				<ul className='menu__list'>
+					{menuOptions.map((option) => {
 						return (
-							<NavLink
-								to={link.url}
-								key={link.text}
-								activeClassName='active--mobile'
+							<li
+								className='menu__option'
+								key={`menu-${option.text}`}
+								onClick={option.callback}
 							>
 								<img
-									src={link.image}
-									alt={link.text}
-									className='nav__item'
+									src={option.image}
+									alt={option.text}
+									className='option__img'
 								/>
-							</NavLink>
-						);
-					})}
-				</div>
-				<img
-					className='nav__menu'
-					src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f53d188f7827833bd79ef9b/ea9ccf0f7a5fe6c8d066bb89f204f504/open-menu.png'
-					alt='menu'
-				/>
-			</div>
 
-			<div className='header__desktop'>
-				<img
-					className='logo'
-					src='https://cdn.discordapp.com/attachments/692420285143711814/693437226146594876/LogoGerili.png'
-					alt='logo'
-				/>
-				<p className='appName'>bikUP</p>
-				<ul className='header__navigation'>
-					{desktopNav.map((link) => {
-						return (
-							<NavLink
-								key={link.text}
-								className='navigation__item'
-								activeClassName='active-desktop'
-								to={link.url}
-							>
-								{link.text}
-							</NavLink>
+								<p className='option__p'>{option.text}</p>
+							</li>
 						);
 					})}
 				</ul>
-				<div className='flex-spacer'></div>
-				<button className='login__button login__button--header'>
-					Log In
-				</button>
 			</div>
-		</header>
+			<header className='header'>
+				<div className='header__mobile'>
+					<div className='mobile__nav'>
+						<img
+							className='logo'
+							src='https://cdn.discordapp.com/attachments/692420285143711814/693437226146594876/LogoGerili.png'
+							alt='logo'
+						/>
+						{mobileNav.map((link) => {
+							return (
+								<NavLink
+									to={link.url}
+									key={link.text}
+									activeClassName='active--mobile'
+								>
+									<img
+										src={link.image}
+										alt={link.text}
+										className='nav__item'
+									/>
+								</NavLink>
+							);
+						})}
+						<img
+							className='nav__menu'
+							src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f53d188f7827833bd79ef9b/ea9ccf0f7a5fe6c8d066bb89f204f504/open-menu.png'
+							alt='menu'
+							onClick={handleMenuClick}
+						/>
+					</div>
+				</div>
+
+				<div className='header__desktop'>
+					<img
+						className='logo'
+						src='https://cdn.discordapp.com/attachments/692420285143711814/693437226146594876/LogoGerili.png'
+						alt='logo'
+					/>
+					<p className='appName'>bikUP</p>
+					<ul className='header__navigation'>
+						{desktopNav.map((link) => {
+							return (
+								<NavLink
+									key={link.text}
+									className='navigation__item'
+									activeClassName='active-desktop'
+									to={link.url}
+								>
+									{link.text}
+								</NavLink>
+							);
+						})}
+					</ul>
+					<div className='flex-spacer'></div>
+					<button
+						className='login__button login__button--header'
+						onClick={handleLogoutClick}
+					>
+						Log Out
+					</button>
+				</div>
+			</header>
+		</>
 	);
 }
 

@@ -18,7 +18,7 @@ function Login() {
 			'login__password'
 		)[0];
 		const submitButtonElement = document.getElementsByClassName(
-			'login__button'
+			'login__submitbutton'
 		)[0];
 		const loadingElement = document.getElementsByClassName('loading')[0];
 		const noLoadingElement = document.getElementsByClassName(
@@ -65,10 +65,11 @@ function Login() {
 			const password = formElements.passwordInputElement.value;
 
 			if (email && password) {
+				debugger;
 				disableForm(formElements);
 				await loginUserWithMail(email, password);
 				const user = authStore.getAuthUser();
-
+				debugger;
 				if (!user) {
 					formElements.warningMessageElement.innerHTML =
 						'Wrong email or password';
@@ -139,6 +140,10 @@ function Login() {
 								onClick={(event) => {
 									event.preventDefault();
 									handleSubmit();
+								}}
+								onKeyUp={(event) => {
+									event.preventDefault();
+									if (event.keyCode === 13) handleSubmit();
 								}}
 							>
 								<div className='loading hidden'>
