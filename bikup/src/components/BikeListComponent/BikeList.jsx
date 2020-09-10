@@ -50,7 +50,7 @@ function BikeList(props) {
 			bikeStore.removeChangeListener(onChange);
 			authStore.removeChangeListener(authChange);
 		};
-	}, [bikeList.length, isUserAuth]);
+	}, [isUserAuth]);
 
 	function onChange() {
 		setBikeList(bikeStore.getBikeList());

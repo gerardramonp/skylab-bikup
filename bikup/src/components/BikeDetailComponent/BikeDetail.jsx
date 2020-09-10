@@ -40,15 +40,15 @@ function BikeDetail(props) {
 
 		bikeStore.addChangeListener(onChange);
 
-		if (userCheck) {
+		if (sessionStorage.actualBike) {
 			setBikeDetail(JSON.parse(sessionStorage.actualBike));
 		}
 
 		return () => bikeStore.removeChangeListener(onChange);
-	});
+	}, [userCheck]);
 
 	function onChange() {
-		setBikeDetail(bikeStore.getBikeDetail());
+		setBikeDetail(JSON.parse(sessionStorage.actualBike));
 	}
 
 	return (
