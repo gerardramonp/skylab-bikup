@@ -19,10 +19,40 @@ const drivingStyleList = [
 ];
 
 function getFormElements() {
-	const bikeNameElement = document.getElementsByClassName('');
+	const bikeNameElement = document.getElementsByClassName(
+		'newbikeform__bikename'
+	)[0];
+	const bikeTypeElement = document.getElementsByClassName(
+		'newbikeform__bikeType'
+	)[0];
+	const drivingStyleElement = document.getElementsByClassName(
+		'newbikeform__driveStyle'
+	)[0];
+	const bikeBrandElement = document.getElementsByClassName(
+		'newbikeform__bikeBrand'
+	)[0];
+	const bikeModelElement = document.getElementsByClassName(
+		'newbikeform__bikeModel'
+	)[0];
+	const submitButtonElement = document.getElementsByClassName(
+		'newbikeform__create-button'
+	)[0];
+
+	return {
+		bikeNameElement,
+		bikeTypeElement,
+		drivingStyleElement,
+		bikeBrandElement,
+		bikeModelElement,
+		submitButtonElement,
+	};
 }
 
-function validateForm() {}
+function validateForm() {
+	const formElements = getFormElements();
+	const bikeNameValue = formElements.bikeNameElement.value;
+	debugger;
+}
 
 function NewBikeForm() {
 	return (
@@ -59,7 +89,7 @@ function NewBikeForm() {
 								</label>
 								<select
 									name='bikeType'
-									className='newbikeform__bikename newbikeform__input'
+									className='newbikeform__bikeType newbikeform__input'
 									required
 								>
 									{bikeTypeList.map((bikeType) => {
@@ -81,7 +111,7 @@ function NewBikeForm() {
 								<select
 									type='text'
 									name='bikeDriveStyle'
-									className='newbikeform__bikename newbikeform__input'
+									className='newbikeform__driveStyle newbikeform__input'
 									required
 								>
 									{drivingStyleList.map((drivingStyle) => {
@@ -103,7 +133,7 @@ function NewBikeForm() {
 								<input
 									type='text'
 									name='bikeBrand'
-									className='newbikeform__bikename newbikeform__input'
+									className='newbikeform__bikeBrand newbikeform__input'
 								/>
 							</div>
 							<div className='newbikeform__element'>
@@ -116,7 +146,7 @@ function NewBikeForm() {
 								<input
 									type='text'
 									name='bikeModel'
-									className='newbikeform__bikename newbikeform__input'
+									className='newbikeform__bikeModel newbikeform__input'
 								/>
 							</div>
 							<div className='newbikeform__element'>
@@ -124,7 +154,10 @@ function NewBikeForm() {
 									warning message
 								</p>
 							</div>
-							<button className='newbikeform__create-button'>
+							<button
+								className='newbikeform__create-button'
+								onClick={validateForm}
+							>
 								Create Bike
 							</button>
 						</form>
