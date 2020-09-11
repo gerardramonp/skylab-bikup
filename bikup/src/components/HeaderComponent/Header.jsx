@@ -6,14 +6,6 @@ import './Header.scss';
 function Header() {
 	const history = useHistory();
 
-	window.addEventListener('mouseup', function (event) {
-		const menu = document.getElementsByClassName('mobile__menu')[0];
-		if (event.target != menu && event.target.parentNode != menu) {
-			menu.classList.remove('mobile__menu-show');
-			menu.classList.add('mobile__menu-hide');
-		}
-	});
-
 	function handleLogoutClick() {
 		sessionStorage.clear();
 		history.replace('/');
@@ -67,6 +59,14 @@ function Header() {
 				'https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f5a496d520b7b130a5d4819/7f0d35433cdacef755bec9d18cbcce2c/logout.png',
 		},
 	];
+
+	window.addEventListener('mouseup', function (event) {
+		const menu = document.getElementsByClassName('mobile__menu')[0];
+		if (event.target != menu && event.target.parentNode != menu) {
+			menu.classList.remove('mobile__menu-show');
+			menu.classList.add('mobile__menu-hide');
+		}
+	});
 
 	return (
 		<>

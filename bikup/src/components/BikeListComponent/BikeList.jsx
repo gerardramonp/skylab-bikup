@@ -3,7 +3,7 @@ import bikeStore from '../../stores/bikeStore';
 import authStore from '../../stores/authStore';
 import { loadUserBikeList } from '../../actions/bikeActions';
 import { isUserAuthWithToken } from '../../actions/authActions';
-import { useHistory } from 'react-router-dom';
+import { useHistory, NavLink } from 'react-router-dom';
 
 import Header from '../HeaderComponent/Header';
 import StandardAside from '../StandardAside/StandardAside';
@@ -96,9 +96,12 @@ function BikeList(props) {
 							<p>OOPS! It seems that you don't have any bikes</p>
 						)}
 					</div>
-					<button className='bikelist__add mobile'>
+					<NavLink
+						to='/bikes/new-bike'
+						className='bikelist__add mobile'
+					>
 						+ Add new bike
-					</button>
+					</NavLink>
 				</div>
 				<div className='bikelist__challenges-giveaways'>
 					<StandardAside />
