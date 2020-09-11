@@ -1,9 +1,27 @@
 const debug = require('debug')('app:crudBikeController');
 const { ObjectID } = require('mongodb');
-const { create } = require('../models/bikeModel');
+const defaultCompoList = require('../Constants/bikeDefaultComponents');
+
+function debugObject(object) {
+	Object.entries(object).forEach((prop) => {
+		debug(prop);
+	});
+}
 
 function crudBikeController(UserModel, BikeModel, CompoModel) {
-	async function createNewBike(bikeData) {
+	// Private functions
+
+	function setComponentListInfo(compos, userId, bikeId) {
+		const compoReducer = (accumulator, current) => {
+			current.compoUserId = userId;
+			current.compoBikeId = bikeId;
+			return [...accumulator, current];
+		};
+
+		return compos.reduce(compoReducer, []);
+	}
+
+	async function createNewBikeWithCompos(bikeData) {
 		// Create the bike properties
 		const createQuery = {};
 		Object.entries(bikeData).forEach((prop) => {
@@ -11,22 +29,30 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 		});
 
 		// Insert bike to DB
-		let createdBike = {};
 		BikeModel.create(createQuery, (error, newBike) => {
 			if (error) {
-				return 'Error inserting the new bike';
+				throw new Error(
+					'There has been an error while creating your bike'
+				);
 			} else {
-				createdBike = { ...newBike };
+				const readyCompoList = setComponentListInfo(
+					defaultCompoList,
+					newBike._id,
+					bikeData.bikeUserId
+				);
+
+				CompoModel.create(readyCompoList, (error, createdCompoList) => {
+					if (error) {
+						throw new Error(
+							'There has been an error while an error creating your bike components'
+						);
+					} else {
+						return { newBike, createdCompoList };
+					}
+				});
 			}
 		});
-
-		// Insert that bike components
-
-
-		return createdBike;
 	}
-
-	async function
 
 	function post(req, res) {
 		const { newBikeInfo } = req.body;
@@ -46,15 +72,17 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 					return res.send('There is already a bike with this name');
 				} else {
 					const bikeData = { ...newBikeInfo, bikeUserId };
-
-					const newBike = await createNewBike(bikeData);
-					debug(`\n\nBIKE CREATED >>>>>>>> ${newBike}`);
+					try {
+						const newBike = await createNewBikeWithCompos(bikeData);
+						res.status(201);
+						return res.send('Your bike has been created!');
+					} catch (error) {
+						res.status(400);
+						res.send(error);
+					}
 				}
 			}
 		});
-		// comprovar que la bici no existeix
-		// Si existeix retornar missatge bike name already exist
-		// Si no existeix crear bici i dir que ja existeix
 	}
 
 	return { post };
