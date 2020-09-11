@@ -1,9 +1,11 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 import './NewBikeForm.scss';
 
 import Header from '../../HeaderComponent/Header';
+import { createNewBike } from '../../../actions/bikeActions';
+import bikeStore from '../../../stores/bikeStore';
 
 const bikeTypeList = [
 	{ value: 'mountain', displayText: 'Mountain Bike', image: '' },
@@ -34,9 +36,14 @@ function getFormElements() {
 	const bikeModelElement = document.getElementsByClassName(
 		'newbikeform__bikeModel'
 	)[0];
+	const warningElement = document.getElementsByClassName(
+		'newbikeform__warning'
+	)[0];
 	const submitButtonElement = document.getElementsByClassName(
 		'newbikeform__create-button'
 	)[0];
+	const loadingElement = document.getElementsByClassName('loading')[0];
+	const noLoadingElement = document.getElementsByClassName('no-loading')[0];
 
 	return {
 		bikeNameElement,
@@ -44,17 +51,77 @@ function getFormElements() {
 		drivingStyleElement,
 		bikeBrandElement,
 		bikeModelElement,
+		warningElement,
 		submitButtonElement,
+		loadingElement,
+		noLoadingElement,
 	};
 }
 
-function validateForm() {
-	const formElements = getFormElements();
-	const bikeNameValue = formElements.bikeNameElement.value;
-	debugger;
+function disableForm(formElements) {
+	Object.entries(formElements).forEach((element) => {
+		if (
+			element[0] !== 'loadingElement' ||
+			element[0] !== 'noLoadingElement'
+		) {
+			element[1].disabled = true;
+		}
+	});
+	formElements.loadingElement.style.display = 'flex';
+	formElements.noLoadingElement.style.display = 'none';
+}
+
+function enableForm(formElements) {
+	Object.entries(formElements).forEach((element) => {
+		if (
+			element[0] !== 'loadingElement' ||
+			element[0] !== 'noLoadingElement'
+		) {
+			element[1].disabled = false;
+		}
+		formElements.loadingElement.style.display = 'none';
+		formElements.noLoadingElement.style.display = 'flex';
+	});
 }
 
 function NewBikeForm() {
+	const history = useHistory();
+
+	async function validateForm() {
+		const formElements = getFormElements();
+		disableForm(formElements);
+		const bikeName = formElements.bikeNameElement.value;
+		const bikeType = formElements.bikeTypeElement.value;
+		const drivingStyle = formElements.drivingStyleElement.value;
+		const bikeBrand = formElements.bikeBrandElement.value;
+		const bikeModel = formElements.bikeModelElement.value;
+
+		if (!bikeName) {
+			formElements.warningElement.innerHTML = 'A bike name is required';
+			enableForm(formElements);
+		} else {
+			const bikeInfo = {
+				bikeName,
+				bikeType,
+				drivingStyle,
+				bikeBrand,
+				bikeModel,
+			};
+			try {
+				await createNewBike(bikeInfo);
+				const newBike = bikeStore.getNewBike();
+				if (typeof newBike === 'string') {
+					// Mostrar alerta error
+				} else {
+					// Mostrar alerta bici creada
+					history.replace('/bikes');
+				}
+			} catch (error) {
+				// Mostrar alerta error
+			}
+		}
+	}
+
 	return (
 		<>
 			<Header />
@@ -150,15 +217,26 @@ function NewBikeForm() {
 								/>
 							</div>
 							<div className='newbikeform__element'>
-								<p className='newbikeform__warning'>
-									warning message
-								</p>
+								<p className='newbikeform__warning'></p>
 							</div>
 							<button
 								className='newbikeform__create-button'
-								onClick={validateForm}
+								onClick={(event) => {
+									event.preventDefault();
+									validateForm();
+								}}
 							>
-								Create Bike
+								<div className='loading hidden'>
+									<img
+										src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f5753c458a8b552f891bb81/af512a8cb3c1285000d1191fdaaa670c/Spinner-1s-200px_(1).gif'
+										alt='loading...'
+										className='loading__img'
+									/>
+									<p>Loading</p>
+								</div>
+								<div className='no-loading' Create Account>
+									Create Bike
+								</div>
 							</button>
 						</form>
 					</div>

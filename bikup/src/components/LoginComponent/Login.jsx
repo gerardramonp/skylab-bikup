@@ -65,7 +65,6 @@ function Login() {
 			const password = formElements.passwordInputElement.value;
 
 			if (email && password) {
-				debugger;
 				disableForm(formElements);
 				await loginUserWithMail(email, password);
 				const user = authStore.getAuthUser();

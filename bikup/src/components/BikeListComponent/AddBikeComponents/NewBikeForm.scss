@@ -76,6 +76,9 @@ $form-shadow: 5px 5px 5px 0px rgba(209, 205, 209, 1);
 }
 
 .newbikeform__create-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	padding: 12px;
 	width: 80%;
 	border-radius: 5px;

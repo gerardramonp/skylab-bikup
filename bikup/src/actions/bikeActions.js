@@ -38,3 +38,18 @@ export function loadCompoById(bikeId, compoId) {
 		});
 	});
 }
+
+export function createNewBike(newBikeInfo) {
+	// Llegir id usuari del sessionstorage
+
+	const params = {
+		authCode,
+	};
+	return axios.post(`api/crud/bike`).then((newBike) => {
+		debugger;
+		dispatcher.dispatch({
+			type: actionTypes.CREATE_NEW_BIKE,
+			data: newBike.data,
+		});
+	});
+}
