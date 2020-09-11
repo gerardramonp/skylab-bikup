@@ -49,7 +49,6 @@ export function createNewBike(newBikeInfo) {
 			_id,
 		};
 		return axios.post(`/api/crud/bike`, params).then((newBike) => {
-			debugger;
 			dispatcher.dispatch({
 				type: actionTypes.CREATE_NEW_BIKE,
 				data: newBike.data,

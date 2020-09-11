@@ -37,8 +37,8 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 			} else {
 				const readyCompoList = setComponentListInfo(
 					defaultCompoList,
-					newBike._id,
-					bikeData.bikeUserId
+					bikeData.bikeUserId,
+					newBike._id
 				);
 
 				CompoModel.create(readyCompoList, (error, createdCompoList) => {
@@ -69,16 +69,16 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 				if (bike) {
 					res.status(409);
 					debug('This bike already exists');
-					return res.send('There is already a bike with this name');
+					return res.send(false);
 				} else {
 					const bikeData = { ...newBikeInfo, bikeUserId };
 					try {
 						const newBike = await createNewBikeWithCompos(bikeData);
 						res.status(201);
-						return res.send('Your bike has been created!');
+						return res.send(true);
 					} catch (error) {
 						res.status(400);
-						res.send(error);
+						return res.send(false);
 					}
 				}
 			}

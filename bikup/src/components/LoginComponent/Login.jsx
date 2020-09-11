@@ -68,7 +68,6 @@ function Login() {
 				disableForm(formElements);
 				await loginUserWithMail(email, password);
 				const user = authStore.getAuthUser();
-				debugger;
 				if (!user) {
 					formElements.warningMessageElement.innerHTML =
 						'Wrong email or password';

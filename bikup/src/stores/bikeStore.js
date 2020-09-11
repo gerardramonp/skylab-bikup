@@ -45,7 +45,6 @@ class BikeStore extends EventEmitter {
 
 	setNewBike(newBike) {
 		_newBike = newBike;
-		_bikeList = [..._bikeList, _newBike];
 	}
 	getNewBike() {
 		return _newBike;
@@ -65,7 +64,6 @@ dispatcher.register((action) => {
 			bikeStore.emitChange();
 			break;
 		case actionTypes.LOAD_COMPO_BY_ID:
-			debugger;
 			bikeStore.setCompoDetail(action.data);
 			bikeStore.emitChange();
 			break;

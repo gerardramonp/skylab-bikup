@@ -110,11 +110,13 @@ function NewBikeForm() {
 			try {
 				await createNewBike(bikeInfo);
 				const newBike = bikeStore.getNewBike();
-				if (typeof newBike === 'string') {
+				if (newBike) {
+					history.replace('/bikes');
 					// Mostrar alerta error
 				} else {
+					formElements.warningElement.innerHTML =
+						'We could not create the bike';
 					// Mostrar alerta bici creada
-					history.replace('/bikes');
 				}
 			} catch (error) {
 				// Mostrar alerta error
