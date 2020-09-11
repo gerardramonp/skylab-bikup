@@ -3,13 +3,13 @@ const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
 
 const compoModel = new Schema({
-    compoUserId: { type: String },
-    compoBikeId: { type: String },
-    compoType: { type: String },
-    compoDisplayName: { type: String },
-    compoLife: { type: Number },
-    compoAccumulatedMeters: { type: Number },
-    compoAccumulatedMinutes: { type: Number }
+	compoUserId: { type: String },
+	compoBikeId: { type: String },
+	compoType: { type: String },
+	compoDisplayName: { type: String },
+	compoLife: { type: Number },
+	compoAccumulatedMeters: { type: Number, default: 0 },
+	compoAccumulatedMinutes: { type: Number, default: 0 },
 });
 
 module.exports = mongoose.model('Components', compoModel);

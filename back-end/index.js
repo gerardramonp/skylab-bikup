@@ -36,4 +36,4 @@ const crudBikeRoutes = require('./src/routes/crudBikeRoutes')(
 
 app.use('/api/bikes', bikeRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/crud/bike');
+app.use('/api/crud/bike', crudBikeRoutes);

@@ -92,7 +92,7 @@ function NewBikeForm() {
 		disableForm(formElements);
 		const bikeName = formElements.bikeNameElement.value;
 		const bikeType = formElements.bikeTypeElement.value;
-		const drivingStyle = formElements.drivingStyleElement.value;
+		const bikeDriveStyle = formElements.drivingStyleElement.value;
 		const bikeBrand = formElements.bikeBrandElement.value;
 		const bikeModel = formElements.bikeModelElement.value;
 
@@ -103,7 +103,7 @@ function NewBikeForm() {
 			const bikeInfo = {
 				bikeName,
 				bikeType,
-				drivingStyle,
+				bikeDriveStyle,
 				bikeBrand,
 				bikeModel,
 			};

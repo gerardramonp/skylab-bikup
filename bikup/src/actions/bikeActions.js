@@ -41,15 +41,21 @@ export function loadCompoById(bikeId, compoId) {
 
 export function createNewBike(newBikeInfo) {
 	// Llegir id usuari del sessionstorage
+	if (sessionStorage.authUser) {
+		const { _id } = JSON.parse(sessionStorage.authUser);
 
-	const params = {
-		authCode,
-	};
-	return axios.post(`api/crud/bike`).then((newBike) => {
-		debugger;
-		dispatcher.dispatch({
-			type: actionTypes.CREATE_NEW_BIKE,
-			data: newBike.data,
+		const params = {
+			newBikeInfo,
+			_id,
+		};
+		return axios.post(`/api/crud/bike`, params).then((newBike) => {
+			debugger;
+			dispatcher.dispatch({
+				type: actionTypes.CREATE_NEW_BIKE,
+				data: newBike.data,
+			});
 		});
-	});
+	} else {
+		console.log('User is not auth');
+	}
 }
