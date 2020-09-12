@@ -336,9 +336,27 @@ function EditBike() {
 								<span className='bold'>Or</span>
 								<div className='line'></div>
 							</div>
-							<div className='editbike__delete'>
+							<div className='editbike__extra'>
+								<button className='extra__addcompo-button editbike__create-button'>
+									<div className='delete-loading hidden'>
+										<img
+											src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f5753c458a8b552f891bb81/af512a8cb3c1285000d1191fdaaa670c/Spinner-1s-200px_(1).gif'
+											alt='loading...'
+											className='loading__img'
+										/>
+										<p>Loading</p>
+									</div>
+									<div
+										className='delete-no-loading'
+										Create
+										Account
+									>
+										Add new compo
+									</div>
+								</button>
+
 								<button
-									className='editbike__delete-button'
+									className='extra__delete-button'
 									onClick={(event) => {
 										event.preventDefault();
 										handleDeleteClick();

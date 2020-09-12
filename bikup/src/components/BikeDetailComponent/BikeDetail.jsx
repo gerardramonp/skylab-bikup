@@ -53,25 +53,31 @@ function BikeDetail(props) {
 	}
 
 	function hideModal() {
-		document.getElementsByClassName('float__button')[0].style.display =
-			'block';
+		document.getElementsByClassName('float__button')[0].style.visibility =
+			'visible';
 
 		document.getElementsByClassName('darken__back')[0].style.display =
 			'none';
-		document.getElementsByClassName(
-			'addworkout__container'
-		)[0].style.display = 'none';
+		document
+			.getElementsByClassName('addworkout__container')[0]
+			.classList.remove('addworkout__container-shown');
+		document
+			.getElementsByClassName('addworkout__container')[0]
+			.classList.add('addworkout__container-hidden');
 	}
 
 	function showModal() {
-		document.getElementsByClassName('float__button')[0].style.display =
-			'none';
+		document.getElementsByClassName('float__button')[0].style.visibility =
+			'hidden';
 
 		document.getElementsByClassName('darken__back')[0].style.display =
 			'block';
-		document.getElementsByClassName(
-			'addworkout__container'
-		)[0].style.display = 'flex';
+		document
+			.getElementsByClassName('addworkout__container')[0]
+			.classList.remove('addworkout__container-hidden');
+		document
+			.getElementsByClassName('addworkout__container')[0]
+			.classList.add('addworkout__container-shown');
 	}
 
 	async function handleWorkoutClick() {
@@ -132,9 +138,18 @@ function BikeDetail(props) {
 						</div>
 
 						<div className='bike-detail__head'>
-							<h2 className='head__bikename'>
-								{bikeDetails.bikeName || 'Your Bike'}
-							</h2>
+							<div className='head__container'>
+								<NavLink to='/bikes'>Back</NavLink>
+
+								<h2 className='head__bikename'>
+									{bikeDetails.bikeName || 'Your Bike'}
+								</h2>
+								<NavLink
+									to={`/bikes/${bikeDetails.bikeName}/edit`}
+								>
+									Edit
+								</NavLink>
+							</div>
 							<div className='separator'></div>
 
 							<div className='bike-detail__km-hours'>

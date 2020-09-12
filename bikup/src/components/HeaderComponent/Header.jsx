@@ -63,8 +63,8 @@ function Header() {
 	window.addEventListener('mouseup', function (event) {
 		const menu = document.getElementsByClassName('mobile__menu')[0];
 		if (event.target != menu && event.target.parentNode != menu) {
-			menu.classList.remove('mobile__menu-show');
-			menu.classList.add('mobile__menu-hide');
+			menu && menu.classList.remove('mobile__menu-show');
+			menu && menu.classList.add('mobile__menu-hide');
 		}
 	});
 

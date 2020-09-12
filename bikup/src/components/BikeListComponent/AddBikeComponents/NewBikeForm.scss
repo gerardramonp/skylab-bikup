@@ -94,3 +94,18 @@ $form-shadow: 5px 5px 5px 0px rgba(209, 205, 209, 1);
 	transform: $transform;
 	color: black;
 }
+
+@media only screen and (min-width: 900px) {
+	.mobile {
+		display: none;
+	}
+
+	.desktop {
+		display: flex;
+	}
+
+	.newbikeform {
+		width: 40%;
+		margin: auto;
+	}
+}
