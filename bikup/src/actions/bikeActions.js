@@ -58,3 +58,21 @@ export function createNewBike(newBikeInfo) {
 		console.log('User is not auth');
 	}
 }
+
+export function deleteBike() {
+	// llegir id de la bici
+	if (sessionStorage.actualBike) {
+		const { _id } = JSON.parse(sessionStorage.actualBike);
+		const params = {
+			bikeId: _id,
+		};
+		return axios.put('/api/crud/bike/delete', params).then((response) => {
+			dispatcher.dispatch({
+				type: actionTypes.DELETE_BIKE,
+				data: response.data,
+			});
+		});
+	} else {
+		console.log('There is no loaded bike');
+	}
+}

@@ -13,6 +13,7 @@ function routes(UserModel, BikeModel, CompoModel) {
 	);
 
 	crudBikeRouter.route('/').post(crudBikeController.post);
+	crudBikeRouter.route('/delete').put(crudBikeController.put);
 
 	return crudBikeRouter;
 }

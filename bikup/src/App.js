@@ -13,6 +13,7 @@ import BikeList from './components/BikeListComponent/BikeList';
 import BikeDetail from './components/BikeDetailComponent/BikeDetail';
 import CompoDetail from './components/CompoDetailComponent/CompoDetail';
 import NewBikeForm from './components/BikeListComponent/AddBikeComponents/NewBikeForm';
+import EditBike from './components/BikeDetailComponent/EditBikeComponent/EditBike';
 
 function App() {
 	return (
@@ -28,7 +29,9 @@ function App() {
 				<Route path='/bikes/new-bike' exact component={NewBikeForm} />
 
 				<Route path='/bikes' exact component={BikeList} />
-				<Route path='/bikes/:bikeId' component={BikeDetail} />
+				<Route path='/bikes/:bikeId' exact component={BikeDetail} />
+				<Route path='/bikes/:bikeId/edit' component={EditBike} />
+
 				<Route
 					path='/bikes/:bikeId/:compoId'
 					exact

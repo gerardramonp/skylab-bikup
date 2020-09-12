@@ -85,7 +85,39 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 		});
 	}
 
-	return { post };
+	function put(req, res) {
+		debug('Starting deleter proces...........\n\n');
+		const { bikeId } = req.body;
+
+		const bikeQuery = {
+			_id: new ObjectID(bikeId),
+		};
+
+		const compoQuery = {
+			compoBikeId: bikeId,
+		};
+
+		BikeModel.deleteOne(bikeQuery, (error, deletedBike) => {
+			if (error) {
+				debug(error);
+				return res.send(false);
+			} else {
+				debug('Bike deleted, deleting components....');
+				debug(deletedBike);
+				CompoModel.deleteMany(compoQuery, (error, deletedCompos) => {
+					if (error) {
+						debug(error);
+						return res.send(false);
+					} else {
+						debug('\n\nComponents deleted:' + deletedCompos);
+						return res.send(true);
+					}
+				});
+			}
+		});
+	}
+
+	return { post, put };
 }
 
 module.exports = crudBikeController;
