@@ -100,10 +100,9 @@ function BikeDetail(props) {
 
 		hideModal();
 
-		const updateStatus = bikeStore.setIsBikeModified();
-
+		const updateStatus = bikeStore.isBikeModified();
 		if (updateStatus) {
-			onChange();
+			//Mostrar compo alerta verda amb Workout added
 		} else {
 			alert('We could not add your workout');
 		}

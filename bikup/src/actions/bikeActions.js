@@ -132,7 +132,6 @@ export function addWorkout(updatedBikeValues) {
 					});
 					sessionStorage.actualBike = JSON.stringify(actualBike);
 				}
-
 				dispatcher.dispatch({
 					type: actionTypes.ADD_WORKOUT,
 					data: response.data,
