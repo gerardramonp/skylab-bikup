@@ -1,6 +1,7 @@
 import dispatcher from '../dispatcher';
 import actionTypes from './actionTypes';
 import axios from 'axios';
+import EditBike from '../components/BikeDetailComponent/EditBikeComponent/EditBike';
 
 export function loadUserBikeList(userId) {
 	if (!userId) {
@@ -67,6 +68,26 @@ export function deleteBike() {
 			bikeId: _id,
 		};
 		return axios.put('/api/crud/bike/delete', params).then((response) => {
+			dispatcher.dispatch({
+				type: actionTypes.DELETE_BIKE,
+				data: response.data,
+			});
+		});
+	} else {
+		console.log('There is no loaded bike');
+	}
+}
+
+export function editBike(bikeInfo, isNameChanged) {
+	if (sessionStorage.actualBike) {
+		const { _id } = JSON.parse(sessionStorage.actualBike);
+
+		const params = {
+			bikeId: _id,
+			bikeInfo,
+			isNameChanged,
+		};
+		return axios.put('/api/crud/bike/edit', params).then((response) => {
 			dispatcher.dispatch({
 				type: actionTypes.DELETE_BIKE,
 				data: response.data,

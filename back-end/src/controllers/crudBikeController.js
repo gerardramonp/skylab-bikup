@@ -117,7 +117,74 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 		});
 	}
 
-	return { post, put };
+	function patch(req, res) {
+		const { bikeInfo, bikeId, isNameChanged } = req.body;
+
+		const filterQuery = {
+			_id: new ObjectID(bikeId),
+		};
+
+		const updateQuery = {};
+		Object.entries(bikeInfo).forEach((prop) => {
+			updateQuery[prop[0]] = prop[1];
+		});
+
+		debug(updateQuery);
+		// If bikeName is not modified, update it
+		if (!isNameChanged) {
+			BikeModel.updateOne(
+				filterQuery,
+				updateQuery,
+				(error, updateStatus) => {
+					if (error) {
+						debug(error);
+						res.status(400);
+						res.send(false);
+					} else {
+						res.status(200);
+						return res.send(true);
+					}
+				}
+			);
+		} else {
+			// BikeName is being modified, check if that name exist frist
+
+			const bikeNameQuery = {
+				bikeName: bikeInfo.bikeName,
+			};
+			BikeModel.findOne(bikeNameQuery, (error, foundBike) => {
+				if (error) {
+					debug(error);
+					res.status(400);
+					res.send(false);
+				} else {
+					debug(foundBike);
+					if (foundBike) {
+						res.status(304);
+						res.send(false);
+					} else {
+						// Bike name is avaliable, update it
+						BikeModel.updateOne(
+							filterQuery,
+							updateQuery,
+							(error, updateStatus) => {
+								if (error) {
+									debug(error);
+									res.status(400);
+									res.send(false);
+								} else {
+									res.status(200);
+									return res.send(true);
+								}
+							}
+						);
+					}
+				}
+			});
+		}
+	}
+
+	return { post, put, patch };
 }
 
 module.exports = crudBikeController;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import { deleteBike } from '../../../actions/bikeActions';
+import { deleteBike, editBike } from '../../../actions/bikeActions';
 import bikeStore from '../../../stores/bikeStore';
 
 import Header from '../../HeaderComponent/Header';
@@ -36,6 +36,13 @@ function getFormElements() {
 	const bikeModelElement = document.getElementsByClassName(
 		'editbike__bikeModel'
 	)[0];
+	const bikeTotalKmElement = document.getElementsByClassName(
+		'editbike__totalKm'
+	)[0];
+	const bikeTotalHoursElement = document.getElementsByClassName(
+		'editbike__totalHours'
+	)[0];
+
 	const warningElement = document.getElementsByClassName(
 		'editbike__warning'
 	)[0];
@@ -51,6 +58,8 @@ function getFormElements() {
 		drivingStyleElement,
 		bikeBrandElement,
 		bikeModelElement,
+		bikeTotalKmElement,
+		bikeTotalHoursElement,
 		warningElement,
 		submitButtonElement,
 		loadingElement,
@@ -86,14 +95,58 @@ function enableForm(formElements) {
 
 function EditBike() {
 	const history = useHistory();
+	let actualBikeInfo = null;
+	if (sessionStorage.actualBike) {
+		actualBikeInfo = JSON.parse(sessionStorage.actualBike);
+	}
 
 	async function validateForm() {
 		const formElements = getFormElements();
+
 		const bikeName = formElements.bikeNameElement.value;
 		const bikeType = formElements.bikeTypeElement.value;
 		const bikeDriveStyle = formElements.drivingStyleElement.value;
 		const bikeBrand = formElements.bikeBrandElement.value;
 		const bikeModel = formElements.bikeModelElement.value;
+		const bikeTotalMeters = formElements.bikeTotalKmElement.value * 1000;
+		const bikeTotalMinutes = formElements.bikeTotalHoursElement.value * 60;
+
+		if (!bikeName) {
+			formElements.warningElement.innerHTML = 'A bike name is required';
+		} else {
+			disableForm(formElements);
+
+			let isNameChanged = null;
+			bikeName === actualBikeInfo.bikeName
+				? (isNameChanged = false)
+				: (isNameChanged = true);
+
+			const bikeInfo = {
+				bikeName,
+				bikeType,
+				bikeDriveStyle,
+				bikeBrand,
+				bikeModel,
+				bikeTotalMeters,
+				bikeTotalMinutes,
+			};
+
+			try {
+				await editBike(bikeInfo, isNameChanged);
+				const isBikeDeleted = bikeStore.isBikeDeleted();
+				if (!isBikeDeleted) {
+					alert('There has been an error editing your bike');
+				} else {
+					history.replace('/bikes');
+				}
+				// cridar accio
+				// llegir del store
+				// Tractar resposta
+			} catch (error) {
+				formElements.warningElement.innerHTML =
+					'We could not edit the bike';
+			}
+		}
 	}
 
 	async function handleDeleteClick() {
@@ -112,158 +165,210 @@ function EditBike() {
 	}
 
 	return (
-		<>
-			<Header />
-
-			<div className='general-container'>
-				<div className='editbike'>
-					<div className='newbikeform__upper mobile'>
-						<NavLink to='/bikes'>My bikes</NavLink>
-					</div>
-					<div className='editbike__container'>
-						<h1 className='editbike__title'>Edit Bike</h1>
-						<form className='editbike__form'>
-							<div className='editbike__element'>
-								<label
-									htmlFor='bikename'
-									className='editbike__label'
-								>
-									Bike Name
-								</label>
-								<input
-									type='text'
-									name='bikename'
-									className='editbike__bikename editbike__input'
-									required
-								/>
-							</div>
-							<div className='editbike__element'>
-								<label
-									htmlFor='bikeType'
-									className='editbike__label'
-								>
-									Type
-								</label>
-								<select
-									name='bikeType'
-									className='editbike__bikeType editbike__input'
-									required
-								>
-									{bikeTypeList.map((bikeType) => {
-										return (
-											<option value={bikeType.value}>
-												{bikeType.displayText}
-											</option>
-										);
-									})}
-								</select>
-							</div>
-							<div className='editbike__element'>
-								<label
-									htmlFor='bikeDriveStyle'
-									className='editbike__label'
-								>
-									Driving Style
-								</label>
-								<select
-									type='text'
-									name='bikeDriveStyle'
-									className='editbike__driveStyle editbike__input'
-									required
-								>
-									{drivingStyleList.map((drivingStyle) => {
-										return (
-											<option value={drivingStyle.value}>
-												{drivingStyle.displayText}
-											</option>
-										);
-									})}
-								</select>
-							</div>
-							<div className='editbike__element'>
-								<label
-									htmlFor='bikeBrand'
-									className='editbike__label'
-								>
-									Brand
-								</label>
-								<input
-									type='text'
-									name='bikeBrand'
-									className='editbike__bikeBrand editbike__input'
-								/>
-							</div>
-							<div className='editbike__element'>
-								<label
-									htmlFor='bikeModel'
-									className='editbike__label'
-								>
-									Model
-								</label>
-								<input
-									type='text'
-									name='bikeModel'
-									className='editbike__bikeModel editbike__input'
-								/>
-							</div>
-							<div className='editbike__element'>
-								<p className='editbike__warning'></p>
-							</div>
-							<button
-								className='editbike__create-button'
-								onClick={(event) => {
-									event.preventDefault();
-									validateForm();
-								}}
-							>
-								<div className='loading hidden'>
-									<img
-										src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f5753c458a8b552f891bb81/af512a8cb3c1285000d1191fdaaa670c/Spinner-1s-200px_(1).gif'
-										alt='loading...'
-										className='loading__img'
-									/>
-									<p>Loading</p>
-								</div>
-								<div className='no-loading' Create Account>
-									Save
-								</div>
-							</button>
-						</form>
-
-						<div className='register__separator'>
-							<div className='line'></div>
-							<span className='bold'>Or</span>
-							<div className='line'></div>
+		actualBikeInfo && (
+			<>
+				<Header />
+				<div className='general-container'>
+					<div className='editbike'>
+						<div className='newbikeform__upper mobile'>
+							<NavLink to='/bikes'>My bikes</NavLink>
 						</div>
-						<div className='editbike__delete'>
-							<button
-								className='editbike__delete-button'
-								onClick={(event) => {
-									event.preventDefault();
-									handleDeleteClick();
-								}}
-							>
-								<div className='delete-loading hidden'>
-									<img
-										src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f5753c458a8b552f891bb81/af512a8cb3c1285000d1191fdaaa670c/Spinner-1s-200px_(1).gif'
-										alt='loading...'
-										className='loading__img'
+						<div className='editbike__container'>
+							<h1 className='editbike__title'>Edit Bike</h1>
+							<form className='editbike__form'>
+								<div className='editbike__element'>
+									<label
+										htmlFor='bikename'
+										className='editbike__label'
+									>
+										Bike Name
+									</label>
+									<input
+										type='text'
+										name='bikename'
+										className='editbike__bikename editbike__input'
+										defaultValue={actualBikeInfo.bikeName}
+										required
 									/>
-									<p>Loading</p>
 								</div>
-								<div
-									className='delete-no-loading'
-									Create
-									Account
+								<div className='editbike__element'>
+									<label
+										htmlFor='bikeType'
+										className='editbike__label'
+									>
+										Type
+									</label>
+									<select
+										name='bikeType'
+										className='editbike__bikeType editbike__input'
+										defaultValue={actualBikeInfo.bikeType}
+										required
+									>
+										{bikeTypeList.map((bikeType) => {
+											return (
+												<option value={bikeType.value}>
+													{bikeType.displayText}
+												</option>
+											);
+										})}
+									</select>
+								</div>
+								<div className='editbike__element'>
+									<label
+										htmlFor='bikeDriveStyle'
+										className='editbike__label'
+									>
+										Driving Style
+									</label>
+									<select
+										type='text'
+										name='bikeDriveStyle'
+										className='editbike__driveStyle editbike__input'
+										defaultValue={
+											actualBikeInfo.bikeDriveStyle
+										}
+										required
+									>
+										{drivingStyleList.map(
+											(drivingStyle) => {
+												return (
+													<option
+														value={
+															drivingStyle.value
+														}
+													>
+														{
+															drivingStyle.displayText
+														}
+													</option>
+												);
+											}
+										)}
+									</select>
+								</div>
+								<div className='editbike__element'>
+									<label
+										htmlFor='bikeBrand'
+										className='editbike__label'
+									>
+										Brand
+									</label>
+									<input
+										type='text'
+										name='bikeBrand'
+										className='editbike__bikeBrand editbike__input'
+										defaultValue={actualBikeInfo.bikeBrand}
+									/>
+								</div>
+								<div className='editbike__element'>
+									<label
+										htmlFor='bikeModel'
+										className='editbike__label'
+									>
+										Model
+									</label>
+									<input
+										type='text'
+										name='bikeModel'
+										className='editbike__bikeModel editbike__input'
+										defaultValue={actualBikeInfo.bikeModel}
+									/>
+								</div>
+								<div className='editbike__element-double'>
+									<div className='element-double__item'>
+										<label
+											htmlFor='bikeModel'
+											className='editbike__label'
+										>
+											Total KM
+										</label>
+										<input
+											type='number'
+											name='bikeModel'
+											className='editbike__totalKm editbike__input'
+											defaultValue={
+												actualBikeInfo.bikeTotalMeters /
+												1000
+											}
+										/>
+									</div>
+									<div className='element-double__item'>
+										<label
+											htmlFor='bikeModel'
+											className='editbike__label'
+										>
+											Total hours
+										</label>
+										<input
+											type='number'
+											name='bikeModel'
+											className='editbike__totalHours editbike__input'
+											defaultValue={Math.round(
+												actualBikeInfo.bikeTotalMinutes /
+													60
+											)}
+										/>
+									</div>
+								</div>
+								<div className='editbike__element'>
+									<p className='editbike__warning'></p>
+								</div>
+								<button
+									className='editbike__create-button'
+									onClick={(event) => {
+										event.preventDefault();
+										validateForm();
+									}}
 								>
-									Delete this bike
-								</div>
-							</button>
+									<div className='loading hidden'>
+										<img
+											src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f5753c458a8b552f891bb81/af512a8cb3c1285000d1191fdaaa670c/Spinner-1s-200px_(1).gif'
+											alt='loading...'
+											className='loading__img'
+										/>
+										<p>Loading</p>
+									</div>
+									<div className='no-loading' Create Account>
+										Save
+									</div>
+								</button>
+							</form>
+
+							<div className='register__separator'>
+								<div className='line'></div>
+								<span className='bold'>Or</span>
+								<div className='line'></div>
+							</div>
+							<div className='editbike__delete'>
+								<button
+									className='editbike__delete-button'
+									onClick={(event) => {
+										event.preventDefault();
+										handleDeleteClick();
+									}}
+								>
+									<div className='delete-loading hidden'>
+										<img
+											src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f5753c458a8b552f891bb81/af512a8cb3c1285000d1191fdaaa670c/Spinner-1s-200px_(1).gif'
+											alt='loading...'
+											className='loading__img'
+										/>
+										<p>Loading</p>
+									</div>
+									<div
+										className='delete-no-loading'
+										Create
+										Account
+									>
+										Delete this bike
+									</div>
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</>
+			</>
+		)
 	);
 }
 
