@@ -133,15 +133,12 @@ function EditBike() {
 
 			try {
 				await editBike(bikeInfo, isNameChanged);
-				const isBikeDeleted = bikeStore.isBikeDeleted();
-				if (!isBikeDeleted) {
+				const isBikeModified = bikeStore.isBikeModified();
+				if (!isBikeModified) {
 					alert('There has been an error editing your bike');
 				} else {
 					history.replace('/bikes');
 				}
-				// cridar accio
-				// llegir del store
-				// Tractar resposta
 			} catch (error) {
 				formElements.warningElement.innerHTML =
 					'We could not edit the bike';
@@ -155,7 +152,7 @@ function EditBike() {
 		);
 
 		confirmation && (await deleteBike());
-		const deletionStatus = bikeStore.isBikeDeleted();
+		const deletionStatus = bikeStore.isBikeModified();
 
 		if (deletionStatus) {
 			history.replace('/bikes');

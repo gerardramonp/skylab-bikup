@@ -1,5 +1,6 @@
 const debug = require('debug')('app:crudBikeController');
 const { ObjectID } = require('mongodb');
+const { filter } = require('../Constants/bikeDefaultComponents');
 const defaultCompoList = require('../Constants/bikeDefaultComponents');
 
 function debugObject(object) {
@@ -54,7 +55,7 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 		});
 	}
 
-	function post(req, res) {
+	function createBike(req, res) {
 		const { newBikeInfo } = req.body;
 		const bikeUserId = req.body._id;
 
@@ -85,8 +86,7 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 		});
 	}
 
-	function put(req, res) {
-		debug('Starting deleter proces...........\n\n');
+	function deleteBike(req, res) {
 		const { bikeId } = req.body;
 
 		const bikeQuery = {
@@ -117,7 +117,7 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 		});
 	}
 
-	function patch(req, res) {
+	function updateBike(req, res) {
 		const { bikeInfo, bikeId, isNameChanged } = req.body;
 
 		const filterQuery = {
@@ -184,7 +184,64 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 		}
 	}
 
-	return { post, put, patch };
+	function addWorkout(req, res) {
+		debug('Starting workout proces....');
+		const { bikeInfo, bikeId, workoutInfo } = req.body;
+
+		const filterQuery = {
+			_id: new ObjectID(bikeId),
+		};
+
+		const updateBikeQuery = {};
+		Object.entries(bikeInfo).forEach((prop) => {
+			updateBikeQuery[prop[0]] = prop[1];
+		});
+
+		BikeModel.updateOne(
+			filterQuery,
+			updateBikeQuery,
+			(error, updateStatus) => {
+				if (error) {
+					res.status(304);
+					res.send(false);
+				} else {
+					const compoFilterQuery = {
+						compoBikeId: bikeId,
+					};
+
+					const updateComposQuery = {
+						$inc: {
+							compoAccumulatedMeters: workoutInfo.workoutMeters,
+							compoAccumulatedMinutes:
+								workoutInfo.workoutTotalMinutes,
+						},
+					};
+
+					debug(updateComposQuery);
+
+					CompoModel.updateMany(
+						compoFilterQuery,
+						updateComposQuery,
+						(error, updateStatus) => {
+							if (error) {
+								debug(error);
+								res.status(304);
+								res.send(false);
+							} else {
+								debug('Compos updated.....');
+								debug(updateStatus);
+
+								res.status(200);
+								return res.send(true);
+							}
+						}
+					);
+				}
+			}
+		);
+	}
+
+	return { createBike, deleteBike, updateBike, addWorkout };
 }
 
 module.exports = crudBikeController;

@@ -8,7 +8,7 @@ let _bike = {};
 let _bikeList = [];
 let _compoDetail = {};
 let _newBike = {};
-let _isBikeDeleted = null;
+let _isBikeModified = null;
 
 class BikeStore extends EventEmitter {
 	addChangeListener(callback) {
@@ -51,11 +51,11 @@ class BikeStore extends EventEmitter {
 		return _newBike;
 	}
 
-	setIsBikeDeleted(deletedStatus) {
-		_isBikeDeleted = deletedStatus;
+	setIsBikeModified(modifiedStatus) {
+		_isBikeModified = modifiedStatus;
 	}
-	isBikeDeleted() {
-		return _isBikeDeleted;
+	isBikeModified() {
+		return _isBikeModified;
 	}
 }
 
@@ -80,7 +80,11 @@ dispatcher.register((action) => {
 			bikeStore.emitChange();
 			break;
 		case actionTypes.DELETE_BIKE:
-			bikeStore.setIsBikeDeleted(action.data);
+			bikeStore.setIsBikeModified(action.data);
+			bikeStore.emitChange();
+			break;
+		case actionTypes.ADD_WORKOUT:
+			bikeStore.setIsBikeModified(action.data);
 			bikeStore.emitChange();
 			break;
 		default:

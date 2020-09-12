@@ -97,3 +97,48 @@ export function editBike(bikeInfo, isNameChanged) {
 		console.log('There is no loaded bike');
 	}
 }
+
+export function addWorkout(updatedBikeValues) {
+	if (sessionStorage.actualBike) {
+		const { _id } = JSON.parse(sessionStorage.actualBike);
+		const {
+			bikeTotalMeters,
+			bikeTotalMinutes,
+			workoutMeters,
+			workoutTotalMinutes,
+		} = updatedBikeValues;
+
+		const params = {
+			bikeId: _id,
+			bikeInfo: {
+				bikeTotalMeters,
+				bikeTotalMinutes,
+			},
+			workoutInfo: {
+				workoutMeters,
+				workoutTotalMinutes,
+			},
+		};
+		return axios
+			.put('/api/crud/bike/add-workout', params)
+			.then((response) => {
+				if (response.data) {
+					const actualBike = JSON.parse(sessionStorage.actualBike);
+					actualBike.bikeTotalMeters = bikeTotalMeters;
+					actualBike.bikeTotalMinutes = bikeTotalMinutes;
+					actualBike.bikeComponentList.forEach((compo) => {
+						compo.compoAccumulatedMeters += workoutMeters;
+						compo.compoAccumulatedMinutes += workoutTotalMinutes;
+					});
+					sessionStorage.actualBike = JSON.stringify(actualBike);
+				}
+
+				dispatcher.dispatch({
+					type: actionTypes.ADD_WORKOUT,
+					data: response.data,
+				});
+			});
+	} else {
+		console.log('There is no loaded bike');
+	}
+}

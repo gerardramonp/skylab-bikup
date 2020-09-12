@@ -12,9 +12,10 @@ function routes(UserModel, BikeModel, CompoModel) {
 		CompoModel
 	);
 
-	crudBikeRouter.route('/').post(crudBikeController.post);
-	crudBikeRouter.route('/delete').put(crudBikeController.put);
-	crudBikeRouter.route('/edit').put(crudBikeController.patch);
+	crudBikeRouter.route('/').post(crudBikeController.createBike);
+	crudBikeRouter.route('/delete').put(crudBikeController.deleteBike);
+	crudBikeRouter.route('/edit').put(crudBikeController.updateBike);
+	crudBikeRouter.route('/add-workout').put(crudBikeController.addWorkout);
 
 	return crudBikeRouter;
 }
