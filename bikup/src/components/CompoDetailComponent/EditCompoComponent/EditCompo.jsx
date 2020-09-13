@@ -1,12 +1,11 @@
 import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import { deleteBike, editBike } from '../../../actions/bikeActions';
+import { deleteBike, editcompo } from '../../../actions/bikeActions';
 import bikeStore from '../../../stores/bikeStore';
 
 import Header from '../../HeaderComponent/Header';
-import NewCompoModal from './NewCompoModal';
 
-import './EditBike.scss';
+import './editcompo.scss';
 
 const bikeTypeList = [
 	{ value: 'mountain', displayText: 'Mountain Bike', image: '' },
@@ -23,32 +22,32 @@ const drivingStyleList = [
 
 function getFormElements() {
 	const bikeNameElement = document.getElementsByClassName(
-		'editbike__bikename'
+		'editcompo__bikename'
 	)[0];
 	const bikeTypeElement = document.getElementsByClassName(
-		'editbike__bikeType'
+		'editcompo__bikeType'
 	)[0];
 	const drivingStyleElement = document.getElementsByClassName(
-		'editbike__driveStyle'
+		'editcompo__driveStyle'
 	)[0];
 	const bikeBrandElement = document.getElementsByClassName(
-		'editbike__bikeBrand'
+		'editcompo__bikeBrand'
 	)[0];
 	const bikeModelElement = document.getElementsByClassName(
-		'editbike__bikeModel'
+		'editcompo__bikeModel'
 	)[0];
 	const bikeTotalKmElement = document.getElementsByClassName(
-		'editbike__totalKm'
+		'editcompo__totalKm'
 	)[0];
 	const bikeTotalHoursElement = document.getElementsByClassName(
-		'editbike__totalHours'
+		'editcompo__totalHours'
 	)[0];
 
 	const warningElement = document.getElementsByClassName(
-		'editbike__warning'
+		'editcompo__warning'
 	)[0];
 	const submitButtonElement = document.getElementsByClassName(
-		'editbike__create-button'
+		'editcompo__create-button'
 	)[0];
 	const loadingElement = document.getElementsByClassName('loading')[0];
 	const noLoadingElement = document.getElementsByClassName('no-loading')[0];
@@ -94,7 +93,7 @@ function enableForm(formElements) {
 	});
 }
 
-function EditBike() {
+function EditCompo() {
 	const history = useHistory();
 	let actualBikeInfo = null;
 	if (sessionStorage.actualBike) {
@@ -133,7 +132,7 @@ function EditBike() {
 			};
 
 			try {
-				await editBike(bikeInfo, isNameChanged);
+				await editcompo(bikeInfo, isNameChanged);
 				const isBikeModified = bikeStore.isBikeModified();
 				if (!isBikeModified) {
 					alert('There has been an error editing your bike');
@@ -146,8 +145,6 @@ function EditBike() {
 			}
 		}
 	}
-
-	async function handleAddCompoClick() {}
 
 	async function handleDeleteClick() {
 		const confirmation = window.confirm(
@@ -169,38 +166,38 @@ function EditBike() {
 			<>
 				<Header />
 				<div className='general-container'>
-					<div className='editbike'>
+					<div className='editcompo'>
 						<div className='newbikeform__upper mobile'>
 							<NavLink to='/bikes'>My bikes</NavLink>
 						</div>
-						<div className='editbike__container'>
-							<h1 className='editbike__title'>Edit Bike</h1>
-							<form className='editbike__form'>
-								<div className='editbike__element'>
+						<div className='editcompo__container'>
+							<h1 className='editcompo__title'>Edit Bike</h1>
+							<form className='editcompo__form'>
+								<div className='editcompo__element'>
 									<label
 										htmlFor='bikename'
-										className='editbike__label'
+										className='editcompo__label'
 									>
 										Bike Name
 									</label>
 									<input
 										type='text'
 										name='bikename'
-										className='editbike__bikename editbike__input'
+										className='editcompo__bikename editcompo__input'
 										defaultValue={actualBikeInfo.bikeName}
 										required
 									/>
 								</div>
-								<div className='editbike__element'>
+								<div className='editcompo__element'>
 									<label
 										htmlFor='bikeType'
-										className='editbike__label'
+										className='editcompo__label'
 									>
 										Type
 									</label>
 									<select
 										name='bikeType'
-										className='editbike__bikeType editbike__input'
+										className='editcompo__bikeType editcompo__input'
 										defaultValue={actualBikeInfo.bikeType}
 										required
 									>
@@ -213,17 +210,17 @@ function EditBike() {
 										})}
 									</select>
 								</div>
-								<div className='editbike__element'>
+								<div className='editcompo__element'>
 									<label
 										htmlFor='bikeDriveStyle'
-										className='editbike__label'
+										className='editcompo__label'
 									>
 										Driving Style
 									</label>
 									<select
 										type='text'
 										name='bikeDriveStyle'
-										className='editbike__driveStyle editbike__input'
+										className='editcompo__driveStyle editcompo__input'
 										defaultValue={
 											actualBikeInfo.bikeDriveStyle
 										}
@@ -246,46 +243,46 @@ function EditBike() {
 										)}
 									</select>
 								</div>
-								<div className='editbike__element'>
+								<div className='editcompo__element'>
 									<label
 										htmlFor='bikeBrand'
-										className='editbike__label'
+										className='editcompo__label'
 									>
 										Brand
 									</label>
 									<input
 										type='text'
 										name='bikeBrand'
-										className='editbike__bikeBrand editbike__input'
+										className='editcompo__bikeBrand editcompo__input'
 										defaultValue={actualBikeInfo.bikeBrand}
 									/>
 								</div>
-								<div className='editbike__element'>
+								<div className='editcompo__element'>
 									<label
 										htmlFor='bikeModel'
-										className='editbike__label'
+										className='editcompo__label'
 									>
 										Model
 									</label>
 									<input
 										type='text'
 										name='bikeModel'
-										className='editbike__bikeModel editbike__input'
+										className='editcompo__bikeModel editcompo__input'
 										defaultValue={actualBikeInfo.bikeModel}
 									/>
 								</div>
-								<div className='editbike__element-double'>
+								<div className='editcompo__element-double'>
 									<div className='element-double__item'>
 										<label
 											htmlFor='bikeModel'
-											className='editbike__label'
+											className='editcompo__label'
 										>
 											Total KM
 										</label>
 										<input
 											type='number'
 											name='bikeModel'
-											className='editbike__totalKm editbike__input'
+											className='editcompo__totalKm editcompo__input'
 											defaultValue={
 												actualBikeInfo.bikeTotalMeters /
 												1000
@@ -295,14 +292,14 @@ function EditBike() {
 									<div className='element-double__item'>
 										<label
 											htmlFor='bikeModel'
-											className='editbike__label'
+											className='editcompo__label'
 										>
 											Total hours
 										</label>
 										<input
 											type='number'
 											name='bikeModel'
-											className='editbike__totalHours editbike__input'
+											className='editcompo__totalHours editcompo__input'
 											defaultValue={Math.round(
 												actualBikeInfo.bikeTotalMinutes /
 													60
@@ -310,11 +307,11 @@ function EditBike() {
 										/>
 									</div>
 								</div>
-								<div className='editbike__element'>
-									<p className='editbike__warning'></p>
+								<div className='editcompo__element'>
+									<p className='editcompo__warning'></p>
 								</div>
 								<button
-									className='editbike__create-button'
+									className='editcompo__create-button'
 									onClick={(event) => {
 										event.preventDefault();
 										validateForm();
@@ -339,15 +336,9 @@ function EditBike() {
 								<span className='bold'>Or</span>
 								<div className='line'></div>
 							</div>
-							<div className='editbike__extra'>
-								<button
-									className='extra__addcompo-button editbike__create-button'
-									onClick={(event) => {
-										event.preventDefault();
-										handleAddCompoClick();
-									}}
-								>
-									<div className='addcompo-loading hidden'>
+							<div className='editcompo__extra'>
+								<button className='extra__addcompo-button editcompo__create-button'>
+									<div className='delete-loading hidden'>
 										<img
 											src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f5753c458a8b552f891bb81/af512a8cb3c1285000d1191fdaaa670c/Spinner-1s-200px_(1).gif'
 											alt='loading...'
@@ -355,7 +346,11 @@ function EditBike() {
 										/>
 										<p>Loading</p>
 									</div>
-									<div className='addcompo-no-loading'>
+									<div
+										className='delete-no-loading'
+										Create
+										Account
+									>
 										Add new compo
 									</div>
 								</button>
@@ -387,12 +382,9 @@ function EditBike() {
 						</div>
 					</div>
 				</div>
-				<div className='newcompomodal'>
-					<NewCompoModal bikeName={actualBikeInfo.bikeName} />
-				</div>
 			</>
 		)
 	);
 }
 
-export default EditBike;
+export default EditCompo;

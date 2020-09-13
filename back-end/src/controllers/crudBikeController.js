@@ -56,6 +56,7 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 	}
 
 	function createBike(req, res) {
+		debug('entro al bike');
 		const { newBikeInfo } = req.body;
 		const bikeUserId = req.body._id;
 

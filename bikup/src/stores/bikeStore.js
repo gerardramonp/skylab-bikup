@@ -87,6 +87,10 @@ dispatcher.register((action) => {
 			bikeStore.setIsBikeModified(action.data);
 			bikeStore.emitChange();
 			break;
+		case actionTypes.ADD_NEW_COMPO:
+			bikeStore.setCompoDetail(action.data);
+			bikeStore.emitChange();
+			break;
 		default:
 			console.log(`There is no action with type: ${action.type}`);
 			break;

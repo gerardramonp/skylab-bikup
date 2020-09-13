@@ -33,7 +33,12 @@ const crudBikeRoutes = require('./src/routes/crudBikeRoutes')(
 	BikeModel,
 	CompoModel
 );
+const crudCompoRoutes = require('./src/routes/crudCompoRoutes')(
+	BikeModel,
+	CompoModel
+);
 
 app.use('/api/bikes', bikeRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/crud/bike', crudBikeRoutes);
+app.use('/api/crud/compo', crudCompoRoutes);
