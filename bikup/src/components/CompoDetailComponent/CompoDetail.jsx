@@ -88,6 +88,12 @@ function CompoDetail(props) {
 
 						<div className='compodetail__head'>
 							<div className='head__container'>
+								<NavLink
+									to={`/bikes/${bikeInfo.bikeName}`}
+									className='desktop'
+								>
+									Back
+								</NavLink>
 								<h2 className='head__compoName'>
 									{bikeInfo.bikeName} -{' '}
 									{compoInfo.compoDisplayName}
