@@ -56,7 +56,6 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 	}
 
 	function createBike(req, res) {
-		debug('entro al bike');
 		const { newBikeInfo } = req.body;
 		const bikeUserId = req.body._id;
 
@@ -66,11 +65,9 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 		BikeModel.findOne(bikeQuery, async (error, bike) => {
 			if (error) {
 				res.status(400);
-				res.send('Error inserting the new bike');
 			} else {
 				if (bike) {
 					res.status(409);
-					debug('This bike already exists');
 					return res.send(false);
 				} else {
 					const bikeData = { ...newBikeInfo, bikeUserId };
@@ -103,14 +100,11 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 				debug(error);
 				return res.send(false);
 			} else {
-				debug('Bike deleted, deleting components....');
-				debug(deletedBike);
 				CompoModel.deleteMany(compoQuery, (error, deletedCompos) => {
 					if (error) {
 						debug(error);
 						return res.send(false);
 					} else {
-						debug('\n\nComponents deleted:' + deletedCompos);
 						return res.send(true);
 					}
 				});
@@ -130,7 +124,6 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 			updateQuery[prop[0]] = prop[1];
 		});
 
-		debug(updateQuery);
 		// If bikeName is not modified, update it
 		if (!isNameChanged) {
 			BikeModel.updateOne(
@@ -159,7 +152,6 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 					res.status(400);
 					res.send(false);
 				} else {
-					debug(foundBike);
 					if (foundBike) {
 						res.status(304);
 						res.send(false);
@@ -186,7 +178,6 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 	}
 
 	function addWorkout(req, res) {
-		debug('Starting workout proces....');
 		const { bikeInfo, bikeId, workoutInfo } = req.body;
 
 		const filterQuery = {
@@ -218,8 +209,6 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 						},
 					};
 
-					debug(updateComposQuery);
-
 					CompoModel.updateMany(
 						compoFilterQuery,
 						updateComposQuery,
@@ -229,9 +218,6 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 								res.status(304);
 								res.send(false);
 							} else {
-								debug('Compos updated.....');
-								debug(updateStatus);
-
 								res.status(200);
 								return res.send(true);
 							}

@@ -57,7 +57,6 @@ function crudBikeController(BikeModel, CompoModel) {
 						res.status(304);
 						res.send(false);
 					} else {
-						debug(savedStatus);
 						res.status(200);
 						res.send(true);
 					}
@@ -66,7 +65,25 @@ function crudBikeController(BikeModel, CompoModel) {
 		});
 	}
 
-	return { createCompo, resetCompo };
+	function deleteCompo(req, res) {
+		const { compoId } = req.body;
+
+		const compoQuery = {
+			_id: new ObjectID(compoId),
+		};
+
+		CompoModel.deleteOne(compoQuery, (error, deletedStatus) => {
+			if (error) {
+				res.status(304);
+				return res.send(false);
+			} else {
+				res.status(200);
+				return res.send(true);
+			}
+		});
+	}
+
+	return { createCompo, resetCompo, deleteCompo };
 }
 
 module.exports = crudBikeController;

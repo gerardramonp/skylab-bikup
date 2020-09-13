@@ -9,7 +9,7 @@ import StandardAside from '../StandardAside/StandardAside';
 import DetailCompoCard from './DetailCompoCardComponent/DetailCompoCard';
 
 import './CompoDetail.scss';
-import { resetCompo } from '../../actions/compoActions';
+import { resetCompo, deleteCompo } from '../../actions/compoActions';
 import bikeStore from '../../stores/bikeStore';
 
 let userCheck = false;
@@ -58,6 +58,16 @@ function CompoDetail(props) {
 			alert('We could not reset your compo');
 		} else {
 			onChange();
+		}
+	}
+
+	async function handleDeleteCompoClick() {
+		await deleteCompo();
+		const deleteStatus = bikeStore.isCompoModified();
+		if (!deleteStatus) {
+			alert('We could not delete your compo');
+		} else {
+			history.replace(`/bikes/${bikeInfo}`);
 		}
 	}
 
@@ -141,6 +151,15 @@ function CompoDetail(props) {
 							}}
 						>
 							Reset Component
+						</button>
+						<button
+							className='compodetail__reset delete mobile'
+							onClick={(event) => {
+								event.preventDefault();
+								handleDeleteCompoClick();
+							}}
+						>
+							Delete Component
 						</button>
 					</div>
 				</div>

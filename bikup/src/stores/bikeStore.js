@@ -102,6 +102,9 @@ dispatcher.register((action) => {
 		case actionTypes.RESET_COMPO:
 			bikeStore.setIsCompoModified(action.data);
 			bikeStore.emitChange();
+		case actionTypes.DELETE_COMPO:
+			bikeStore.setIsCompoModified(action.data);
+			bikeStore.emitChange();
 		default:
 			console.log(`There is no action with type: ${action.type}`);
 			break;

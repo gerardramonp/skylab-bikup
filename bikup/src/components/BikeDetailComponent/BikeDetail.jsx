@@ -49,7 +49,6 @@ function BikeDetail(props) {
 	}, [userCheck]);
 
 	function onChange() {
-		debugger;
 		setBikeDetail(JSON.parse(sessionStorage.actualBike));
 	}
 

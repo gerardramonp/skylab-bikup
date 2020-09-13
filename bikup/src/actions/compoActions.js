@@ -51,10 +51,37 @@ export function resetCompo() {
 				}
 			});
 			sessionStorage.actualBike = JSON.stringify(localActualBike);
-			debugger;
 			// logica sessionStorage
 			dispatcher.dispatch({
 				type: actionTypes.RESET_COMPO,
+				data: response.data,
+			});
+		});
+	} else {
+		console.log('There is no loaded compo');
+	}
+}
+
+export function deleteCompo() {
+	if (sessionStorage.actualCompo) {
+		const { _id } = JSON.parse(sessionStorage.actualCompo);
+
+		const params = {
+			compoId: _id,
+		};
+		return axios.put('/api/crud/compo/delete', params).then((response) => {
+			// logica sessonstorage
+
+			const localActualBike = JSON.parse(sessionStorage.actualBike);
+			localActualBike.bikeComponentList = localActualBike.bikeComponentList.filter(
+				(compo) => {
+					return compo._id !== _id;
+				}
+			);
+			sessionStorage.actualBike = JSON.stringify(localActualBike);
+
+			dispatcher.dispatch({
+				type: actionTypes.DELETE_COMPO,
 				data: response.data,
 			});
 		});

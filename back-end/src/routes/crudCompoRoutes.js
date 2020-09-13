@@ -9,6 +9,7 @@ function routes(BikeModel, CompoModel) {
 
 	crudCompoRouter.route('/').post(crudCompoController.createCompo);
 	crudCompoRouter.route('/reset').put(crudCompoController.resetCompo);
+	crudCompoRouter.route('/delete').put(crudCompoController.deleteCompo);
 
 	return crudCompoRouter;
 }
