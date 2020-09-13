@@ -72,6 +72,17 @@ function NewCompoModal(bikeName) {
 		};
 	}
 
+	function hideModal() {
+		document.getElementsByClassName('darken__back')[0].style.display =
+			'none';
+		document
+			.getElementsByClassName('newcompomodal')[0]
+			.classList.remove('newcompomodal-show');
+		document
+			.getElementsByClassName('newcompomodal')[0]
+			.classList.add('newcompomodal-hide');
+	}
+
 	async function handleCreateCompoClick() {
 		const formElements = getFormElements();
 
@@ -97,10 +108,9 @@ function NewCompoModal(bikeName) {
 			if (!createdCompo) {
 				alert('We could not create the new compo');
 			} else {
+				hideModal();
 				history.replace(`/bikes/${bikeName}`);
 			}
-			// tancar form
-			// redirect a /bike/mybike
 		}
 	}
 	return (
@@ -112,7 +122,15 @@ function NewCompoModal(bikeName) {
 
 						<h3>Add new component</h3>
 						<div className='flex-spacer'></div>
-						<p className='top__close'>X</p>
+						<p
+							className='top__close'
+							onClick={(event) => {
+								event.preventDefault();
+								hideModal();
+							}}
+						>
+							X
+						</p>
 					</div>
 					<div className='newcompo__main'>
 						<label htmlFor='compoType'>Type</label>

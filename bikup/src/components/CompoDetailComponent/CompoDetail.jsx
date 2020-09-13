@@ -92,7 +92,13 @@ function CompoDetail(props) {
 									{bikeInfo.bikeName} -{' '}
 									{compoInfo.compoDisplayName}
 								</h2>
-								<button className='compodetail__reset desktop'>
+								<button
+									className='compodetail__reset desktop'
+									onClick={(event) => {
+										event.preventDefault();
+										handleResetCompoClick();
+									}}
+								>
 									Reset Component
 								</button>
 							</div>

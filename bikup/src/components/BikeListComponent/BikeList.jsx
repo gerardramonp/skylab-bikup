@@ -97,9 +97,14 @@ function BikeList(props) {
 							{bikeList.length > 0 ? (
 								renderBikeList(bikeList)
 							) : (
-								<p>
-									OOPS! It seems that you don't have any bikes
-								</p>
+								<div className='loadingscreen'>
+									<img
+										src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f5753c458a8b552f891bb81/25b7845da50467b914bf64c612ba27eb/Spinner-1s-200px.gif'
+										alt='loading gif'
+										className='loading__giff'
+									/>
+									<p>Loading bike list...</p>
+								</div>
 							)}
 						</div>
 						<NavLink

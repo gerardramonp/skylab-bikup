@@ -177,6 +177,7 @@ $transform: scale(1.08);
 	}
 
 	.compodetail__head {
+		display: flex;
 		align-items: center;
 		width: 100%;
 		padding: 12px 24px;
@@ -189,7 +190,6 @@ $transform: scale(1.08);
 		align-items: center;
 		width: 100%;
 	}
-
 	.compodetail__reset {
 		flex-direction: row;
 		justify-content: center;
@@ -197,12 +197,14 @@ $transform: scale(1.08);
 		width: 200px;
 		height: 45px;
 		font-weight: bold;
-		color: black;
+		color: white;
+		margin-top: 0;
+		margin-bottom: 12px;
 		transition: all 0.2s ease-in-out;
 	}
 
 	.compodetail__reset:hover {
-		color: whitesmoke;
+		color: blac;
 		transform: scale(1.08);
 	}
 

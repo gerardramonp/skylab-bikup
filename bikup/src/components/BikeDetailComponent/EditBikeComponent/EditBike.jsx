@@ -147,7 +147,31 @@ function EditBike() {
 		}
 	}
 
-	async function handleAddCompoClick() {}
+	function showModal() {
+		document.getElementsByClassName('darken__back')[0].style.display =
+			'block';
+		document
+			.getElementsByClassName('newcompomodal')[0]
+			.classList.remove('newcompomodal-hide');
+		document
+			.getElementsByClassName('newcompomodal')[0]
+			.classList.add('newcompomodal-show');
+	}
+
+	function hideModal() {
+		document.getElementsByClassName('darken__back')[0].style.display =
+			'none';
+		document
+			.getElementsByClassName('newcompomodal')[0]
+			.classList.remove('newcompomodal-show');
+		document
+			.getElementsByClassName('newcompomodal')[0]
+			.classList.add('newcompomodal-hide');
+	}
+
+	async function handleAddCompoClick() {
+		showModal();
+	}
 
 	async function handleDeleteClick() {
 		const confirmation = window.confirm(
@@ -387,6 +411,8 @@ function EditBike() {
 						</div>
 					</div>
 				</div>
+				<div className='darken__back'></div>
+
 				<div className='newcompomodal'>
 					<NewCompoModal bikeName={actualBikeInfo.bikeName} />
 				</div>

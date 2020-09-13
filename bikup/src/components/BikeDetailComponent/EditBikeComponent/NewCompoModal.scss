@@ -13,7 +13,7 @@ $card-shadow: 5px 5px 5px 0px rgba(209, 205, 209, 1);
 .newcompo__container {
 	display: flex;
 	justify-content: center;
-	width: 70%;
+	width: 60%;
 	margin: auto;
 	background-color: $light-highlight-color;
 	padding: 12px;
@@ -76,4 +76,10 @@ $card-shadow: 5px 5px 5px 0px rgba(209, 205, 209, 1);
 .newcompo__createbutton:hover {
 	color: black;
 	transform: $transform;
+}
+
+@media only screen and (min-width: 900px) {
+	.newcompo__container {
+		width: 350px;
+	}
 }
