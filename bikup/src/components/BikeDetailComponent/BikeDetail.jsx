@@ -140,12 +140,15 @@ function BikeDetail(props) {
 
 						<div className='bike-detail__head'>
 							<div className='head__container'>
-								<NavLink to='/bikes'>Back</NavLink>
+								<NavLink to='/bikes' className='desktop'>
+									Back
+								</NavLink>
 
 								<h2 className='head__bikename'>
 									{bikeDetails.bikeName || 'Your Bike'}
 								</h2>
 								<NavLink
+									className='desktop'
 									to={`/bikes/${bikeDetails.bikeName}/edit`}
 								>
 									Edit

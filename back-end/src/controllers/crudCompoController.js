@@ -41,7 +41,32 @@ function crudBikeController(BikeModel, CompoModel) {
 			}
 		});
 	}
-	return { createCompo };
+
+	function resetCompo(req, res) {
+		const { compoId } = req.body;
+
+		CompoModel.findById(compoId, (error, compo) => {
+			if (error) {
+				res.status(304);
+				res.send(false);
+			} else {
+				compo.compoAccumulatedMeters = 0;
+				compo.compoAccumulatedMinutes = 0;
+				compo.save((error, savedStatus) => {
+					if (error) {
+						res.status(304);
+						res.send(false);
+					} else {
+						debug(savedStatus);
+						res.status(200);
+						res.send(true);
+					}
+				});
+			}
+		});
+	}
+
+	return { createCompo, resetCompo };
 }
 
 module.exports = crudBikeController;

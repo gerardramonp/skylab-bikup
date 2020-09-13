@@ -9,6 +9,7 @@ let _bikeList = [];
 let _compoDetail = {};
 let _newBike = {};
 let _isBikeModified = null;
+let _isCompoModified = null;
 
 class BikeStore extends EventEmitter {
 	addChangeListener(callback) {
@@ -57,6 +58,13 @@ class BikeStore extends EventEmitter {
 	isBikeModified() {
 		return _isBikeModified;
 	}
+
+	setIsCompoModified(modifiedStatus) {
+		_isCompoModified = modifiedStatus;
+	}
+	isCompoModified() {
+		return _isCompoModified;
+	}
 }
 
 const bikeStore = new BikeStore();
@@ -91,6 +99,9 @@ dispatcher.register((action) => {
 			bikeStore.setCompoDetail(action.data);
 			bikeStore.emitChange();
 			break;
+		case actionTypes.RESET_COMPO:
+			bikeStore.setIsCompoModified(action.data);
+			bikeStore.emitChange();
 		default:
 			console.log(`There is no action with type: ${action.type}`);
 			break;

@@ -9,6 +9,8 @@ import StandardAside from '../StandardAside/StandardAside';
 import DetailCompoCard from './DetailCompoCardComponent/DetailCompoCard';
 
 import './CompoDetail.scss';
+import { resetCompo } from '../../actions/compoActions';
+import bikeStore from '../../stores/bikeStore';
 
 let userCheck = false;
 let isUserAuth = null;
@@ -42,6 +44,22 @@ function CompoDetail(props) {
 			setBikeInfo(JSON.parse(sessionStorage.actualBike));
 		}
 	}, [userCheck]);
+
+	function onChange() {
+		setCompoinfo(JSON.parse(sessionStorage.actualCompo));
+		setBikeInfo(JSON.parse(sessionStorage.actualBike));
+	}
+
+	async function handleResetCompoClick() {
+		await resetCompo();
+		const resetStatus = bikeStore.isCompoModified();
+
+		if (!resetStatus) {
+			alert('We could not reset your compo');
+		} else {
+			onChange();
+		}
+	}
 
 	return (
 		compoInfo && (
@@ -115,7 +133,13 @@ function CompoDetail(props) {
 								</div>
 							</div>
 						</div>
-						<button className='compodetail__reset mobile'>
+						<button
+							className='compodetail__reset mobile'
+							onClick={(event) => {
+								event.preventDefault();
+								handleResetCompoClick();
+							}}
+						>
 							Reset Component
 						</button>
 					</div>
