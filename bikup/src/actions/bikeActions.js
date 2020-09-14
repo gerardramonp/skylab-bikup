@@ -1,7 +1,6 @@
 import dispatcher from '../dispatcher';
 import actionTypes from './actionTypes';
 import axios from 'axios';
-import EditBike from '../components/BikeDetailComponent/EditBikeComponent/EditBike';
 
 export function loadUserBikeList(userId) {
 	if (!userId) {

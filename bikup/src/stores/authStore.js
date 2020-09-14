@@ -1,6 +1,7 @@
 import actionTypes from '../actions/actionTypes';
 import dispatcher from '../dispatcher';
 import { EventEmitter } from 'events';
+import { createNewBike } from '../actions/bikeActions';
 
 const CHANGE_EVENT = 'change';
 
@@ -36,6 +37,13 @@ dispatcher.register((action) => {
 		case actionTypes.LOGIN_USER_STRAVA:
 			_authUser = action.data;
 			_authUser && (sessionStorage.authUser = JSON.stringify(_authUser));
+			// si te bicis crearles
+			if (_authUser.bikeList) {
+				debugger;
+				_authUser.bikeList.forEach((bike) => {
+					createNewBike(bike);
+				});
+			}
 			authStore.emitChange();
 			break;
 		case actionTypes.LOGIN_USER_MAIL:

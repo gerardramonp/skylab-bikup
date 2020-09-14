@@ -52,8 +52,8 @@ function crudBikeController(BikeModel, CompoModel) {
 			} else {
 				compo.compoAccumulatedMeters = 0;
 				compo.compoAccumulatedMinutes = 0;
-				compo.save((error, savedStatus) => {
-					if (error) {
+				compo.save((saveError, savedStatus) => {
+					if (saveError) {
 						res.status(304);
 						res.send(false);
 					} else {

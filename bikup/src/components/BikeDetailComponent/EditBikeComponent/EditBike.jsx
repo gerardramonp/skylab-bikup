@@ -158,17 +158,6 @@ function EditBike() {
 			.classList.add('newcompomodal-show');
 	}
 
-	function hideModal() {
-		document.getElementsByClassName('darken__back')[0].style.display =
-			'none';
-		document
-			.getElementsByClassName('newcompomodal')[0]
-			.classList.remove('newcompomodal-show');
-		document
-			.getElementsByClassName('newcompomodal')[0]
-			.classList.add('newcompomodal-hide');
-	}
-
 	async function handleAddCompoClick() {
 		showModal();
 	}

@@ -12,6 +12,8 @@ $card-shadow: 5px 5px 5px 0px rgba(209, 205, 209, 1);
 
 .newcompo__container {
 	display: flex;
+	flex-direction: column;
+	align-items: center;
 	justify-content: center;
 	width: 60%;
 	margin: auto;
@@ -19,12 +21,6 @@ $card-shadow: 5px 5px 5px 0px rgba(209, 205, 209, 1);
 	padding: 12px;
 	border-radius: 10px;
 	font-size: 18px;
-}
-
-.newcompo__container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
 }
 
 .newcompo__top {

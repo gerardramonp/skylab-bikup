@@ -12,10 +12,11 @@ function debugObject(object) {
 function crudBikeController(UserModel, BikeModel, CompoModel) {
 	// Private functions
 
-	function setComponentListInfo(compos, userId, bikeId) {
+	function setComponentListInfo(compos, userId, bikeId, bikeDistance) {
 		const compoReducer = (accumulator, current) => {
 			current.compoUserId = userId;
 			current.compoBikeId = bikeId;
+			current.compoAccumulatedMeters = bikeDistance;
 			return [...accumulator, current];
 		};
 
@@ -39,7 +40,9 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 				const readyCompoList = setComponentListInfo(
 					defaultCompoList,
 					bikeData.bikeUserId,
-					newBike._id
+					newBike._id,
+					bikeData.bikeTotalMeters || 0
+					//bikeDistance
 				);
 
 				CompoModel.create(readyCompoList, (error, createdCompoList) => {
@@ -62,8 +65,8 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 		const bikeQuery = {
 			bikeName: newBikeInfo.bikeName,
 		};
-		BikeModel.findOne(bikeQuery, async (error, bike) => {
-			if (error) {
+		BikeModel.findOne(bikeQuery, async (findOneError, bike) => {
+			if (findOneError) {
 				res.status(400);
 			} else {
 				if (bike) {
@@ -72,7 +75,7 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 				} else {
 					const bikeData = { ...newBikeInfo, bikeUserId };
 					try {
-						const newBike = await createNewBikeWithCompos(bikeData);
+						await createNewBikeWithCompos(bikeData);
 						res.status(201);
 						return res.send(true);
 					} catch (error) {
@@ -100,14 +103,17 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 				debug(error);
 				return res.send(false);
 			} else {
-				CompoModel.deleteMany(compoQuery, (error, deletedCompos) => {
-					if (error) {
-						debug(error);
-						return res.send(false);
-					} else {
-						return res.send(true);
+				CompoModel.deleteMany(
+					compoQuery,
+					(deleteManyError, deletedCompos) => {
+						if (deleteManyError) {
+							debug(deleteManyError);
+							return res.send(false);
+						} else {
+							return res.send(true);
+						}
 					}
-				});
+				);
 			}
 		});
 	}
@@ -160,9 +166,9 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 						BikeModel.updateOne(
 							filterQuery,
 							updateQuery,
-							(error, updateStatus) => {
-								if (error) {
-									debug(error);
+							(updateOneError, updateStatus) => {
+								if (updateOneError) {
+									debug(updateOneError);
 									res.status(400);
 									res.send(false);
 								} else {
@@ -212,9 +218,9 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 					CompoModel.updateMany(
 						compoFilterQuery,
 						updateComposQuery,
-						(error, updateStatus) => {
-							if (error) {
-								debug(error);
+						(updateError, updateManyStatus) => {
+							if (updateError) {
+								debug(updateError);
 								res.status(304);
 								res.send(false);
 							} else {

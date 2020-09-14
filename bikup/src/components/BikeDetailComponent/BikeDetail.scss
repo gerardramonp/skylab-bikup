@@ -123,7 +123,6 @@ $card-shadow: 5px 5px 5px 0px rgba(209, 205, 209, 1);
 	height: 40px;
 	bottom: 70px;
 	right: 40px;
-	border: none;
 	background-color: $main-color;
 	border: 1px solid $main-color-border;
 	color: whitesmoke;
@@ -159,11 +158,11 @@ $card-shadow: 5px 5px 5px 0px rgba(209, 205, 209, 1);
 }
 
 .addworkout__container-shown {
-	animation: roadRunnerIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+	animation: roadRunnerIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
 .addworkout__container-hidden {
-	animation: roadRunnerOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+	animation: roadRunnerOut 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
 .addworkout__top {
