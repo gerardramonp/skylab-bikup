@@ -82,7 +82,9 @@ function CompoDetail(props) {
 
 					<div className='compodetail'>
 						<div className='compodetail__upper mobile'>
-							<NavLink to='/bikes/'>Back</NavLink>
+							<NavLink to={`/bikes/${bikeInfo.bikeName}`}>
+								Back
+							</NavLink>
 							<p className='upper__edit'>Edit</p>
 						</div>
 

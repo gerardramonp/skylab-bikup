@@ -257,7 +257,6 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 			userStravaGearIdList.push(bike.bikeStravaId);
 		});
 
-		debug(stravaAccessToken);
 		let authConfig = {
 			headers: {
 				Authorization: `Bearer ${stravaAccessToken}`,
