@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import authStore from '../../stores/authStore';
+import { STRAVA_AUTH_FULL_URL } from '../../Constants/stravaAuth';
 
 import { loginUserWithMail } from '../../actions/authActions';
 
@@ -17,7 +18,7 @@ function Login() {
 			'login__password'
 		)[0];
 		const submitButtonElement = document.getElementsByClassName(
-			'login__button'
+			'login__submitbutton'
 		)[0];
 		const loadingElement = document.getElementsByClassName('loading')[0];
 		const noLoadingElement = document.getElementsByClassName(
@@ -67,7 +68,6 @@ function Login() {
 				disableForm(formElements);
 				await loginUserWithMail(email, password);
 				const user = authStore.getAuthUser();
-
 				if (!user) {
 					formElements.warningMessageElement.innerHTML =
 						'Wrong email or password';
@@ -139,6 +139,10 @@ function Login() {
 									event.preventDefault();
 									handleSubmit();
 								}}
+								onKeyUp={(event) => {
+									event.preventDefault();
+									if (event.keyCode === 13) handleSubmit();
+								}}
 							>
 								<div className='loading hidden'>
 									<img
@@ -163,13 +167,20 @@ function Login() {
 
 					<div className='login__external'>
 						<button className='register__btn strava'>
-							<div className='btn__logo'>
-								<img
-									src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f53a18bf970328231db4f61/2f6af477333d585dfbfc19a14da9f857/strava-2.svg'
-									alt='google logo'
-								/>
-							</div>
-							<div className='btn__text'>Login with Strava</div>
+							<a
+								href={STRAVA_AUTH_FULL_URL}
+								className='button__anchor button__anchor--strava'
+							>
+								<div className='btn__logo'>
+									<img
+										src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f53a18bf970328231db4f61/2f6af477333d585dfbfc19a14da9f857/strava-2.svg'
+										alt='google logo'
+									/>
+								</div>
+								<div className='btn__text'>
+									Login with Strava
+								</div>
+							</a>
 						</button>
 
 						<button className='register__btn google'>

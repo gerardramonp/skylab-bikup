@@ -9,7 +9,7 @@ import Header from '../HeaderComponent/Header';
 
 let isUserAuth = null;
 let userCheck = false;
-let userInfo = null;
+let outterUserInfo = null;
 
 function Profile() {
 	let [userInfo, setUserInfo] = useState();

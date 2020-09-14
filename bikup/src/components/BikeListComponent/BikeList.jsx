@@ -3,7 +3,7 @@ import bikeStore from '../../stores/bikeStore';
 import authStore from '../../stores/authStore';
 import { loadUserBikeList } from '../../actions/bikeActions';
 import { isUserAuthWithToken } from '../../actions/authActions';
-import { useHistory } from 'react-router-dom';
+import { useHistory, NavLink } from 'react-router-dom';
 
 import Header from '../HeaderComponent/Header';
 import StandardAside from '../StandardAside/StandardAside';
@@ -64,8 +64,8 @@ function BikeList(props) {
 		}
 	}
 
-	function renderBikeList(bikeList) {
-		const renderedBikeList = bikeList.map((bike) => {
+	function renderBikeList(renderBikeList) {
+		const renderedBikeList = renderBikeList.map((bike) => {
 			return (
 				<BikeCard key={`bikelist-${bike.bikeName}`} bikeInfo={bike} />
 			);
@@ -74,37 +74,52 @@ function BikeList(props) {
 	}
 
 	return (
-		<>
-			<Header />
-			<div className='bikelist'>
-				<div className='bikelist__content'>
-					<div className='bikelist__top'>
-						<h2>Your Bikes</h2>
-						<img
-							className='strava__connect-btn'
-							src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f4f63b8021a9d482184baf2/3cca3ad9320164155dfbb9d09ff7982f/btn_strava_connectwith_orange%402x.png'
-							alt='connect with strava'
-						/>
-						<button className='bikelist__add--desktop desktop'>
+		bikeList && (
+			<>
+				<Header />
+				<div className='bikelist'>
+					<div className='bikelist__content'>
+						<div className='bikelist__top'>
+							<h2>Your Bikes</h2>
+							<img
+								className='strava__connect-btn'
+								src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f4f63b8021a9d482184baf2/3cca3ad9320164155dfbb9d09ff7982f/btn_strava_connectwith_orange%402x.png'
+								alt='connect with strava'
+							/>
+							<NavLink
+								className='bikelist__add--desktop desktop'
+								to='/bikes/new-bike'
+							>
+								+ Add new bike
+							</NavLink>
+						</div>
+						<div className='bikelist__cards'>
+							{bikeList.length > 0 ? (
+								renderBikeList(bikeList)
+							) : (
+								<div className='loadingscreen'>
+									<img
+										src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f5753c458a8b552f891bb81/25b7845da50467b914bf64c612ba27eb/Spinner-1s-200px.gif'
+										alt='loading gif'
+										className='loading__giff'
+									/>
+									<p>Loading bike list...</p>
+								</div>
+							)}
+						</div>
+						<NavLink
+							to='/bikes/new-bike'
+							className='bikelist__add mobile'
+						>
 							+ Add new bike
-						</button>
+						</NavLink>
 					</div>
-					<div className='bikelist__cards'>
-						{bikeList.length > 0 ? (
-							renderBikeList(bikeList)
-						) : (
-							<p>OOPS! It seems that you don't have any bikes</p>
-						)}
+					<div className='bikelist__challenges-giveaways'>
+						<StandardAside />
 					</div>
-					<button className='bikelist__add mobile'>
-						+ Add new bike
-					</button>
 				</div>
-				<div className='bikelist__challenges-giveaways'>
-					<StandardAside />
-				</div>
-			</div>
-		</>
+			</>
+		)
 	);
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import STRAVA_AUTH from '../../Constants/stravaAuth';
+import { STRAVA_AUTH_FULL_URL } from '../../Constants/stravaAuth';
 
 import './Landing.scss';
 
@@ -50,7 +50,7 @@ function Landing() {
 					<div className='register__strava registerItem'>
 						<button className='register__btn strava'>
 							<a
-								href={`http://www.strava.com/oauth/authorize?client_id=${STRAVA_AUTH.CLIENT_ID}&response_type=code&redirect_uri=${STRAVA_AUTH.REDIRECT_URL}&approval_prompt=force&scope=${STRAVA_AUTH.SCOPE}`}
+								href={STRAVA_AUTH_FULL_URL}
 								className='button__anchor button__anchor--strava'
 							>
 								<div className='btn__logo'>

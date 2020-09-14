@@ -1,6 +1,69 @@
 $header-bg-color: #222831;
 $main-color: #0c9;
 $header-separator-color: #393e46;
+$light-highlight-color: #eeeeee;
+$menu-bg-color: #393e46;
+
+.mobile__menu {
+	width: 100%;
+	height: 175px;
+	position: fixed;
+	bottom: 0;
+	z-index: 2;
+	background-color: $menu-bg-color;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	transform-origin: 0 100%;
+	transition: transform 0.5s;
+	transform: scaleY(0);
+}
+
+.mobile__menu-show {
+	transform: scaleY(1);
+}
+
+.mobile__menu-hide {
+	transform: scaleY(0);
+}
+
+.menu__decorator {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	padding: 12px;
+}
+
+.decorator__line {
+	height: 5px;
+	width: 40px;
+	border-radius: 4px;
+	background-color: white;
+	cursor: pointer;
+}
+
+.menu__list {
+	display: flex;
+	flex-direction: column;
+	list-style: none;
+}
+
+.menu__option {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	font-size: 18px;
+	font-weight: 500;
+	padding: 12px 24px;
+	cursor: pointer;
+	color: white;
+}
+
+.option__img {
+	height: 25px;
+	margin-right: 24px;
+	fill: whitesmoke;
+}
 
 .header__desktop {
 	display: none;
@@ -22,12 +85,12 @@ $header-separator-color: #393e46;
 	flex-direction: row;
 	align-items: center;
 	width: 100%;
-	padding: 0 24px;
 	color: white;
 }
 
 .logo {
 	height: 35px;
+	cursor: pointer;
 }
 
 .mobile__nav {
@@ -41,6 +104,7 @@ $header-separator-color: #393e46;
 .nav__item {
 	height: 25px;
 	transition: all 0.2s ease-in-out;
+	cursor: pointer;
 }
 
 .active--mobile {
@@ -49,6 +113,7 @@ $header-separator-color: #393e46;
 
 .nav__menu {
 	height: 25px;
+	cursor: pointer;
 }
 
 @media only screen and (min-width: 900px) {

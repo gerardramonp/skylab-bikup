@@ -9,6 +9,8 @@ import StandardAside from '../StandardAside/StandardAside';
 import DetailCompoCard from './DetailCompoCardComponent/DetailCompoCard';
 
 import './CompoDetail.scss';
+import { resetCompo, deleteCompo } from '../../actions/compoActions';
+import bikeStore from '../../stores/bikeStore';
 
 let userCheck = false;
 let isUserAuth = null;
@@ -43,6 +45,32 @@ function CompoDetail(props) {
 		}
 	}, [userCheck]);
 
+	function onChange() {
+		setCompoinfo(JSON.parse(sessionStorage.actualCompo));
+		setBikeInfo(JSON.parse(sessionStorage.actualBike));
+	}
+
+	async function handleResetCompoClick() {
+		await resetCompo();
+		const resetStatus = bikeStore.isCompoModified();
+
+		if (!resetStatus) {
+			alert('We could not reset your compo');
+		} else {
+			onChange();
+		}
+	}
+
+	async function handleDeleteCompoClick() {
+		await deleteCompo();
+		const deleteStatus = bikeStore.isCompoModified();
+		if (!deleteStatus) {
+			alert('We could not delete your compo');
+		} else {
+			history.replace(`/bikes/${bikeInfo}`);
+		}
+	}
+
 	return (
 		compoInfo && (
 			<>
@@ -60,11 +88,23 @@ function CompoDetail(props) {
 
 						<div className='compodetail__head'>
 							<div className='head__container'>
+								<NavLink
+									to={`/bikes/${bikeInfo.bikeName}`}
+									className='desktop'
+								>
+									Back
+								</NavLink>
 								<h2 className='head__compoName'>
 									{bikeInfo.bikeName} -{' '}
 									{compoInfo.compoDisplayName}
 								</h2>
-								<button className='compodetail__reset desktop'>
+								<button
+									className='compodetail__reset desktop'
+									onClick={(event) => {
+										event.preventDefault();
+										handleResetCompoClick();
+									}}
+								>
 									Reset Component
 								</button>
 							</div>
@@ -115,8 +155,23 @@ function CompoDetail(props) {
 								</div>
 							</div>
 						</div>
-						<button className='compodetail__reset mobile'>
+						<button
+							className='compodetail__reset mobile'
+							onClick={(event) => {
+								event.preventDefault();
+								handleResetCompoClick();
+							}}
+						>
 							Reset Component
+						</button>
+						<button
+							className='compodetail__reset delete mobile'
+							onClick={(event) => {
+								event.preventDefault();
+								handleDeleteCompoClick();
+							}}
+						>
+							Delete Component
 						</button>
 					</div>
 				</div>

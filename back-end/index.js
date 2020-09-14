@@ -16,19 +16,29 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-    res.send('My server works');
+	res.send('My server works');
 });
 
 app.listen(PORT, () => debug(`Server running on port ${PORT}`));
 
 // Routes
 const bikeRoutes = require('./src/routes/bikesRoutes')(
-    UserModel,
-    BikeModel,
-    CompoModel
+	UserModel,
+	BikeModel,
+	CompoModel
 );
-
 const authRoutes = require('./src/routes/authRoutes')(UserModel);
+const crudBikeRoutes = require('./src/routes/crudBikeRoutes')(
+	UserModel,
+	BikeModel,
+	CompoModel
+);
+const crudCompoRoutes = require('./src/routes/crudCompoRoutes')(
+	BikeModel,
+	CompoModel
+);
 
 app.use('/api/bikes', bikeRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/crud/bike', crudBikeRoutes);
+app.use('/api/crud/compo', crudCompoRoutes);
