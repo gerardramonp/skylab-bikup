@@ -2,6 +2,8 @@
 
 exports[`Bike Card Component should match 1`] = `
 <p>
-  esta basura no carga el compo soon
+  Oops! We couldn't load 
+  eo
+  ...
 </p>
 `;

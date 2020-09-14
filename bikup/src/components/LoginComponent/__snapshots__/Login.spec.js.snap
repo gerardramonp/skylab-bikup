@@ -5,24 +5,27 @@ Array [
   <div
     className="landing__header desktop"
   >
-    <img
-      alt="logo"
-      className="logo"
-      src="https://cdn.discordapp.com/attachments/692420285143711814/693437226146594876/LogoGerili.png"
-    />
-    <p
-      className="appName"
+    <a
+      aria-current="page"
+      className="header__linkhome active"
+      href="/"
+      onClick={[Function]}
+      style={Object {}}
     >
-      bikUP
-    </p>
+      <img
+        alt="logo"
+        className="logo"
+        src="https://cdn.discordapp.com/attachments/692420285143711814/693437226146594876/LogoGerili.png"
+      />
+      <p
+        className="appName"
+      >
+        bikUP
+      </p>
+    </a>
     <div
       className="flex-spacer"
     />
-    <button
-      className="login__button login__button--header"
-    >
-      Log In
-    </button>
   </div>,
   <div
     className="register__upper mobile"
@@ -105,6 +108,7 @@ Array [
           <button
             className="login__submitbutton"
             onClick={[Function]}
+            onKeyUp={[Function]}
             type="submit"
           >
             <div
@@ -150,19 +154,24 @@ Array [
         <button
           className="register__btn strava"
         >
-          <div
-            className="btn__logo"
+          <a
+            className="button__anchor button__anchor--strava"
+            href="http://www.strava.com/oauth/authorize?client_id=37664&response_type=code&redirect_uri=http://localhost:3000/auth/strava&approval_prompt=force&scope=read_all,activity:read,profile:read_all"
           >
-            <img
-              alt="google logo"
-              src="https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f53a18bf970328231db4f61/2f6af477333d585dfbfc19a14da9f857/strava-2.svg"
-            />
-          </div>
-          <div
-            className="btn__text"
-          >
-            Login with Strava
-          </div>
+            <div
+              className="btn__logo"
+            >
+              <img
+                alt="google logo"
+                src="https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f53a18bf970328231db4f61/2f6af477333d585dfbfc19a14da9f857/strava-2.svg"
+              />
+            </div>
+            <div
+              className="btn__text"
+            >
+              Login with Strava
+            </div>
+          </a>
         </button>
         <button
           className="register__btn google"

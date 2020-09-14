@@ -2,6 +2,9 @@ const debug = require('debug')('app:crudBikeController');
 const { ObjectID } = require('mongodb');
 const { filter } = require('../Constants/bikeDefaultComponents');
 const defaultCompoList = require('../Constants/bikeDefaultComponents');
+const axios = require('axios');
+
+const stravaApi = require('../Constants/stravaAPI');
 
 function debugObject(object) {
 	Object.entries(object).forEach((prop) => {
@@ -12,11 +15,18 @@ function debugObject(object) {
 function crudBikeController(UserModel, BikeModel, CompoModel) {
 	// Private functions
 
-	function setComponentListInfo(compos, userId, bikeId, bikeDistance) {
+	function setComponentListInfo(
+		compos,
+		userId,
+		bikeId,
+		bikeDistance,
+		bikeMinutes
+	) {
 		const compoReducer = (accumulator, current) => {
 			current.compoUserId = userId;
 			current.compoBikeId = bikeId;
 			current.compoAccumulatedMeters = bikeDistance;
+			current.compoAccumulatedMinutes = bikeMinutes;
 			return [...accumulator, current];
 		};
 
@@ -41,8 +51,8 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 					defaultCompoList,
 					bikeData.bikeUserId,
 					newBike._id,
-					bikeData.bikeTotalMeters || 0
-					//bikeDistance
+					bikeData.bikeTotalMeters || 0,
+					bikeData.bikeTotalMinutes || 0
 				);
 
 				CompoModel.create(readyCompoList, (error, createdCompoList) => {
@@ -234,7 +244,71 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 		);
 	}
 
-	return { createBike, deleteBike, updateBike, addWorkout };
+	function isGearInBikeList(workoutGear, userGearList) {
+		return userGearList.indexOf(workoutGear);
+	}
+
+	async function loadStravaBikeInfo(req, res) {
+		const { bikeList, stravaAccessToken } = req.body;
+		let indexedBikeList = {};
+		let userStravaGearIdList = [];
+		bikeList.forEach((bike) => {
+			indexedBikeList[bike.bikeStravaId] = { ...bike };
+			userStravaGearIdList.push(bike.bikeStravaId);
+		});
+
+		debug(stravaAccessToken);
+		let authConfig = {
+			headers: {
+				Authorization: `Bearer ${stravaAccessToken}`,
+			},
+		};
+
+		let processedBikeList = [];
+		let workoutList = null;
+		let page = 1;
+		do {
+			let endpoint = `${stravaApi.API_URL}/athlete/activities/?per_page=200&page=${page}`;
+			try {
+				workoutList = await axios.get(endpoint, authConfig);
+				processedBikeList = workoutList.data.reduce(
+					(accumulator, current) => {
+						const checkBikeExists = isGearInBikeList(
+							current.gear_id,
+							userStravaGearIdList
+						);
+						if (checkBikeExists !== -1) {
+							accumulator[
+								current.gear_id
+							].bikeTotalMinutes += Math.round(
+								current.moving_time / 60
+							);
+							accumulator[current.gear_id].bikeLastRoute =
+								current.start_date_local;
+						}
+						return accumulator;
+					},
+					indexedBikeList
+				);
+
+				page++;
+			} catch (error) {
+				res.status(400);
+				return res.send(false);
+			}
+		} while (workoutList.length > 0);
+
+		res.status(200);
+		return res.send(processedBikeList);
+	}
+
+	return {
+		createBike,
+		deleteBike,
+		updateBike,
+		addWorkout,
+		loadStravaBikeInfo,
+	};
 }
 
 module.exports = crudBikeController;

@@ -39,7 +39,7 @@ function BikeCard({ bikeInfo }) {
 					<div className='bikecard__top'>
 						<p className='top__name'>{bikeInfo.bikeName}</p>
 						<p className='top__km'>
-							{bikeInfo.bikeTotalMeters / 1000} Km
+							{Math.round(bikeInfo.bikeTotalMeters / 1000)} Km
 						</p>
 					</div>
 					<div className='bikecard__separator'></div>
@@ -47,8 +47,11 @@ function BikeCard({ bikeInfo }) {
 						<div className='repair__labbels'>
 							<p>Check Soon</p>
 							<p className='labbels__value'>
-								({soonCompo.compoAccumulatedMeters / 1000} /
-								{soonCompo.compoLife / 1000} Km)
+								(
+								{Math.round(
+									soonCompo.compoAccumulatedMeters / 1000
+								)}{' '}
+								/{soonCompo.compoLife / 1000} Km)
 							</p>
 						</div>
 						<div className='repair__progress'>

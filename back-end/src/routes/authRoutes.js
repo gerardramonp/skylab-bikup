@@ -54,7 +54,7 @@ function routes(UserModel) {
 								...stravaUser,
 								_id: existingUser[0]._id,
 							};
-							req.authMethod = 'login';
+							req.authMethod = 'register';
 							req.existingUser = existingUser[0];
 						} else {
 							req.authUser = { ...stravaUser };

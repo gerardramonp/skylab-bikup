@@ -310,23 +310,54 @@ Array [
 
 exports[`Bike Detail should match 1`] = `
 Array [
+  <div
+    className="mobile__menu"
+  >
+    <div
+      className="menu__decorator"
+      onClick={[Function]}
+    >
+      <div
+        className="decorator__line"
+      />
+    </div>
+    <ul
+      className="menu__list"
+    >
+      <li
+        className="menu__option"
+        onClick={[Function]}
+      >
+        <img
+          alt="Logout"
+          className="option__img"
+          src="https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f5a496d520b7b130a5d4819/7f0d35433cdacef755bec9d18cbcce2c/logout.png"
+        />
+        <p
+          className="option__p"
+        >
+          Logout
+        </p>
+      </li>
+    </ul>
+  </div>,
   <header
     className="header"
   >
     <div
       className="header__mobile"
     >
-      <img
-        alt="logo"
-        className="logo"
-        src="https://cdn.discordapp.com/attachments/692420285143711814/693437226146594876/LogoGerili.png"
-      />
       <div
         className="mobile__nav"
       >
+        <img
+          alt="logo"
+          className="logo"
+          src="https://cdn.discordapp.com/attachments/692420285143711814/693437226146594876/LogoGerili.png"
+        />
         <a
           aria-current={null}
-          href="/search"
+          href="/bikes"
           onClick={[Function]}
         >
           <img
@@ -357,12 +388,13 @@ Array [
             src="https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f53d188f7827833bd79ef9b/e60b6c14d78fa03c5a1ae02b95f9cbca/user.png"
           />
         </a>
+        <img
+          alt="menu"
+          className="nav__menu"
+          onClick={[Function]}
+          src="https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f53d188f7827833bd79ef9b/ea9ccf0f7a5fe6c8d066bb89f204f504/open-menu.png"
+        />
       </div>
-      <img
-        alt="menu"
-        className="nav__menu"
-        src="https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f53d188f7827833bd79ef9b/ea9ccf0f7a5fe6c8d066bb89f204f504/open-menu.png"
-      />
     </div>
     <div
       className="header__desktop"
@@ -410,8 +442,9 @@ Array [
       />
       <button
         className="login__button login__button--header"
+        onClick={[Function]}
       >
-        Log In
+        Log Out
       </button>
     </div>
   </header>,
@@ -516,20 +549,43 @@ Array [
         >
           Back
         </a>
-        <p
+        <a
+          aria-current={null}
           className="upper__edit"
+          href="/bikes/undefined/edit"
+          onClick={[Function]}
         >
           Edit
-        </p>
+        </a>
       </div>
       <div
         className="bike-detail__head"
       >
-        <h2
-          className="head__bikename"
+        <div
+          className="head__container"
         >
-          Your Bike
-        </h2>
+          <a
+            aria-current={null}
+            className="desktop"
+            href="/bikes"
+            onClick={[Function]}
+          >
+            Back
+          </a>
+          <h2
+            className="head__bikename"
+          >
+            Your Bike
+          </h2>
+          <a
+            aria-current={null}
+            className="desktop"
+            href="/bikes/undefined/edit"
+            onClick={[Function]}
+          >
+            Edit
+          </a>
+        </div>
         <div
           className="separator"
         />
@@ -572,6 +628,7 @@ Array [
           </div>
           <button
             className="float__button"
+            onClick={[Function]}
           >
             + Workout
           </button>
@@ -609,6 +666,118 @@ Array [
                
             </p>
           </div>
+        </div>
+      </div>
+      <div
+        className="darken__back"
+      />
+      <div
+        className="addworkout__container"
+      >
+        <div
+          className="addworkout__top"
+        >
+          <div
+            className="flex-spacer"
+          />
+          <h3>
+            Add new workout
+          </h3>
+          <div
+            className="flex-spacer"
+          />
+          <p
+            className="top__close"
+            onClick={[Function]}
+          >
+            X
+          </p>
+        </div>
+        <div
+          className="bikecard__separator"
+        />
+        <div
+          className="addworkout__km-container addworkout__element"
+        >
+          <label
+            className="addworkout__label"
+            htmlFor="workoutKm"
+          >
+            Distance (KM)
+          </label>
+          <input
+            className="addworkout__km-input addworkout__input"
+            defaultValue="0"
+            name="addworkout__km"
+            required={true}
+            type="number"
+          />
+        </div>
+        <div
+          className="addworkout__time-container addworkout__element-double"
+        >
+          <div
+            className="time__hours"
+          >
+            <label
+              className="addworkout__label"
+              htmlFor="addworkout__hours"
+            >
+              Hours
+            </label>
+            <input
+              className="addworkout__hours-input addworkout__input"
+              defaultValue="0"
+              name="addworkout__hours"
+              required={true}
+              type="number"
+            />
+          </div>
+          <div
+            className="time__minutes"
+          >
+            <label
+              className="addworkout__label"
+              htmlFor="addworkout__minutes"
+            >
+              Minutes
+            </label>
+            <input
+              className="addworkout__minutes-input addworkout__input"
+              defaultValue="0"
+              name="addworkout__minutes"
+              required={true}
+              type="number"
+            />
+          </div>
+        </div>
+        <div
+          className="addworkout__bottom"
+        >
+          <button
+            className="addworkout__button"
+            onClick={[Function]}
+          >
+            <div
+              className="loading hidden"
+            >
+              <img
+                alt="loading..."
+                className="loading__img"
+                src="https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f5753c458a8b552f891bb81/af512a8cb3c1285000d1191fdaaa670c/Spinner-1s-200px_(1).gif"
+              />
+              <p>
+                Loading
+              </p>
+            </div>
+            <div
+              Account={true}
+              Create={true}
+              className="no-loading"
+            >
+              Add new Workout
+            </div>
+          </button>
         </div>
       </div>
     </div>

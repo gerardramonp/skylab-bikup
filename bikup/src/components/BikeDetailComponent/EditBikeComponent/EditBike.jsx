@@ -299,10 +299,10 @@ function EditBike() {
 											type='number'
 											name='bikeModel'
 											className='editbike__totalKm editbike__input'
-											defaultValue={
+											defaultValue={Math.round(
 												actualBikeInfo.bikeTotalMeters /
-												1000
-											}
+													1000
+											)}
 										/>
 									</div>
 									<div className='element-double__item'>

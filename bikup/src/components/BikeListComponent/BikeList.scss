@@ -19,6 +19,7 @@ $dark-highlight-color: #393e46;
 	display: flex;
 	flex-direction: row;
 	width: 400px;
+	justify-content: center;
 	align-items: center;
 	font-size: 28px;
 	margin: auto;
@@ -26,6 +27,17 @@ $dark-highlight-color: #393e46;
 
 .loading__giff {
 	height: 70px;
+}
+
+.bikelist__nobikes {
+	font-size: 18px;
+	text-align: center;
+}
+
+.connected {
+	color: $main-color;
+	font-size: 18px;
+	font-weight: 500;
 }
 
 .bikelist__top {

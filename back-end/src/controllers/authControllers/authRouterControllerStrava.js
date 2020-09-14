@@ -13,10 +13,13 @@ function debugObject(object) {
 function generateTempBikeObject(stravaBike) {
 	const tempBike = {};
 	tempBike.bikeTotalMeters = stravaBike.data.distance;
+	tempBike.bikeTotalMinutes = 0;
 	tempBike.bikeName = stravaBike.data.name;
 	tempBike.bikeDriveStyle = 'moderate';
 	tempBike.bikeBrand = stravaBike.data.brand_name;
 	tempBike.bikeModel = stravaBike.data.model_name;
+	tempBike.bikeStravaId = stravaBike.data.id;
+
 	switch (stravaBike.data.frame_type) {
 		case 1:
 			tempBike.bikeType = bikeTypes.MOUNTAIN;
@@ -40,23 +43,6 @@ function generateTempBikeObject(stravaBike) {
 }
 
 function authRouterControllerStrava(UserModel) {
-	async function loadCompleteBikeListInfo(bikeList, stravaApiConfig) {
-		bikeList.forEach(async (bike, index) => {
-			const tempBike = {};
-			const endpoint = `${stravaApi.API_URL}/gear/${bike.id}`;
-			const completeBike = await axios.get(endpoint, stravaApiConfig);
-
-			bike.frameType = completeBike.data.frame_type;
-			debug(`bike:`);
-			debugObject(bike);
-
-			if (index + 1 === bikeList.length) {
-				debug('returtning......');
-				return bikeList;
-			}
-		});
-	}
-
 	function post(req, res) {
 		if (req.authUser && req.authMethod) {
 			const user = req.authUser;
@@ -96,7 +82,7 @@ function authRouterControllerStrava(UserModel) {
 							const tempBikeList = [...bikes];
 							let returnBikeList = [];
 
-							tempBikeList.forEach(async (bike, index) => {
+							tempBikeList.forEach(async (bike) => {
 								try {
 									const endpoint = `${stravaApi.API_URL}/gear/${bike.id}`;
 									const completeBike = await axios.get(
@@ -108,16 +94,15 @@ function authRouterControllerStrava(UserModel) {
 										completeBike
 									);
 
-									debug('The generated bike is.....');
-									debugObject(tempBike);
-									debug('\n\n\n');
-
 									returnBikeList = [
 										...returnBikeList,
 										tempBike,
 									];
 
-									if (index + 1 === tempBikeList.length) {
+									if (
+										returnBikeList.length ===
+										tempBikeList.length
+									) {
 										tempUser.bikeList = returnBikeList;
 										res.status(201);
 										return res.json(tempUser);

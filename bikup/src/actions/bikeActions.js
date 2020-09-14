@@ -43,7 +43,6 @@ export function createNewBike(newBikeInfo) {
 	// Llegir id usuari del sessionstorage
 	if (sessionStorage.authUser) {
 		const { _id } = JSON.parse(sessionStorage.authUser);
-
 		const params = {
 			newBikeInfo,
 			_id,
@@ -139,4 +138,21 @@ export function addWorkout(updatedBikeValues) {
 	} else {
 		console.log('There is no loaded bike');
 	}
+}
+
+export function loadStravaBikeInfo(bikeList, stravaAccessToken) {
+	//Consultar el back
+	// Esperar resposta
+	const props = {
+		bikeList,
+		stravaAccessToken,
+	};
+	return axios
+		.post('/api/crud/bike/stravaBikeInfo', props)
+		.then((bikeList) => {
+			dispatcher.dispatch({
+				type: actionTypes.STRAVA_LOAD_BIKE_LIST_INFO,
+				data: bikeList.data,
+			});
+		});
 }

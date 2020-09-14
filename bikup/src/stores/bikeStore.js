@@ -2,6 +2,8 @@ import actionTypes from '../actions/actionTypes';
 import dispatcher from '../dispatcher';
 import { EventEmitter } from 'events';
 
+import { createNewBike } from '../actions/bikeActions';
+
 const CHANGE_EVENT = 'change';
 
 let _bike = {};
@@ -102,9 +104,21 @@ dispatcher.register((action) => {
 		case actionTypes.RESET_COMPO:
 			bikeStore.setIsCompoModified(action.data);
 			bikeStore.emitChange();
+			break;
+
 		case actionTypes.DELETE_COMPO:
 			bikeStore.setIsCompoModified(action.data);
 			bikeStore.emitChange();
+			break;
+
+		case actionTypes.STRAVA_LOAD_BIKE_LIST_INFO:
+			debugger;
+			if (action.data) {
+				Object.entries(action.data).forEach((bike) => {
+					createNewBike(bike[1]);
+				});
+			}
+			break;
 		default:
 			console.log(`There is no action with type: ${action.type}`);
 			break;

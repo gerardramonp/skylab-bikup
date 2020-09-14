@@ -115,8 +115,10 @@ function CompoDetail(props) {
 									<p className='km-hours__title'>Total KM</p>
 									<div className='separator-small'></div>
 									<p className='km__value'>
-										{compoInfo.compoAccumulatedMeters /
-											1000}
+										{Math.round(
+											compoInfo.compoAccumulatedMeters /
+												1000
+										)}
 									</p>
 								</div>
 								<div className='km-hours__hours km-hours'>

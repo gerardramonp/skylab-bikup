@@ -18,6 +18,7 @@ let userId = '';
 
 function BikeList(props) {
 	const [bikeList, setBikeList] = useState([]);
+	const [authUser, setAuthUser] = useState();
 
 	const history = useHistory();
 
@@ -45,10 +46,12 @@ function BikeList(props) {
 		if (bikeList.length === 0) {
 			loadUserBikeList(userId);
 		}
+		let timer = null;
 
 		return () => {
 			bikeStore.removeChangeListener(onChange);
 			authStore.removeChangeListener(authChange);
+			timer && clearTimeout(timer);
 		};
 	}, [isUserAuth]);
 
@@ -60,6 +63,7 @@ function BikeList(props) {
 		isUserAuth = authStore.isUserAuth();
 		if (isUserAuth) {
 			userId = JSON.parse(sessionStorage.authUser)._id;
+			setAuthUser(JSON.parse(sessionStorage.authUser));
 			loadUserBikeList(userId);
 		}
 	}
@@ -73,6 +77,18 @@ function BikeList(props) {
 		return renderedBikeList;
 	}
 
+	const connectStravaButton = (
+		<img
+			className='strava__connect-btn'
+			src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f4f63b8021a9d482184baf2/3cca3ad9320164155dfbb9d09ff7982f/btn_strava_connectwith_orange%402x.png'
+			alt='connect with strava'
+		/>
+	);
+
+	const connectedWithStrava = (
+		<p className='connected'>Connected with Strava</p>
+	);
+
 	return (
 		bikeList && (
 			<>
@@ -81,11 +97,11 @@ function BikeList(props) {
 					<div className='bikelist__content'>
 						<div className='bikelist__top'>
 							<h2>Your Bikes</h2>
-							<img
-								className='strava__connect-btn'
-								src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f4f63b8021a9d482184baf2/3cca3ad9320164155dfbb9d09ff7982f/btn_strava_connectwith_orange%402x.png'
-								alt='connect with strava'
-							/>
+							{authUser &&
+								(authUser.stravaAccessToken
+									? connectedWithStrava
+									: connectStravaButton)}
+
 							<NavLink
 								className='bikelist__add--desktop desktop'
 								to='/bikes/new-bike'
@@ -103,7 +119,15 @@ function BikeList(props) {
 										alt='loading gif'
 										className='loading__giff'
 									/>
-									<p>Loading bike list...</p>
+									<p className='bikelist__loading'>
+										Loading bike list...
+									</p>
+									<p className='bikelist__nobikes hidden'>
+										Oops! Seems that you don't have any bike
+										yet <br />
+										<br />
+										Try adding a new one
+									</p>
 								</div>
 							)}
 						</div>

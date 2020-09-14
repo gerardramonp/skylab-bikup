@@ -37,6 +37,15 @@
 		"test": "react-scripts test --watchAll --coverage",
 		"eject": "react-scripts eject"
 	},
+	"jest": {
+		"coveragePathIgnorePatterns": [
+			"src/index",
+			"src/serviceWorker",
+			"src/appDispatcher",
+			"src/App",
+			"src/components"
+		]
+	},
 	"proxy": "http://localhost:4200",
 	"browserslist": {
 		"production": [

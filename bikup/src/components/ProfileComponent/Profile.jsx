@@ -50,6 +50,10 @@ function Profile() {
 		/>
 	);
 
+	const connectedWithStrava = (
+		<p className='connected'>Connected with Strava</p>
+	);
+
 	return (
 		(userInfo && (
 			<>
@@ -72,7 +76,7 @@ function Profile() {
 								<div className='main__info'>
 									<p>
 										{userInfo.stravaAccessToken
-											? 'Connected with Strava'
+											? connectedWithStrava
 											: connectStravaButton}
 									</p>
 								</div>

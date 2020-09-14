@@ -16,6 +16,9 @@ function routes(UserModel, BikeModel, CompoModel) {
 	crudBikeRouter.route('/delete').put(crudBikeController.deleteBike);
 	crudBikeRouter.route('/edit').put(crudBikeController.updateBike);
 	crudBikeRouter.route('/add-workout').put(crudBikeController.addWorkout);
+	crudBikeRouter
+		.route('/stravaBikeInfo')
+		.post(crudBikeController.loadStravaBikeInfo);
 
 	return crudBikeRouter;
 }
