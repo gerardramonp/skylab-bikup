@@ -154,8 +154,13 @@ function CompoDetail(props) {
 										{bikeInfo.bikeName} -{' '}
 										{compoInfo.compoDisplayName}
 									</p>
-									<p>'Unknown Brand' - 'Unknown Model'</p>
-									<p>Someinfo</p>
+									<p>
+										{compoInfo.compoBrand ||
+											'Unknown brand'}{' '}
+										-{' '}
+										{compoInfo.compoModel ||
+											'Unknown Model'}
+									</p>
 								</div>
 							</div>
 						</div>

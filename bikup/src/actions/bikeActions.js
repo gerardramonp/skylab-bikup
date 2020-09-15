@@ -40,9 +40,9 @@ export function loadCompoById(bikeId, compoId) {
 }
 
 export function createNewBike(newBikeInfo) {
-	// Llegir id usuari del sessionstorage
 	if (sessionStorage.authUser) {
 		const { _id } = JSON.parse(sessionStorage.authUser);
+		debugger;
 		const params = {
 			newBikeInfo,
 			_id,
@@ -59,7 +59,6 @@ export function createNewBike(newBikeInfo) {
 }
 
 export function deleteBike() {
-	// llegir id de la bici
 	if (sessionStorage.actualBike) {
 		const { _id } = JSON.parse(sessionStorage.actualBike);
 		const params = {
@@ -141,8 +140,6 @@ export function addWorkout(updatedBikeValues) {
 }
 
 export function loadStravaBikeInfo(bikeList, stravaAccessToken) {
-	//Consultar el back
-	// Esperar resposta
 	const props = {
 		bikeList,
 		stravaAccessToken,

@@ -112,7 +112,6 @@ dispatcher.register((action) => {
 			break;
 
 		case actionTypes.STRAVA_LOAD_BIKE_LIST_INFO:
-			debugger;
 			if (action.data) {
 				Object.entries(action.data).forEach((bike) => {
 					createNewBike(bike[1]);

@@ -1,9 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Auth Strava Component Should match snapshot 1`] = `
-<p
-  className=""
->
-  Checking account...
-</p>
+Array [
+  <div
+    className="auth__header"
+  >
+    <img
+      alt="logo"
+      className="auth__logo"
+      src="https://cdn.discordapp.com/attachments/692420285143711814/693437226146594876/LogoGerili.png"
+    />
+    <p
+      className="auth__appName"
+    >
+      bikUP
+    </p>
+    <div
+      className="flex-spacer"
+    />
+  </div>,
+  <div
+    className="auth__loading"
+  >
+    <img
+      alt="loading gif"
+      className="auth__loading-img"
+      src="https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f5753c458a8b552f891bb81/25b7845da50467b914bf64c612ba27eb/Spinner-1s-200px.gif"
+    />
+    <p>
+      Loading account details... This could take a minute
+    </p>
+  </div>,
+]
 `;

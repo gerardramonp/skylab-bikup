@@ -4,6 +4,7 @@ import authStore from '../../stores/authStore';
 import { loadUserBikeList } from '../../actions/bikeActions';
 import { isUserAuthWithToken } from '../../actions/authActions';
 import { useHistory, NavLink } from 'react-router-dom';
+import { STRAVA_AUTH_FULL_URL } from '../../Constants/stravaAuth';
 
 import Header from '../HeaderComponent/Header';
 import StandardAside from '../StandardAside/StandardAside';
@@ -78,11 +79,13 @@ function BikeList(props) {
 	}
 
 	const connectStravaButton = (
-		<img
-			className='strava__connect-btn'
-			src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f4f63b8021a9d482184baf2/3cca3ad9320164155dfbb9d09ff7982f/btn_strava_connectwith_orange%402x.png'
-			alt='connect with strava'
-		/>
+		<a href={STRAVA_AUTH_FULL_URL}>
+			<img
+				className='strava__connect-btn'
+				src='https://trello-attachments.s3.amazonaws.com/5f4cb639a6f5eb1005114de4/5f4f63b8021a9d482184baf2/3cca3ad9320164155dfbb9d09ff7982f/btn_strava_connectwith_orange%402x.png'
+				alt='connect with strava'
+			/>
+		</a>
 	);
 
 	const connectedWithStrava = (

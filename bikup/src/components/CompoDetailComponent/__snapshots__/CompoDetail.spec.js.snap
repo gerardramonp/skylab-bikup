@@ -236,7 +236,7 @@ Array [
       >
         <a
           aria-current={null}
-          href="/bikes/"
+          href="/bikes/undefined"
           onClick={[Function]}
         >
           Back
@@ -380,10 +380,11 @@ Array [
                
             </p>
             <p>
-              'Unknown Brand' - 'Unknown Model'
-            </p>
-            <p>
-              Someinfo
+              Unknown brand
+               
+              -
+               
+              Unknown Model
             </p>
           </div>
         </div>

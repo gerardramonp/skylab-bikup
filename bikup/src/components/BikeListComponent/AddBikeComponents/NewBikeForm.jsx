@@ -112,11 +112,12 @@ function NewBikeForm() {
 				const newBike = bikeStore.getNewBike();
 				if (newBike) {
 					history.replace('/bikes');
-					// Mostrar alerta error
 				} else {
+					// window.getElementsByClassName('errorAlert').style.display =
+					// 	'block';
+					alert('We could not create the bike');
 					formElements.warningElement.innerHTML =
 						'We could not create the bike';
-					// Mostrar alerta bici creada
 				}
 			} catch (error) {
 				// Mostrar alerta error

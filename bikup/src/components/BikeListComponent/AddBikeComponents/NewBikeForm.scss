@@ -12,6 +12,10 @@ $form-shadow: 5px 5px 5px 0px rgba(209, 205, 209, 1);
 	font-size: 16px;
 }
 
+.errorAlert {
+	opacity: 0;
+}
+
 .newbikeform__upper {
 	display: flex;
 	flex-direction: row;
