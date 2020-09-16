@@ -55,15 +55,18 @@ function crudBikeController(UserModel, BikeModel, CompoModel) {
 					bikeData.bikeTotalMinutes || 0
 				);
 
-				CompoModel.create(readyCompoList, (error, createdCompoList) => {
-					if (error) {
-						throw new Error(
-							'There has been an error while an error creating your bike components'
-						);
-					} else {
-						return { newBike, createdCompoList };
+				CompoModel.create(
+					readyCompoList,
+					(createError, createdCompoList) => {
+						if (createError) {
+							throw new Error(
+								'There has been an error while an error creating your bike components'
+							);
+						} else {
+							return { newBike, createdCompoList };
+						}
 					}
-				});
+				);
 			}
 		});
 	}

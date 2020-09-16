@@ -12,7 +12,6 @@ describe('Bike Router Controller', () => {
 	let req = {};
 	let res = {};
 	let statusSpy = null;
-	let jsonSpy = null;
 
 	beforeEach(() => {
 		req.params = {};
@@ -21,7 +20,6 @@ describe('Bike Router Controller', () => {
 		res.send = () => {};
 
 		statusSpy = sinon.spy(res, 'status');
-		jsonSpy = sinon.spy(res, 'json');
 	});
 
 	afterEach(() => {
@@ -49,7 +47,7 @@ describe('Bike Router Controller', () => {
 		const jsonError = sinon.fake.returns(new Error());
 		sinon.replace(res, 'json', jsonError);
 
-		const statusSpy = sinon.spy(res, 'status');
+		statusSpy = sinon.spy(res, 'status');
 
 		bikeRouterController.get(req, res);
 

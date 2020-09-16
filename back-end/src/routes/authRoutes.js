@@ -68,7 +68,7 @@ function routes(UserModel) {
 							req.userId = userId;
 							req.authMethod = 'register';
 						}
-
+						debug(req.authMethod);
 						next();
 					}
 				});

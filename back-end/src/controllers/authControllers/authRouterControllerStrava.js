@@ -70,8 +70,8 @@ function authRouterControllerStrava(UserModel) {
 							foundUser.stravaAccessToken = user.access_token;
 							foundUser.stravaRefreshToken = user.refresh_token;
 							foundUser.stravaTokenExpire = user.expires_at;
-							foundUser.save(async (error, updatedUser) => {
-								if (error) {
+							foundUser.save(async (saveError, updatedUser) => {
+								if (saveError) {
 									res.status(400);
 									res.send(false);
 								} else {
@@ -117,8 +117,8 @@ function authRouterControllerStrava(UserModel) {
 														updateTempUser
 													);
 												}
-											} catch (error) {
-												debug(error);
+											} catch (tempBikeListError) {
+												debug(tempBikeListError);
 												res.status(400);
 												return res.send(
 													'There has been an error loading strava bikes'
@@ -187,8 +187,8 @@ function authRouterControllerStrava(UserModel) {
 											res.status(201);
 											return res.json(tempUser);
 										}
-									} catch (error) {
-										debug(error);
+									} catch (catchError) {
+										debug(catchError);
 										res.status(400);
 										return res.send(
 											'There has been an error loading strava bikes'
