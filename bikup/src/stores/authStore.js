@@ -1,7 +1,7 @@
 import actionTypes from '../actions/actionTypes';
 import dispatcher from '../dispatcher';
 import { EventEmitter } from 'events';
-import { createNewBike, loadStravaBikeInfo } from '../actions/bikeActions';
+import { loadStravaBikeInfo } from '../actions/bikeActions';
 
 const CHANGE_EVENT = 'change';
 

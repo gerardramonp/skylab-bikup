@@ -187,15 +187,6 @@ describe('Bike Store', () => {
 	});
 
 	it('Should not call createNewBike in STRAVA_LOAD_BIKE_LIST_INFO when no data', () => {
-		const bikeObject = {
-			b123: {
-				bikename: 'bike1',
-			},
-			b456: {
-				bikename: 'bike2',
-			},
-		};
-
 		createNewBike.mockReturnValue('hola');
 
 		dispatcher.dispatch({

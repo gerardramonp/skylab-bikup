@@ -1,7 +1,6 @@
 import authStore from '../stores/authStore';
 import dispatcher from '../dispatcher';
 import actionTypes from '../actions/actionTypes';
-import { loadStravaBikeInfo } from '../actions/authActions';
 
 describe('Bike Store', () => {
 	it('Should subscribe and unsubscribe to listener', () => {

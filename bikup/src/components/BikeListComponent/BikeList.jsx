@@ -69,8 +69,8 @@ function BikeList(props) {
 		}
 	}
 
-	function renderBikeList(renderBikeList) {
-		const renderedBikeList = renderBikeList.map((bike) => {
+	function renderBikeList(bikeListRender) {
+		const renderedBikeList = bikeListRender.map((bike) => {
 			return (
 				<BikeCard key={`bikelist-${bike.bikeName}`} bikeInfo={bike} />
 			);

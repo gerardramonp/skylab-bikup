@@ -146,10 +146,10 @@ export function loadStravaBikeInfo(bikeList, stravaAccessToken) {
 	};
 	return axios
 		.post('/api/crud/bike/stravaBikeInfo', props)
-		.then((bikeList) => {
+		.then((stravaBikeList) => {
 			dispatcher.dispatch({
 				type: actionTypes.STRAVA_LOAD_BIKE_LIST_INFO,
-				data: bikeList.data,
+				data: stravaBikeList.data,
 			});
 		});
 }
