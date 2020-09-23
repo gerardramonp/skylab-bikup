@@ -24,7 +24,7 @@ function DetailCompoCard({ compoInfo }) {
 					</div>
 					<div>
 						<progress
-							id='progress'
+							id='progress_detail'
 							value={compoInfo.compoAccumulatedMeters / 1000}
 							max={compoInfo.compoLife / 1000}
 						></progress>

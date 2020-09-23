@@ -55,9 +55,11 @@ function BikeCard({ bikeInfo }) {
 							</p>
 						</div>
 						<div className='repair__progress'>
-							<p>{soonCompo.compoDisplayName}</p>
+							<p className='displayName'>
+								{soonCompo.compoDisplayName}
+							</p>
 							<progress
-								id='progress'
+								id='bikecard_progress'
 								value={soonCompo.compoAccumulatedMeters / 1000}
 								max={soonCompo.compoLife / 1000}
 							></progress>

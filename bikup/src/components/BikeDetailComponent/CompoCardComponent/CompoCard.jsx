@@ -27,7 +27,7 @@ function CompoCard({ compoInfo, bikeName }) {
 								/{compoInfo.compoLife / 1000} Km)
 							</p>
 						</div>
-						<div>
+						<div className='info__progressbar'>
 							<progress
 								id='progress'
 								value={compoInfo.compoAccumulatedMeters / 1000}

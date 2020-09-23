@@ -54,7 +54,7 @@ function bikeListRouterController(UserModel, BikeModel, CompoModel) {
 				userCompoList = await findUserComponents(req.query.bikeUserId);
 			} while (!userCompoList && count++ < 3);
 
-			debug(`length: ${userBikeList.length}`);
+			debug(`Bike list length: ${userBikeList.length}`);
 
 			Promise.all([userBikeList, userCompoList]).then(
 				([bikeList, compoList]) => {
@@ -72,8 +72,6 @@ function bikeListRouterController(UserModel, BikeModel, CompoModel) {
 				}
 			);
 		} else {
-			console.log('entro al else');
-
 			res.status(400);
 			return res.send('A query with bikeUserId is required');
 		}

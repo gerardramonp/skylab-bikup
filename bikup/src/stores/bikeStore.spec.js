@@ -30,7 +30,6 @@ describe('Bike Store', () => {
 		});
 
 		const bike = bikeStore.getBikeDetail();
-		console.log(bike.bikeName);
 
 		expect(bike.bikeName).not.toEqual(bikeTestName);
 	});
@@ -43,7 +42,6 @@ describe('Bike Store', () => {
 		});
 
 		const bike = bikeStore.getBikeDetail();
-		console.log(bike.bikeName);
 
 		expect(bike.bikeName).toEqual(bikeTestName);
 	});

@@ -66,7 +66,6 @@ describe('Bike Router Controller', () => {
 
 		bikeRouterController.get(req, res);
 
-		console.log('Assertion next....');
 		done();
 		expect(statusSpy.calledWith(200)).to.be.true;
 	});
@@ -82,7 +81,6 @@ describe('Bike Router Controller', () => {
 
 		bikeRouterController.get(req, res);
 
-		console.log('Assertion next....');
 		done();
 		expect(statusSpy.calledWith(200)).to.be.true;
 	});

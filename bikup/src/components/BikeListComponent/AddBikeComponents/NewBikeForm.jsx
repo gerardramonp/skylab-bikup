@@ -164,7 +164,10 @@ function NewBikeForm() {
 								>
 									{bikeTypeList.map((bikeType) => {
 										return (
-											<option value={bikeType.value}>
+											<option
+												value={bikeType.value}
+												key={bikeType.value}
+											>
 												{bikeType.displayText}
 											</option>
 										);
@@ -186,7 +189,10 @@ function NewBikeForm() {
 								>
 									{drivingStyleList.map((drivingStyle) => {
 										return (
-											<option value={drivingStyle.value}>
+											<option
+												value={drivingStyle.value}
+												key={drivingStyle.value}
+											>
 												{drivingStyle.displayText}
 											</option>
 										);

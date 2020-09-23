@@ -219,7 +219,10 @@ function EditBike() {
 									>
 										{bikeTypeList.map((bikeType) => {
 											return (
-												<option value={bikeType.value}>
+												<option
+													value={bikeType.value}
+													key={bikeType.value}
+												>
 													{bikeType.displayText}
 												</option>
 											);
@@ -249,6 +252,7 @@ function EditBike() {
 														value={
 															drivingStyle.value
 														}
+														key={drivingStyle.value}
 													>
 														{
 															drivingStyle.displayText
