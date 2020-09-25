@@ -15,7 +15,6 @@ describe('Bike List Router Controller', () => {
 	let req = {};
 	let res = {};
 	let statusSpy = null;
-	let jsonSpy = null;
 
 	beforeEach(() => {
 		req.params = {};
@@ -25,7 +24,6 @@ describe('Bike List Router Controller', () => {
 		res.send = () => {};
 
 		statusSpy = sinon.spy(res, 'status');
-		jsonSpy = sinon.spy(res, 'json');
 	});
 
 	afterEach(() => {

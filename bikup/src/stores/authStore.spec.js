@@ -14,6 +14,7 @@ describe('Bike Store', () => {
 		const username = 'gerard';
 		const authUser = {
 			username,
+			bikeList: [{ bike: 'solde' }],
 		};
 
 		dispatcher.dispatch({

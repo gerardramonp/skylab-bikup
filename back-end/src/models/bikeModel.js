@@ -12,6 +12,8 @@ const bikeModel = new Schema({
 	bikeTotalMeters: { type: Number, default: 0 },
 	bikeTotalMinutes: { type: Number, default: 0 },
 	bikeLikes: { type: Number, default: 0 },
+	bikeStravaId: { type: String },
+	bikeLastRoute: { type: Date },
 });
 
 module.exports = mongoose.model('Bikes', bikeModel);

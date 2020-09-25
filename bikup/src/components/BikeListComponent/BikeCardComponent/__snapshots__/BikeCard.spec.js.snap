@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Bike Card Component should match 1`] = `
-<p>
-  esta basura no carga el compo soon
-</p>
-`;

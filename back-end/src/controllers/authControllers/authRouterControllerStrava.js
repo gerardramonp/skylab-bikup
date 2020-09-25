@@ -3,6 +3,7 @@ const axios = require('axios');
 
 const stravaApi = require('../../Constants/stravaAPI');
 const bikeTypes = require('../../Constants/bikeTypes');
+const { ObjectID } = require('mongodb');
 
 function debugObject(object) {
 	Object.entries(object).forEach((prop) => {
@@ -13,10 +14,13 @@ function debugObject(object) {
 function generateTempBikeObject(stravaBike) {
 	const tempBike = {};
 	tempBike.bikeTotalMeters = stravaBike.data.distance;
+	tempBike.bikeTotalMinutes = 0;
 	tempBike.bikeName = stravaBike.data.name;
 	tempBike.bikeDriveStyle = 'moderate';
 	tempBike.bikeBrand = stravaBike.data.brand_name;
 	tempBike.bikeModel = stravaBike.data.model_name;
+	tempBike.bikeStravaId = stravaBike.data.id;
+
 	switch (stravaBike.data.frame_type) {
 		case 1:
 			tempBike.bikeType = bikeTypes.MOUNTAIN;
@@ -40,102 +44,164 @@ function generateTempBikeObject(stravaBike) {
 }
 
 function authRouterControllerStrava(UserModel) {
-	async function loadCompleteBikeListInfo(bikeList, stravaApiConfig) {
-		bikeList.forEach(async (bike, index) => {
-			const tempBike = {};
-			const endpoint = `${stravaApi.API_URL}/gear/${bike.id}`;
-			const completeBike = await axios.get(endpoint, stravaApiConfig);
-
-			bike.frameType = completeBike.data.frame_type;
-			debug(`bike:`);
-			debugObject(bike);
-
-			if (index + 1 === bikeList.length) {
-				debug('returtning......');
-				return bikeList;
-			}
-		});
-	}
-
 	function post(req, res) {
 		if (req.authUser && req.authMethod) {
 			const user = req.authUser;
+			const userId = req.userId;
 
 			// Req.authmethod can be register || login
 			if (req.authMethod === 'register') {
-				// Get user bikes from strava API
 				let authConfig = {
 					headers: {
 						Authorization: 'Bearer ' + user.access_token,
 					},
 				};
 
-				const insertUser = {
-					username: user.athlete.username,
-					profilePicture: user.athlete.profile,
-					stravaUserId: user.athlete.id,
-					stravaAccessToken: user.access_token,
-					stravaRefreshToken: user.refresh_token,
-					stravaTokenExpire: user.expires_at,
-				};
-				UserModel.create(insertUser, async (error, newUser) => {
-					if (error) {
-						debug(error);
-						res.status(400);
-						return res.send(error);
-					} else {
-						const tempUser = { ...newUser._doc };
+				// If user exists in DB, update it with tokens & bikes, if not, create a new user
 
-						const authStravaUser = await axios.get(
-							`${stravaApi.API_URL}/athlete`,
-							authConfig
-						);
+				if (userId) {
+					// Add tokens to user & create strava bikes
+					UserModel.findById(userId, (error, foundUser) => {
+						if (error) {
+							res.status(400);
+							return res.send(false);
+						} else {
+							foundUser.stravaUserId = user.athlete.id;
+							foundUser.stravaAccessToken = user.access_token;
+							foundUser.stravaRefreshToken = user.refresh_token;
+							foundUser.stravaTokenExpire = user.expires_at;
+							foundUser.save(async (saveError, updatedUser) => {
+								if (saveError) {
+									res.status(400);
+									res.send(false);
+								} else {
+									// This needs refactor as it is the same code block than the register one
+									const updateTempUser = {
+										...updatedUser._doc,
+									};
 
-						if (authStravaUser.status === 200) {
-							const { bikes } = authStravaUser.data;
-							const tempBikeList = [...bikes];
-							let returnBikeList = [];
-
-							tempBikeList.forEach(async (bike, index) => {
-								try {
-									const endpoint = `${stravaApi.API_URL}/gear/${bike.id}`;
-									const completeBike = await axios.get(
-										endpoint,
+									const authStravaUser = await axios.get(
+										`${stravaApi.API_URL}/athlete`,
 										authConfig
 									);
 
-									const tempBike = generateTempBikeObject(
-										completeBike
-									);
+									if (authStravaUser.status === 200) {
+										const { bikes } = authStravaUser.data;
+										const tempBikeList = [...bikes];
+										let returnBikeList = [];
 
-									debug('The generated bike is.....');
-									debugObject(tempBike);
-									debug('\n\n\n');
+										tempBikeList.forEach(async (bike) => {
+											try {
+												const endpoint = `${stravaApi.API_URL}/gear/${bike.id}`;
+												const completeBike = await axios.get(
+													endpoint,
+													authConfig
+												);
 
-									returnBikeList = [
-										...returnBikeList,
-										tempBike,
-									];
+												const tempBike = generateTempBikeObject(
+													completeBike
+												);
 
-									if (index + 1 === tempBikeList.length) {
-										tempUser.bikeList = returnBikeList;
+												returnBikeList = [
+													...returnBikeList,
+													tempBike,
+												];
+
+												if (
+													returnBikeList.length ===
+													tempBikeList.length
+												) {
+													updateTempUser.bikeList = returnBikeList;
+													res.status(201);
+													return res.json(
+														updateTempUser
+													);
+												}
+											} catch (tempBikeListError) {
+												debug(tempBikeListError);
+												res.status(400);
+												return res.send(
+													'There has been an error loading strava bikes'
+												);
+											}
+										});
+									} else {
 										res.status(201);
-										return res.json(tempUser);
+										return res.json(updatedUser);
 									}
-								} catch (error) {
-									debug(error);
-									res.status(400);
-									return res.send(
-										'There has been an error loading strava bikes'
-									);
 								}
 							});
-						} else {
-							res.status(201);
-							return res.json(newUser);
 						}
-					}
-				});
+					});
+				} else {
+					// Register new user with strava
+					debug('User did not exist, creating a new user...');
+					const insertUser = {
+						username: user.athlete.username,
+						profilePicture: user.athlete.profile,
+						stravaUserId: user.athlete.id,
+						stravaAccessToken: user.access_token,
+						stravaRefreshToken: user.refresh_token,
+						stravaTokenExpire: user.expires_at,
+					};
+					UserModel.create(insertUser, async (error, newUser) => {
+						if (error) {
+							debug(error);
+							res.status(400);
+							return res.send(error);
+						} else {
+							const tempUser = { ...newUser._doc };
+
+							const authStravaUser = await axios.get(
+								`${stravaApi.API_URL}/athlete`,
+								authConfig
+							);
+
+							if (authStravaUser.status === 200) {
+								const { bikes } = authStravaUser.data;
+								const tempBikeList = [...bikes];
+								let returnBikeList = [];
+
+								tempBikeList.forEach(async (bike) => {
+									try {
+										const endpoint = `${stravaApi.API_URL}/gear/${bike.id}`;
+										const completeBike = await axios.get(
+											endpoint,
+											authConfig
+										);
+
+										const tempBike = generateTempBikeObject(
+											completeBike
+										);
+
+										returnBikeList = [
+											...returnBikeList,
+											tempBike,
+										];
+
+										if (
+											returnBikeList.length ===
+											tempBikeList.length
+										) {
+											tempUser.bikeList = returnBikeList;
+											res.status(201);
+											return res.json(tempUser);
+										}
+									} catch (catchError) {
+										debug(catchError);
+										res.status(400);
+										return res.send(
+											'There has been an error loading strava bikes'
+										);
+									}
+								});
+							} else {
+								res.status(201);
+								return res.json(newUser);
+							}
+						}
+					});
+				}
 			} else {
 				// login & update user tokens
 				if (req.existingUser) {

@@ -9,7 +9,7 @@ $menu-bg-color: #393e46;
 	height: 175px;
 	position: fixed;
 	bottom: 0;
-	z-index: 2;
+	z-index: 10;
 	background-color: $menu-bg-color;
 	border-top-left-radius: 20px;
 	border-top-right-radius: 20px;
@@ -78,6 +78,7 @@ $menu-bg-color: #393e46;
 	background-color: $header-bg-color;
 	bottom: 0;
 	width: 100%;
+	z-index: 10;
 }
 
 .header__mobile {

@@ -219,7 +219,10 @@ function EditBike() {
 									>
 										{bikeTypeList.map((bikeType) => {
 											return (
-												<option value={bikeType.value}>
+												<option
+													value={bikeType.value}
+													key={bikeType.value}
+												>
 													{bikeType.displayText}
 												</option>
 											);
@@ -249,6 +252,7 @@ function EditBike() {
 														value={
 															drivingStyle.value
 														}
+														key={drivingStyle.value}
 													>
 														{
 															drivingStyle.displayText
@@ -299,10 +303,10 @@ function EditBike() {
 											type='number'
 											name='bikeModel'
 											className='editbike__totalKm editbike__input'
-											defaultValue={
+											defaultValue={Math.round(
 												actualBikeInfo.bikeTotalMeters /
-												1000
-											}
+													1000
+											)}
 										/>
 									</div>
 									<div className='element-double__item'>

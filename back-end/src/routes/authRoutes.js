@@ -12,6 +12,12 @@ const authRouterControllerMailLogin = require('../controllers/authControllers/au
 
 const authRouter = express.Router();
 
+function debugObject(object) {
+	Object.entries(object).forEach((prop) => {
+		debug(prop);
+	});
+}
+
 function routes(UserModel) {
 	const stravaController = authRouterControllerStrava(UserModel);
 	const mailController = authRouterControllerMail(UserModel);
@@ -37,7 +43,8 @@ function routes(UserModel) {
 	authRouter
 		.route('/strava')
 		.all((req, res, next) => {
-			const { authCode } = req.body;
+			const { authCode, userId } = req.body;
+
 			const tokenEndPoint = `https://www.strava.com/oauth/token?client_id=${stravaAPI.CLIENT_ID}&client_secret=${stravaAPI.CLIENT_SECRET}&code=${authCode}&grant_type=authorization_code`;
 			axios.post(tokenEndPoint).then((response) => {
 				const stravaUser = response.data;
@@ -58,9 +65,10 @@ function routes(UserModel) {
 							req.existingUser = existingUser[0];
 						} else {
 							req.authUser = { ...stravaUser };
+							req.userId = userId;
 							req.authMethod = 'register';
 						}
-
+						debug(req.authMethod);
 						next();
 					}
 				});

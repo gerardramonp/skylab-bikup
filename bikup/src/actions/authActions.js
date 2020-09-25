@@ -6,6 +6,10 @@ export function loginOrRegisterUserStrava(authCode) {
 	const params = {
 		authCode,
 	};
+	if (sessionStorage.authUser) {
+		const userId = JSON.parse(sessionStorage.authUser)._id;
+		params.userId = userId;
+	}
 	return axios.post('/api/auth/strava', params).then((response) => {
 		sessionStorage.authUser = JSON.stringify(response.data);
 		dispatcher.dispatch({

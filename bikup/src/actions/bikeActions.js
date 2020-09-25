@@ -13,6 +13,7 @@ export function loadUserBikeList(userId) {
 			},
 		};
 		return axios.get(`/api/bikes`, props).then((payload) => {
+			debugger;
 			dispatcher.dispatch({
 				type: actionTypes.LOAD_USER_BIKE_LIST,
 				data: payload.data,
@@ -40,10 +41,8 @@ export function loadCompoById(bikeId, compoId) {
 }
 
 export function createNewBike(newBikeInfo) {
-	// Llegir id usuari del sessionstorage
 	if (sessionStorage.authUser) {
 		const { _id } = JSON.parse(sessionStorage.authUser);
-
 		const params = {
 			newBikeInfo,
 			_id,
@@ -60,13 +59,14 @@ export function createNewBike(newBikeInfo) {
 }
 
 export function deleteBike() {
-	// llegir id de la bici
 	if (sessionStorage.actualBike) {
 		const { _id } = JSON.parse(sessionStorage.actualBike);
 		const params = {
 			bikeId: _id,
 		};
+		debugger;
 		return axios.put('/api/crud/bike/delete', params).then((response) => {
+			debugger;
 			dispatcher.dispatch({
 				type: actionTypes.DELETE_BIKE,
 				data: response.data,
@@ -139,4 +139,19 @@ export function addWorkout(updatedBikeValues) {
 	} else {
 		console.log('There is no loaded bike');
 	}
+}
+
+export function loadStravaBikeInfo(bikeList, stravaAccessToken) {
+	const props = {
+		bikeList,
+		stravaAccessToken,
+	};
+	return axios
+		.post('/api/crud/bike/stravaBikeInfo', props)
+		.then((stravaBikeList) => {
+			dispatcher.dispatch({
+				type: actionTypes.STRAVA_LOAD_BIKE_LIST_INFO,
+				data: stravaBikeList.data,
+			});
+		});
 }

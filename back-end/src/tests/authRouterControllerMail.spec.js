@@ -11,7 +11,6 @@ describe('Auth Router Mail Controller', () => {
 	let req = {};
 	let res = {};
 	let statusSpy = null;
-	let jsonSpy = null;
 
 	beforeEach(() => {
 		req.params = {};
@@ -21,7 +20,6 @@ describe('Auth Router Mail Controller', () => {
 		res.send = () => {};
 
 		statusSpy = sinon.spy(res, 'status');
-		jsonSpy = sinon.spy(res, 'json');
 	});
 
 	afterEach(() => {
@@ -36,7 +34,7 @@ describe('Auth Router Mail Controller', () => {
 		expect(statusSpy.calledWith(400)).to.be.true;
 	});
 
-	it('Should res.status 400 when create throws an error', () => {
+	it('Should res.status 400 when create user throws an error', () => {
 		req.newUser = 'sd4f65s3d5fsd43f54s';
 
 		const userCreateFake = sinon.fake.yields(true, 'someuser');

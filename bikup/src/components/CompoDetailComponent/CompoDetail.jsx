@@ -82,7 +82,9 @@ function CompoDetail(props) {
 
 					<div className='compodetail'>
 						<div className='compodetail__upper mobile'>
-							<NavLink to='/bikes/'>Back</NavLink>
+							<NavLink to={`/bikes/${bikeInfo.bikeName}`}>
+								Back
+							</NavLink>
 							<p className='upper__edit'>Edit</p>
 						</div>
 
@@ -115,8 +117,10 @@ function CompoDetail(props) {
 									<p className='km-hours__title'>Total KM</p>
 									<div className='separator-small'></div>
 									<p className='km__value'>
-										{compoInfo.compoAccumulatedMeters /
-											1000}
+										{Math.round(
+											compoInfo.compoAccumulatedMeters /
+												1000
+										)}
 									</p>
 								</div>
 								<div className='km-hours__hours km-hours'>
@@ -150,8 +154,13 @@ function CompoDetail(props) {
 										{bikeInfo.bikeName} -{' '}
 										{compoInfo.compoDisplayName}
 									</p>
-									<p>'Unknown Brand' - 'Unknown Model'</p>
-									<p>Someinfo</p>
+									<p>
+										{compoInfo.compoBrand ||
+											'Unknown brand'}{' '}
+										-{' '}
+										{compoInfo.compoModel ||
+											'Unknown Model'}
+									</p>
 								</div>
 							</div>
 						</div>

@@ -25,7 +25,7 @@ function Register() {
 			'register__repeat-password'
 		)[0];
 		const submitButtonElement = document.getElementsByClassName(
-			'register__button'
+			'form-register__button'
 		)[0];
 		const loadingElement = document.getElementsByClassName('loading')[0];
 		const noLoadingElement = document.getElementsByClassName(

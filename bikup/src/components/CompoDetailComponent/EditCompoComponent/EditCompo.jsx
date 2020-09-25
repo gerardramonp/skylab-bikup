@@ -283,10 +283,10 @@ function EditCompo() {
 											type='number'
 											name='bikeModel'
 											className='editcompo__totalKm editcompo__input'
-											defaultValue={
+											defaultValue={Math.round(
 												actualBikeInfo.bikeTotalMeters /
-												1000
-											}
+													1000
+											)}
 										/>
 									</div>
 									<div className='element-double__item'>
