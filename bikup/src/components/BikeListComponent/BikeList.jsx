@@ -19,7 +19,6 @@ let userId = '';
 
 function BikeList(props) {
 	const [bikeList, setBikeList] = useState([]);
-	const bikeListtemp = [];
 	const [authUser, setAuthUser] = useState();
 
 	const history = useHistory();
@@ -58,7 +57,6 @@ function BikeList(props) {
 	}, [isUserAuth]);
 
 	function onChange() {
-		debugger;
 		setBikeList(bikeStore.getBikeList());
 	}
 

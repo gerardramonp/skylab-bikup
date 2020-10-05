@@ -2,5 +2,5 @@ projectKey=bikup-back
 serverUrl=http://localhost:9000
 serverVersion=8.4.0.35506
 dashboardUrl=http://localhost:9000/dashboard?id=bikup-back
-ceTaskId=AXSWBmU2RJwDIb7ikP2n
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AXSWBmU2RJwDIb7ikP2n
+ceTaskId=AXTk1m-iOTjQplsAw4d2
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AXTk1m-iOTjQplsAw4d2

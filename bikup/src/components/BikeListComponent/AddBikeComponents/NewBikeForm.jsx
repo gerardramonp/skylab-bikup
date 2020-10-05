@@ -90,6 +90,7 @@ function NewBikeForm() {
 	async function validateForm() {
 		const formElements = getFormElements();
 		disableForm(formElements);
+
 		const bikeName = formElements.bikeNameElement.value;
 		const bikeType = formElements.bikeTypeElement.value;
 		const bikeDriveStyle = formElements.drivingStyleElement.value;
@@ -113,14 +114,12 @@ function NewBikeForm() {
 				if (newBike) {
 					history.replace('/bikes');
 				} else {
-					// window.getElementsByClassName('errorAlert').style.display =
-					// 	'block';
-					alert('We could not create the bike');
 					formElements.warningElement.innerHTML =
 						'We could not create the bike';
 				}
 			} catch (error) {
-				// Mostrar alerta error
+				formElements.warningElement.innerHTML =
+					'We could not create the bike';
 			}
 		}
 	}

@@ -90,7 +90,6 @@ dispatcher.register((action) => {
 			bikeStore.emitChange();
 			break;
 		case actionTypes.DELETE_BIKE:
-			debugger;
 			bikeStore.setIsBikeModified(action.data);
 			bikeStore.emitChange();
 			break;

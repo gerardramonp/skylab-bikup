@@ -10,6 +10,7 @@ describe('Compo Actions', () => {
 	let sessionStorageMock = null;
 	let actualBike = null;
 	let actualCompo = null;
+
 	afterEach(() => {
 		dispatcher.dispatch.mockClear();
 		axios.get.mockClear();

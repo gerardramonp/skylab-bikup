@@ -13,7 +13,6 @@ export function loadUserBikeList(userId) {
 			},
 		};
 		return axios.get(`/api/bikes`, props).then((payload) => {
-			debugger;
 			dispatcher.dispatch({
 				type: actionTypes.LOAD_USER_BIKE_LIST,
 				data: payload.data,
@@ -64,9 +63,7 @@ export function deleteBike() {
 		const params = {
 			bikeId: _id,
 		};
-		debugger;
 		return axios.put('/api/crud/bike/delete', params).then((response) => {
-			debugger;
 			dispatcher.dispatch({
 				type: actionTypes.DELETE_BIKE,
 				data: response.data,

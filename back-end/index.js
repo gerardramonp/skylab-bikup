@@ -8,7 +8,7 @@ const BikeModel = require('./src/models/bikeModel');
 const CompoModel = require('./src/models/compoModel');
 
 const app = express();
-const { PORT } = process.env;
+const { PORT } = process.env || 4200;
 
 const db = mongoose.connect('mongodb://localhost/bikup');
 
